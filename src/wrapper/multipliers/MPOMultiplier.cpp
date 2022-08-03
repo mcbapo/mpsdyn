@@ -1,0 +1,116 @@
+
+#include "MPOMultiplier.h"
+#include "Indices.h"
+
+using namespace std;
+using namespace shrt;
+
+MPOMultiplier::MPOMultiplier(int length):MPO(length),opset(length,false){
+  init=false;
+  totalDim=0;
+}
+
+void MPOMultiplier::initDims(){
+  dimsIn=getOriginalDimensions();
+  totalDim=1;
+  for(int k=0;k<getLength();k++){
+    totalDim*=dimsIn[k];
+  }
+  init=true;
+}
+
+bool MPOMultiplier::allSet() const{
+  for(int k=0;k<getLength();k++)
+    if(!opset[k]) return false;
+  return true;
+}
+
+MPOMultiplier::MPOMultiplier(int length,const Operator** oplist):
+  MPO(length,oplist),opset(length,true){
+  initDims();
+}
+
+void MPOMultiplier::setOp(int pos,const Operator* op,bool myop){
+  MPO::setOp(pos,op,myop);
+  if(init){
+    int replDim=dimsIn[pos];
+    totalDim=totalDim*op->getdorig()/dimsIn[pos];
+    dimsIn[pos]=op->getdorig();
+  }
+  else{
+    opset[pos]=true;
+    if(allSet()) initDims();
+  }
+}
+
+
+void MPOMultiplier::setRotatedOp(int pos,const mwArray& op,
+				 const shrt::Indices& neworder,
+				 bool conjugate){
+  MPO::setRotatedOp(pos,op,neworder,conjugate);
+  if(init){
+    int replDim=dimsIn[pos];
+    totalDim=totalDim*getOp(pos).getdorig()/dimsIn[pos];
+    dimsIn[pos]=getOp(pos).getdorig();
+  }
+  else{
+    opset[pos]=true;
+    if(allSet()) initDims();
+  }
+}
+
+int MPOMultiplier::getSize() const{
+  if(init) return totalDim;
+  cout<<"Error: MPOMultiplier::getsize() can only be called when "
+      <<"all operators have been set"<<endl;
+  exit(1);
+}
+
+#ifdef TESTINGTIMES
+#include "sys/time.h"
+#endif
+
+void MPOMultiplier::product(const mwArray& input,mwArray& result){
+  if(!init){
+    cout<<"Error: MPOMultiplier::product() can only be called when "
+	<<"all operators have been set"<<endl;
+    exit(1);
+  }
+  // Perform the contraction---TODO:CHECK!
+#ifdef TESTINGTIMES
+  struct timeval start,final;
+  gettimeofday(&start,NULL);
+#endif
+  result=input;
+  int dimL=1; //"open" right bond left from previous multiplication
+  int finalDim=1;
+  for(int k=0;k<getLength();k++){
+    // one by one, multiply one term, and reshape adequately
+    Indices dims=getOp(k).getDimensions();
+    int dd=dims[0];int du=dims[2];
+    int Dl=dims[1];int Dr=dims[3];
+    result.reshape(Indices(dimL*dd,-1));
+    mwArray aux=getOpData(k);
+    aux.permute(Indices(1,4,2,3));
+    aux.reshape(Indices(du*Dr,Dl*dd));
+    result.multiplyLeft(aux);
+    result.reshape(Indices(du,-1));
+    result.transpose();
+    dimL=Dr;
+    finalDim*=du;
+  }
+  result.reshape(Indices(finalDim,1));
+#ifdef TESTINGTIMES
+  counter++;
+  gettimeofday(&final,NULL);
+  timer+=(final.tv_sec-start.tv_sec)*1E3+(final.tv_usec-start.tv_usec)*1E-3;
+#endif
+}
+
+MPOMultiplier::~MPOMultiplier(){
+#ifdef TESTINGTIMES
+  cout<<"Destroying MPOMultiplier, called "<<counter<<" times, with average time "
+      <<timer*1./(counter)<<endl;
+#endif
+}
+

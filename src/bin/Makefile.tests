@@ -1,0 +1,106 @@
+
+EXECTEST = test1 test2 test3 test4 test5 test6 test7 test8 test9 test10 test11 test12 test13 test14 test15 test 16 checkMPO testProperties testMPOmulti
+
+# For profiling
+#CXXLABELS+= -pg
+#LDLABELS+= -pg
+
+# List of compilable tests
+
+TESTOBJ1 = $(WRAPPEROBJ)
+test1: CXXLABELS += -DTESTINGMWA=1
+test1: $(TESTOBJ1) testmwArray.o
+
+TESTOBJ2 = $(WRAPPEROBJ) Site.o 
+#Use this line to test FileSite
+#test2: CXXLABELS += -DTESTINGSITE=1 -DDISKSTRG=1
+test2: CXXLABELS += -DTESTINGSITE=1 
+test2: $(TESTOBJ2) testSite.o
+
+TESTOBJ3 = $(TESTOBJ2) Operator.o 
+test3: CXXLABELS += -DNEWIMPLEM=1 -DCHECKDIMS=1 -DTESTINGOP=1
+test3: $(TESTOBJ3) testOperator.o
+
+TESTOBJ4 = $(TESTOBJ3) MPS.o 
+test4: CXXLABELS += -DNEWIMPLEM=1 -DTESTINGMPS=1
+test4: $(TESTOBJ4) testMPS.o
+
+TESTOBJ5 = $(TESTOBJ4) MPO.o JoinedOperator.o TmpManager.o TmpManagerExc.o FoldedOperator.o Contractor.o
+test5: CXXLABELS += -DNEWIMPLEM=1 -DCHECKDIMS=1 -DTESTINGMPO=1
+test5: $(TESTOBJ5) testMPO.o
+
+TESTOBJ6 = $(TESTOBJ5) 
+test6: CXXLABELS += -DNEWIMPLEM=1 -DCHECKDIMS=1 -DTESTINGOP=1 -DTESTINGJOP=1
+test6: $(TESTOBJ6) testJoinedOperator.o
+
+TESTOBJ7 = $(TESTOBJ6) 
+test7: CXXLABELS += -DNEWIMPLEM=1 -DCHECKDIMS=1 -DTESTINGCON=1 
+test7: $(TESTOBJ7) testContractor.o
+
+TESTOBJ8 = $(TESTOBJ5) DoubleOperator.o
+test8: CXXLABELS += -DNEWIMPLEM=1 -DCHECKDIMS=1 -DTESTINGOP=1 -DTESTINGFOP=1
+test8: $(TESTOBJ8) testFoldedOperator.o
+
+TESTOBJ9 = $(TESTOBJ7) SchwingerHamiltonian.o
+test9: CXXLABELS += -DNEWIMPLEM=1 -DCHECKDIMS=1 -DTESTINGHAM=1 
+test9: $(TESTOBJ9) testSchwinger.o
+
+TESTOBJ10 = $(TESTOBJ1) 
+#test10: CXXLABELS += -DNEWIMPLEM=1 -DCHECKDIMS=1 -DTESTINGTIMES=1 
+test10: CXXLABELS += -DNEWIMPLEM=1
+test10: $(TESTOBJ10) testProfile.o
+
+test11: CXXLABELS += -DNEWIMPLEM=1
+test11: $(TESTOBJ10) testProfileMultiplier.o
+
+TESTOBJ12 = $(TESTOBJ7) BoseHubbardHamiltonian.o
+test12: CXXLABELS += -DNEWIMPLEM=1 -DCHECKDIMS=1 -DTESTINGHAM=1 
+test12: $(TESTOBJ12) testBH.o
+
+checkMPO: $(TESTOBJ5) checkMPO.o
+checkMPS: $(TESTOBJ5) checkMPS.o
+
+TESTOBJ13 = $(TESTOBJ3) TwoDimSite.o PEPS.o 
+test13: CXXLABELS += -DNEWIMPLEM=1 
+test13: $(TESTOBJ13) testPEPS.o
+
+#TESTOBJ14 = $(TESTOBJ5) TwoDimSite.o PEPS.o Sampler.o SampleTmpManager.o MC-MPS-NEW.o
+TESTOBJ14 = $(TESTOBJ5) TwoDimSite.o PEPS.o Sampler.o SampleTmpManager.o 
+test14: CXXLABELS += -DNEWIMPLEM=1 -DTESTCONFIG=1
+test14: $(TESTOBJ14) testSample.o
+
+TESTOBJ15 = $(TESTOBJ5) IsingHamiltonian.o TIMPS.o
+test15: CXXLABELS += -DNEWIMPLEM=1 
+test15: $(TESTOBJ15) testTIMPS.o
+
+TESTOBJ16 = $(WRAPPEROBJ)
+test16: CXXLABELS += -DTESTINGMWA=1
+test16: $(TESTOBJ16) testmwArray_new.o
+
+TESTOBJ17 = $(WRAPPEROBJ)
+test17: CXXLABELS += -DTESTINGMWA=1
+test17: $(TESTOBJ1) testCatch.o
+
+
+testProperties: $(TESTOBJ2) Properties.o testProperties.o
+
+
+testMPOmulti: $(TESTOBJ8) MPOMultiplier.o testMPOMultiplier.o
+
+#######################################################
+# Rules to compile and link all the test files 
+
+test%.o: test%.cpp
+	 $(CXX) $(CXXLABELS) $(INCLUDES) $(DEFINES) $< -c	
+
+test%: 
+	$(LD) $(LDLABELS) $+ $(LINKABLES) $(LINKDIRS) $(LIBS) -o $@
+
+check%.o: check%.cpp
+	 $(CXX) $(CXXLABELS) $(INCLUDES) $< -c	
+
+check%: 
+	$(LD) $(LDLABELS) $+ $(LINKABLES) $(LINKDIRS) $(LIBS) -o $@
+
+cleantests: cleanc
+	rm -f $(EXECTEST)

@@ -1,0 +1,4 @@
+This directory (programs/schwinger/search2) contains programs
+analogous to those in search, but with the capability to write every
+single state to disk and retrieve them to continue the task if the job
+is interrupted or fails.

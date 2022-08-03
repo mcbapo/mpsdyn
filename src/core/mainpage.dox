@@ -1,0 +1,44 @@
+/*! \mainpage MPS Code
+ *
+ * \section intro_sec Matrix Product State Code
+ *
+ * This is a basic code which implements the basic functionality needed to doc calculations with Matrix Product States. The code structure is described below. 
+ *
+ * \section install_sec Structure
+ * A brief description of the folder structure is given below:
+ * \li \b bin
+ * \n Contains the (user specific) makefiles and the binary files after compiling.
+ * \li \b config
+ * \n Contains configuration files which are used as input to set the parameters of a run.
+ * \li \b core
+ * \n Contains all header and cpp files which provide the core functionality such as MPS, Hamiltonians and more general MPOs, Tensor contractions and other things.
+ * \li \b libs
+ * \n Folder to store the libraries needed on to link against for certain operating systems.
+ * \li \b matlab
+ * \n A bunch of scripts to evaluate and check calculations. The subfolders named after the users contain user specific scripts. The subfolder core contains scripts which are generally useful to check MPO implementations and other things.
+ * \li \b models
+ * \n A collection of various models which have been developed by the users and have proven to be reliable over the time. 
+ * \li \b projects
+ * \n Contains a collection of projects which are currently developed by the users or in collaboration among several users.
+ * \li \b programs
+ * \n Contains a collection of various programs.
+ * \li \b tests
+ * \n In this folder a collection of tests is stored which are there to test the basic functions and a few basic models of the MPS code. Compiling these tests is also a useful starting point for new users to see if everything is set up properly on their machine and is working.
+ * \li \b wrapper
+ * \n A bunch of wrappers to communicate with blas and the various eigensolvers employed in the code.
+ * 
+ * \section indexing_convention Indexing convention
+ * The indexing convention for MPO/MPS tensors (represented by mwArrays in the code) is as follows
+ * \image html index_konvention.png   
+ 
+ \section requirements Requirements
+ * To be able to compile and run the code one needs a BLAS implementation, such as LAPACK, ARPACK and the PRIMME libraries for the eigensolver. The PRIMME libraries can be <a href="https://github.com/primme/primme"> downloaded here</a>. 
+ \subsection linux Linux
+ After compiling the (static) PRIMME libraries \c libdprimme.a, \c libprimme.a and \c libzprimme.a, they have to be put in \c /usr/local/lib to be compliant with the Makefile structure
+
+ 
+ *
+ * Last update of the mainpage:
+ * \author    Stefan Kühn 
+ * \date      07/04/16
+ */

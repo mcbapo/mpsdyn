@@ -1,0 +1,12 @@
+  //H2.exportForMatlab("H2.m");
+  // mwArray Mham;
+  // expandOper(H2, Mham);
+  // //if(Mham.isMatrix()) cout<<"iuppiii"<<endl;
+  // vector<complex_t> eigvector; 
+  // mwArray U; 
+  // bool b;
+  // double tool;
+  // //wrapper::eig(Mham, eigvector, U, b = false);
+  // cout<<"I am computing the eigenvalues..."<<endl;
+  // int eigenval = wrapper::eigs(Mham, 30, "LM", eigvector, U, b = false, tool=0);
+  // cout<<endl<<eigvector<<endl<<endl;

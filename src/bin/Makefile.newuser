@@ -1,0 +1,126 @@
+###########################################################
+# User defined options that override or complete the ones
+# in the general Makefile
+#
+# For a new user, copy this file to Makefile.user.[USERNAME] and edit at will
+#
+###########################################################
+
+# Uncomment to disable PRIMME linking
+# DEFINES += -UUSING_PRIMME
+
+#DEFINES += -DSTRUCTARRAYPROB
+
+#DEFINES += -DCHECKDIMS=1
+
+## Optimization levels
+## For optimization, compile with none of these arguments
+# For gdb debugging, compile with make GDB=1 target
+# For valgrind debugging, compile with make VALGRIND=1 target
+# For valgrind debugging with cachegrind, compile with make CACHEGRIND=1 target
+
+ifneq ($(GDB),)
+OPT=1
+endif
+ifneq ($(VALGRIND),)
+OPT=2
+endif
+ifneq ($(CACHEGRIND),)
+OPT=3
+endif
+
+ifeq ($(OPT),)
+# Compiler optimization (comment out the debugging options)
+$(warning "Compiling with optimization -O3 option but adding -fsanitize option because of a problem in mkl")
+#CXXLABELS += -O3 -fsanitize=address
+#LDLABELS += -O3 -fsanitize=address
+CXXLABELS += -O
+LDLABELS += -O 
+endif
+ifeq ($(OPT),1)
+$(warning "Compiling with GDB option")
+# Debugging options
+# Include checking of all dims in mwArray operations
+DEFINES += -DCHECKDIMS=1
+# GDB support
+CXXLABELS += -ggdb 
+LDLABELS += -ggdb
+endif
+ifeq ($(OPT),2)
+$(warning "Compiling for valgrind analysis")
+# More details in valgrind output
+CXXLABELS += -ggdb -fno-inline 
+LDLABELS += -ggdb
+endif
+ifeq ($(OPT),3)
+$(warning "Compiling for valgrind cachegrind analysis")
+# For Valgrind cachegrind
+CXXLABELS += -g -fsanitize=address -O
+LDLABELS += -g -fsanitize=address -O
+endif
+
+ifneq ($(PARANOID),)
+# Maaaaany warnings from C++ compiler
+CXXLABELS += -Weffc++
+endif
+
+# Right now out of use
+# Fortran compiler
+##export F77=f77 -O
+##export F77=gcc-4 -x f77
+#export F77=gfortran -g -O 
+
+###########################################################
+# Location of primme headers
+###########################################################
+
+export PRIMMEH_DIR=../wrapper/primme_headers_v2
+DEFINES += -DPRIMMEv2
+LIBPRIMME=primme
+
+###########################################################
+# Additional source files 
+# If required, add also source 
+# directories here with
+# DIRECTORIES+= mydir
+###########################################################
+
+# [Edit and uncomment according to newuser]
+#DIRECTORIES+= projects/username/headers projects/username/cpp
+#DIRECTORIES += programs/[desired directories]
+DIRECTORIES += programs/fermihubbard
+
+# [Add the names of source files required (better make it target-dependent)]
+SRCFILES += IsingHamiltonian.cpp 
+
+ 
+###########################################################
+# Exec files to be removed when cleaning
+###########################################################
+
+# [Add here the name of executables that are to be generated, and add below the proper rules]
+EXEC += ising thermalIsing
+
+#[Example. Add desired new targets for the newuser with]
+# EXEC := $(EXEC) heisenberg thHeis
+
+
+###########################################################
+# Actual rules for the programs
+###########################################################
+
+# [Example: the ising basic programs]
+ising: OBJFILES += testIsing.o
+ising: $(OBJFILES) testIsing.o
+
+thermalIsing: OBJFILES += thermalIsing.o
+thermalIsing: $(OBJFILES) thermalIsing.o
+
+#[Add further targets, for instance]
+# HEISOBJ = HeisenbergHamiltonian.cpp
+# heisenberg: OBJFILES += $(HEISOBJ) testHeisenberg.o
+# heisenberg: $(OBJFILES) $(HEISOBJ) testHeisenberg.o
+
+# thHeis:  OBJFILES += thermalHeisenberg.o
+# thHeis: $(OBJFILES) thermalHeisenberg.o
+

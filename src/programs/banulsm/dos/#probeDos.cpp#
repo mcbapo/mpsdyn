@@ -1,0 +1,192 @@
+>1;95;0c
+#include <math.h>
+#include <iomanip>
+
+#include "misc.h"
+#include "mwArray.h"
+#include "MPS.h"
+#include "Contractor.h"
+#include "Properties.h"
+
+#define TMPSTORE 0 // Using temporary storage for intermediate results
+
+#include "IsingHamiltonian.h"
+
+using namespace shrt;
+
+void sumMPO(MPO& result,const MPO& mpo1,const MPO& mpo2);
+
+void probeDoS(vector<double>& values,vector<double>& energies_,vector<double>& vars_,const string mpsprobelist,int L,int d,
+	      const MPS& dosMPS,const MPS& wX,const MPO& hamil);
+
+
+/** Given a list of MPS in a file, and MPS stored for a Chebyshev
+    expansion of the DoS and the weight function, evaluate the DoS in each
+    of the given MPS.
+ */
+
+int d=2;
+
+int main(int argc,const char* argv[]){
+  // Read input arguments
+  int cntr=0;
+  const char* infile=argv[++cntr];
+  // Recover the necessary parameters from a Properties file
+  Properties props(infile);
+  if(argc>2){
+    cntr++;
+    cout<<"Some properties may be now replaced by command line arguments"
+	<<endl;
+    props.loadProperties(argc-cntr,&argv[cntr]);
+  }
+
+  int L=props.getIntProperty("L");
+  double J_=props.getDoubleProperty("J");
+  double h_=props.getDoubleProperty("h");
+  double g_=props.getDoubleProperty("g");
+  string outfname=props.getProperty("outputfile");
+  string mpsfname=props.getProperty("mpsfile"); // file with the DoS MPS
+  string mpsfnameW=props.getProperty("mpsfileW"); // file with the weight MPS
+  bool app=(props.getIntProperty("append")==1); // has to be asked for explicitly
+  string mpsprobelist=props.getProperty("mpsprobelist"); // file with a list of MPS to use to probe the DoS
+  
+  cout<<"Initialized arguments: L="<<L
+      <<", J="<<J_
+      <<", g="<<g_
+      <<", h="<<h_
+      <<", outfile="<<outfname<<endl;
+
+
+  Contractor& contractor=Contractor::theContractor();
+  cout<<"Initialized Contractor"<<endl;
+
+  // The original Hamiltonian to get the energy
+  IsingHamiltonian hamH0(L,d,J_,g_,h_);
+  const MPO& hamil0=hamH0.getHMPO();
+
+  // Read the MPS for the DoS and the weight
+  MPS wx(L,1,d*d);double normW(0.); // will be the log
+  if(mpsfnameW.size()>0){
+      wx.importMPS(mpsfnameW.data());
+      normW=wx.getNormFact();
+      wx.setNormFact(1.);
+  }
+  else{
+    cout<<"No file to recover wX from! Using identity!"<<endl;
+    for(int k=0;k<L;k++)
+      wx.setA(k,reshape(identityMatrix(d),Indices(d*d,1,1)));
+  }
+
+  MPS rhoDoS(L,1,d*d); 
+  double normDoS;
+  rhoDoS.importMPS(mpsfname.data());
+  normDoS=rhoDoS.getNormFact(); // trick! it was the log
+  rhoDoS.setNormFact(1.);
+ 
+  
+  // For output
+  ofstream* out;
+  if(mpsprobelist.size()>0){
+    if(!file_exists(outfname)){
+      out=new ofstream(outfname.data());
+      *out<<"% Chebyshev expansion of the DoS in file ="<<mpsfname<<"\n% with weight in "<<mpsfnameW<<endl;
+      *out<<"% J\t g\t h\t log2(normDoS)\t E(k)\t <H^2(k)>\t <k|dos|k>, for k=1...."<<endl;
+      if(!out->is_open()){
+	cout<<"Error: impossible to open file "<<outfname<<
+	  " for output"<<endl;
+	exit(1);
+      }
+      out->close();delete out;
+    }
+  }
+  
+  
+  rhoDoS.gaugeCond('R',0);rhoDoS.gaugeCond('L',0);
+  normDoS+=log2(rhoDoS.getNormFact());
+  rhoDoS.setNormFact(1.);
+  
+  // If appropriate, probe the distribution
+  if(mpsprobelist.size()){
+    vector<double> values;
+    vector<double> energies;
+    vector<double> vars;
+    probeDoS(values,energies,vars,mpsprobelist,L,d,rhoDoS,wx,hamil0);
+    
+    // and save values to file
+    out=new ofstream(outfname.data(),ios::app);
+    for(int p=0;p<values.size();p++){
+      *out<<J_<<"\t"<<g_<<"\t"<<h_<<"\t"<<normDoS+normW<<"\t";
+      *out<<energies[p]<<"\t";
+      *out<<vars[p]<<"\t";
+      *out<<values[p]; 
+      *out<<endl;
+    }
+    out->close();
+    delete out;
+  }
+
+  
+}
+
+
+void probeDoS(vector<double>& values,vector<double>& energies_,vector<double>& vars_,const string mpsprobelist,int L,int d,
+	      const MPS& dosMPS,const MPS& wX,const MPO& hamil){
+  static vector<string> list;
+  static vector<double> energies;
+  static vector<double> vars;
+  static MPO wXmpo(L);
+  static int nr=0;
+  static bool init=false;
+  if(!init){ // read the names of the files
+    ifstream input(mpsprobelist.data());
+    if(!input.is_open()){
+      cout<<"Error trying to read list of files from "<<mpsprobelist<<endl;
+      exit(1);
+    }
+    string s;
+    while(input.is_open()){
+      getline(input,s);
+      if(input.good()){
+	if(s.length()>0&&s[0]!='%'){ // ignore comments and empty lines
+	  list.push_back(s);
+	  nr++;
+	  cout<<"Read file name: "<<s<<endl;
+	}
+      }
+      else{ // no more lines
+	input.close();
+	cout<<"Closed the list file"<<endl;
+      }
+    }
+    MPOfromMPS(wX,wXmpo);
+  }
+  MPO dosMPO(L),auxMPO(L);
+  MPOfromMPS(dosMPS,dosMPO);
+  const MPO* ptrs[2]={&wXmpo,&dosMPO};
+  MPO::join(2,ptrs,auxMPO);
+  Contractor& contractor=Contractor::theContractor();
+  for(int k=0;k<nr;k++){
+    // Read and evaluate state nr
+    MPS mps(L,1,d);
+    mps.importMPS(list[k].data());
+    complex_t val=contractor.contract(mps,auxMPO,mps);
+    complex_t norm=contractor.contract(mps,mps);
+    if(!init){
+      complex_t Ek=contractor.contract(mps,hamil,mps);
+      energies.push_back(real(Ek/norm));
+      complex_t E2k=contractor.contract2(hamil,mps);
+      vars.push_back(real(E2k/norm));
+      cout<<"Probe state "<<k<<" has energy "<<Ek<<" and <H^2>="<<E2k<<", thus variance="
+	  <<E2k-Ek*Ek<<endl;
+      if(sqrt(real(E2k/norm-(Ek/norm)*(Ek/norm)))>5)
+	cout<<"There seems ot be a problem with state from file "<<list[k].data()<<", at E="<<Ek
+	    <<", with variance "<<E2k-Ek*Ek<<" (norm "<<norm<<")"<<endl;
+    }
+    //values.push_back(energies[k]);
+    //values.push_back(vars[k]);
+    values.push_back(real(val/norm));
+  }
+  init=true;
+  energies_=energies;vars_=vars;
+}
+

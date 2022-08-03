@@ -1,0 +1,110 @@
+#!/usr/bin/perl
+
+
+$EXEC="./transLC";
+
+
+my $initSt=1;
+
+# The ones in the thermalization paper
+my $JP=1.;
+my $gP=-1.05;
+my $hP=0.5;
+#my $gP=0.9045;
+#my $hP=0.809;
+
+#my $JP=1.;
+#my $gP=.5; # .5; 1.; 1.5
+#my $gP=1.;
+#my $hP=0.;
+
+#my $dt=0.01;
+my $dt=0.1; # As in Hastings' paper 2014
+my $rate=10;
+
+$basicdir="/ptmp/mpq/banulsm/TransverseLC/truncH/Ising";
+$basictmpdir="/ptmp/mpq/banulsm/TransverseLC/truncH/IsingTmp";
+$configfile="/u/banulsm/NewSVN/mpsdyn/src/config/transverseLC.conf";
+my $truncH="-truncH=1";
+
+my $Jlab=sprintf("%.2g",$JP); #int(-log($gamma)/log(10));
+my $glab=sprintf("%.2g",$gP); #int(-log($gamma)/log(10));
+my $hlab=sprintf("%.2g",$hP); #int(-log($gamma)/log(10));
+my $dtlab=sprintf("%.2g",$dt); #int(-log($dt)/log(10));
+
+my @initStNames=("X","Y","Z");
+
+$initStName=$initStNames[$initSt-1];
+
+
+$basicdir="${basicdir}/g${glab}/h${hlab}/init${initStName}";
+$basictmpdir="${basictmpdir}/g${glab}/h${hlab}/init${initStName}";
+
+
+$MSUB="msub_slurm";
+
+my $scriptfile="lanzaTransLCT.sh";
+open MYFILE, '>', $scriptfile or die "Cannot open ${scriptfile} $!";
+print MYFILE "#!/bin/bash\n\n";
+#print MYFILE "mkdir -p ${outputdir} \n";
+
+#my $Ls=2;
+
+#my @Ds=(20,40,60,80); #100,200,300,400,500,1000);
+#my @Ds=(80,100,200);
+#my @Ds=(200,500);
+#my @Ds=(800);
+#my @Ds=(1000);
+my @Ds=(100,200,500);
+
+my $maxT=20;
+my $M=$maxT/$dt;
+
+my $savingfreq=10;
+
+my $append = 0;
+
+$outputdir="${basicdir}";
+$tmpdir="${basictmpdir}";
+$jobStr="tlcTquench";
+$mem="";
+foreach $Dcut (@Ds){
+    if($Dcut>200){ 
+	$parallel=40;
+	$mem="-mem 40G"
+#	$savingfreq=50;
+    }
+    else{    
+	if($Dcut>=100){ 
+	    $parallel=20;
+	    $mem="-mem 20G"
+	    #	    $savingfreq=200;
+	}
+	else{
+	    $parallel=10;
+	    $mem="-mem 10G"
+	    #	    $savingfreq=1000;
+	}
+    }
+    if($parallel>1) {
+	$parallel="-P $parallel ";
+    }
+    else{
+	$parallel="";
+    }
+	
+    print MYFILE "mkdir -p $outputdir \n";
+    print MYFILE "mkdir -p $tmpdir \n";
+	
+    $NAME="${jobStr}${initStName}_g${glab}h${hlab}_dt${dt}_D${Dcut}";
+    my $filename="init${initSt}_L${L}J${Jlab}g${glab}h${hlab}dt${dtlab}_D${Dcut}";
+    my $outfile="${outputdir}/${filename}";
+    my $args=" ${configfile} ${truncH} -J=${JP} -g=${gP} -h=${hP} -M=${M} -outputfile=${outfile} -delta=${dt} -D=${Dcut} -savingfreq=${savingfreq} -initSt=${initSt} -rate=${rate} -tmpdir=${tmpdir} -append=${append} ";
+    print MYFILE "$MSUB -N $NAME ${parallel} ${mem} -- $EXEC ${args} \n";
+    print MYFILE "sleep 1\n";
+    #    print MYFILE "$EXEC ${args} \n";
+}
+close(MYFILE);
+system("chmod a+x ${scriptfile} ");
+
+

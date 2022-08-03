@@ -1,0 +1,123 @@
+###########################################################
+#### System dependent actions to be read by Makefile ######
+###########################################################
+
+###########################################################
+# System characteristics: determine from environment
+export UNAME:=$(shell uname -s)
+###########################################################
+
+###########################################################
+# FIRST: Decide if we are in the TQO Cluster
+###########################################################
+
+ifeq (,$(findstring tqo,$(HOSTNAME)))
+############# Not in the cluster: could be Linux or MacOSX
+#############   WARNING: Everything in this block is a bit 
+#############            ad hoc: new options are probably 
+#############            needed to compile in additional machines
+$(warning "Hostname es $(HOSTNAME); not in the cluster")
+ifeq ($(UNAME),Linux)
+########################## Linux system (not cluster)
+$(warning "Compiling in Linux system")
+LINKDIRS+= -L. -L/usr/lib64 -L/usr/local/lib
+ifeq ($(WITHMKL),)
+#################################### No MKL used
+# Locally, if not using mkl, link with blas and lapack
+$(warning "NOT linking with MKL as WITHMKL=$(WITHMKL) ")
+LIBS=-larpack -llapack -lblas -lstdc++ -lrt 
+else
+#################################### Local MKL used
+#export MKLROOT=/opt/intel/composerxe-2011.2.137/mkl
+export MKLROOT=/opt/intel/composer_xe_2013.1.117/mkl
+export CXXLABELS:=$(CXXLABELS) -m64
+export DEFINES += -DMKL_VER
+LIBS=-L$(MKLROOT)/lib/intel64  -Wl,--start-group -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -lpthread
+LIBS:=-larpack $(LIBS) -lstdc++
+LIBS:= -lzprimme $(LIBS) 
+endif
+else
+########################## Non-Linux system 
+$(warning "Not in Linux, but $(UNAME)")
+ifeq ($(UNAME),Darwin)
+#################################### OSX system
+$(warning "Compiling for Mac")
+export CXX=g++
+export LD=g++
+export LIBPRIMME=zprimme
+export UNAMER=$(shell uname -r)
+$(warning "Mac System is found to be: $(UNAMER)")
+FRAMEWK= vecLib
+ifeq (14,$(findstring 14,$(UNAMER))) ####  MacBook air MCs?
+LINKDIRS+=-L. -L/opt/local/lib -L../libs/macos/14.1
+FRAMEWK= Accelerate
+## Do we need these lines?
+##export CXX=gcc
+##export LD=gcc
+##LINKDIRS+= -L. -L../libs/macos/14.5 -L/opt/local/lib
+#endif
+#ifeq (18,$(findstring 18,$(UNAMER))) ####  iMac Sierra
+else
+export CXX=clang++ 
+export LD=clang++
+export DEFINES+= -DPRIMMEv2
+LIBPRIMME=primme
+LINKDIRS+=-L. -L/opt/local/lib -L../libs/macos/16.4
+FRAMEWK= Accelerate
+endif
+LIBS=-larpack -llapack -lblas -framework $(FRAMEWK) -lstdc++ 
+LIBS:= -l$(LIBPRIMME) $(LIBS)
+DEFINES += -DMACOSX
+else
+#################################### Neither Linux nor OSX system
+$(warning "Unknown system $(UNAME). Aborting make")
+exit(1)
+endif	
+endif
+else
+$(warning "Hostname es $(HOSTNAME) ")
+$(warning findstring of tqo gives $(findstring tqo,$(HOSTNAME)) )
+############# In the TQO cluster: tqo machine
+MKLROOT=$(MKL_HOME)
+INCLUDES += -I$(MKL_HOME)/include
+#LIBPRIMME=zprimme
+LIBPRIMME=primme
+LIBS += -larpack -l$(LIBPRIMME) -lgfortran -lstdc++
+ifeq ($(INTELC),)
+$(warning "Compiling with gcc ")
+LINKDIRS += -L../libs
+#LINKDIRS += -L../libs/linux/sles11
+LINKDIRS += -L../libs/linux
+CXXLABELS += -m64 
+ifneq ($(NOOPENMP),)
+$(warning "Linking to the sequential version of mkl")
+LIBS += -L$(MKL_HOME)/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lpthread -lm 
+else
+$(warning "Linking to the parallel version of mkl")
+# this worked fine for mkl/10.3
+#LIBS += -Wl,--start-group $(MKLROOT)/lib/intel64/libmkl_intel_lp64.a $(MKLROOT)/lib/intel64/libmkl_core.a $(MKLROOT)/lib/intel64/libmkl_intel_thread.a -Wl,--end-group $(INTEL_HOME)/compiler/lib/intel64/libiomp5.a -lpthread -lm
+# this seems to work for mkl/11.1 (maybe -Wl -no-as-needed also required?? not for linking now)
+#LIBS += -Wl,--start-group $(MKLROOT)/lib/intel64/libmkl_intel_lp64.a $(MKLROOT)/lib/intel64/libmkl_core.a $(MKLROOT)/lib/intel64/libmkl_intel_thread.a -Wl,--end-group $(INTEL_HOME)/compiler/lib/intel64/libiomp5.a -lpthread -lm -ldl
+# new version mkl/2017
+#LIBS += -Wl,--start-group $(MKLROOT)/lib/intel64/libmkl_intel_lp64.a $(MKLROOT)/lib/intel64/libmkl_core.a $(MKLROOT)/lib/intel64/libmkl_intel_thread.a -Wl,--end-group $(INTEL_HOME)/linux/compiler/lib/intel64/libiomp5.a -lpthread -lm -ldl
+# mkl/2018
+LIBS += -Wl,--start-group ${MKLROOT}/lib/intel64/libmkl_intel_lp64.a ${MKLROOT}/lib/intel64/libmkl_intel_thread.a ${MKLROOT}/lib/intel64/libmkl_core.a -Wl,--end-group $(INTEL_HOME)/lib/intel64/libiomp5.a -lpthread -lm -ldl
+endif
+else
+$(warning "Compiling with intel ")
+export CXX=icc
+export LD=icc
+#CXXLABELS += -mkl
+# Required (apparently) for C++ compilation in tqo with icpc
+export LANG=en_US.8
+export LC_ALL=en_US
+#LINKDIRS += -L../libs/linux/sles11_intel
+LINKDIRS += -L../libs/linux/sles11 -L../libs
+LIBS += -L$(MKL_HOME)/lib/intel64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lpthread -lm 
+#LIBS += -lirc -limf
+endif
+###LIBS=-L$(MKL_HOME)/lib/em64t -lmkl_solver_lp64_sequential -Wl,--start-group -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -lpthread
+endif
+
+
+
