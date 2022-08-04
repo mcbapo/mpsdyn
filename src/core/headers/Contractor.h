@@ -560,6 +560,8 @@ If tmpfile is given, every greqSv rounds the temporary result is saved
   void solveEigsGen(Multiplier& multiA,Multiplier& multiB,const int k,const char* which,
 		 std::vector<complex_t>& D,mwArray& U,bool eigv=0,double tol=0.);
 
+  /** Auxiliary for findGSTwoSites and EffectiveOperatorMultiplier...*/
+  void blockOperatorMultiSite(mwArray& blockOp,const MPO& ops,int k,int pos);
 
   /** Run a gradient descent to find the min variance of an operator, at
       fixed energy (and norm). */

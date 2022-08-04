@@ -2106,43 +2106,6 @@ mwArray Contractor::getRDM(const MPS& state,int posL,int posR){
   return result;
 }  
 
-void Contractor::approximateTaylorExponential(const MPO& ops,const MPS& orig,MPS& init,
-					      double delta,int order,int D,bool imag){
-
-  vector<complex_t> coeffs;
-  coeffs.push_back(ONE_c); // first coefficient (of psi) is 1
-  complex_t tmp=ONE_c;
-  for(int k=1;k<=order;k++){
-    tmp=(-delta/k)*tmp;
-    if(!imag) tmp=tmp*I_c;
-    coeffs.push_back(tmp);
-  }
-  //  cout<<"approximateTaylorExponential order="<<order<<" with coefficients "<<coeffs<<endl;
-  // Now I need to construct the MPS for |orig>, MPO|orig>,...MPO^order|orig>
-  vector<const MPS*> mpss;
-  mpss.push_back(&orig);
-  MPS aux(orig);
-  for(int k=1;k<=order;k++){
-    optimize(ops,*mpss.back(),aux,D);
-    mpss.push_back(new MPS(aux));
-  }
-
-  //  for(int k=0;k<=order;k++){
-  //cout<<"term "<<k<<" has norm "<<contract(*mpss[k],*mpss[k])<<endl;
-  //}
-
-  // And now call optimizeSum
-  optimizeSum(mpss,coeffs,init,D);
-
-  // And delete all MPSs
-  while(mpss.size()>1){
-    const MPS* last=mpss.back();
-    mpss.pop_back();
-    delete last;
-  }
-  mpss.clear();
-}
-
 
 double Contractor::getEntropy(const MPS& state,int posL,int posR){
   int length=state.getLength();
@@ -4275,6 +4238,23 @@ void  Contractor::orthogonalizeSum(MPS& init,int D,
   }
   tmpMgr.clear();
   //cout<<"Distance going out: "<<distance<<endl;
+}
+
+void Contractor::blockOperatorMultiSite(mwArray& blockOp,const MPO& ops,int k,int pos){
+  blockOp=ops.getOp(pos).getFullData();
+  for(int l=1;l<k;l++){
+    mwArray nextOp=ops.getOp(pos+l).getFullData();
+    // contract together the previous one and the local term
+    Indices dimsOld=blockOp.getDimensions();
+    Indices dimsNew=nextOp.getDimensions();
+    blockOp.reshape(Indices(-1,dimsOld[3]));
+    nextOp.permute(Indices(2,1,3,4));
+    nextOp.reshape(Indices(dimsNew[1],-1));
+    blockOp.multiplyRight(nextOp);
+    blockOp.reshape(Indices(dimsOld[0],dimsOld[1],dimsOld[2],dimsNew[0],dimsNew[2],dimsNew[3]));
+    blockOp.permute(Indices(1,4,2,3,5,6));
+    blockOp.reshape(Indices(dimsOld[0]*dimsNew[0],dimsOld[1],dimsOld[2]*dimsNew[2],dimsNew[3]));
+  }
 }
 
 double Contractor::gradientMinVariance(mwArray& A,TensorMultiplier* multiH2,
