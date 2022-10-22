@@ -112,7 +112,7 @@ int main(int argc,const char* argv[]){
   string mpsdir=props.getProperty("mpsdir"); // where are the MPS
   bool app=1;
   app=!(props.getIntProperty("append")==0); // replace only if 0 explicitly given (ow -1)
-  bool appS=app; // use same criterion for the file with site resolved observables
+  bool appS=0; //app; // use same criterion for the file with site resolved observables
   int incrD=0;int maxD=D;
   //string jobsdir;
   //if(relaunch){
