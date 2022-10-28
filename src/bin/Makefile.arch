@@ -44,7 +44,7 @@ ifeq ($(UNAME),Darwin)
 $(warning "Compiling for Mac")
 export CXX=g++
 export LD=g++
-export LIBPRIMME=zprimme
+#export LIBPRIMME=zprimme
 export UNAMER=$(shell uname -r)
 $(warning "Mac System is found to be: $(UNAMER)")
 FRAMEWK= vecLib
@@ -60,8 +60,8 @@ FRAMEWK= Accelerate
 else
 export CXX=clang++ 
 export LD=clang++
-export DEFINES+= -DPRIMMEv2
-LIBPRIMME=primme
+#export DEFINES+= -DPRIMMEv2
+#LIBPRIMME=primme
 LINKDIRS+=-L. -L/opt/local/lib -L../libs/macos/16.4
 FRAMEWK= Accelerate
 endif
