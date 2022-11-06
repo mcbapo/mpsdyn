@@ -181,11 +181,12 @@ int main(int argc,const char* argv[]){
   MPO corrTz(4*L);
   ham.getOrbitalSpinCorrelatorMPO(corrTz);
   cout<<"Constructed orbital spin corr ZZ MPO"<<endl;
-  
-  // Local MPOs (over four sites, four of them)
-  //MPO Sx(4),Sy(4),Sz(4),Tz(4);
-  vector<MPO> mpos(4);
-  for(int k=0;k<4;k++)
+
+  int maxLab=4+2;
+  // Local MPOs (over four sites, maxLab of them)
+  //MPO Sx(4),Sy(4),Sz(4),Tz(4),Ng(4),Ne(4);
+  vector<MPO> mpos(maxLab);
+  for(int k=0;k<maxLab;k++)
     prepareMPOlocalOp(mpos[k],k+1);
   // A long MPO basicaly identity, where the previous ones are substituted as needed
   MPO auxMPO(4*L);
@@ -285,7 +286,7 @@ int main(int argc,const char* argv[]){
 	    " for output (append="<<app<<")"<<endl;
 	  exit(1);
 	}
-	*out<<"% two-point correlators. Key for Op: 1=Sx Sx, 2=Sy Sy, 3=Sz Sz, 4= Tz Tz"<<endl;
+	*out<<"% two-point correlators. Key for Op: 1=Sx Sx, 2=Sy Sy, 3=Sz Sz, 4= Tz Tz, 5=Ng Ng, 6=Ne Ne"<<endl;
 	*out<<"%L\tD\t Op\t i\t j\t <Op>_ij\t";
 	*out<<endl;
 	appS=1; // already initialized
@@ -306,7 +307,7 @@ int main(int argc,const char* argv[]){
 	// Correlators  between n and n+1
 	int posN1=(n)*4; // first pos n
 	int posN2=(n+1)*4; // second pos n+1
-	for(int lab=0;lab<4;lab++){ //type
+	for(int lab=0;lab<maxLab;lab++){ //type
 	//put op in n
 	  for(int j=0;j<4;j++){
 	    auxMPO.setOp(posN1+j,&(mpos[lab].getOp(j)),false);
@@ -516,6 +517,53 @@ void prepareMPOlocalSTz(MPO& mpo,bool isS){
 
 }
 
+void prepareMPOlocalN(MPO& mpo,bool isNe){
+    mwArray idOp=identityMatrix(d);
+    mwArray sigZ(idOp);
+    sigZ.setElement(-1*ONE_c,Indices(1,1));
+    mwArray locN=.5*(idOp+sigZ);
+    
+    int nOp=2;
+    mwArray Z=mwArray(Indices(nOp,d,d));
+    Z.fillWithZero();
+    for(int i1=0;i1<d;i1++)
+      for(int i2=0;i2<d;i2++){
+	Z.setElement(idOp.getElement(Indices(i1,i2)),Indices(0,i1,i2));
+	Z.setElement(locN.getElement(Indices(i1,i2)),Indices(1,i1,i2));
+      }
+    Z.reshape(Indices(nOp,d*d));
+    int D=2;
+    for(int k=0;k<4;k++){
+      int Dl=k==0?1:D;
+      int Dr=k==3?1:D;
+      mwArray C(Indices(Dl,Dr,nOp));
+      if(k<3)
+	C.setElement(ONE_c,Indices(0,0,0));
+      if(k>0)
+	C.setElement(ONE_c,Indices(Dl-1,Dr-1,0));
+      if(isNe){ // ns are in 2 and 3
+	if(k>1){
+	  C.setElement(ONE_c,Indices(0,Dr-1,1));
+	}
+      }
+      else{ // nw are in 0 and 1
+	if(k<=1){
+	  C.setElement(ONE_c,Indices(0,Dr-1,1));
+	}
+      }
+      
+      C.reshape(Indices(Dl*Dr,nOp));
+      C.multiplyRight(Z);
+      C.reshape(Indices(Dl,Dr,d,d));C.permute(Indices(3,1,4,2));
+
+      mpo.setOp(k,new Operator(C),true);
+
+    }
+
+}
+
+
+
 void prepareMPOlocalOp(MPO& mpo,int optype){
   mpo.initLength(4);
   switch(optype){
@@ -530,6 +578,12 @@ void prepareMPOlocalOp(MPO& mpo,int optype){
     break;
   case 4: // Tz
     prepareMPOlocalSTz(mpo,0);
+    break;
+  case 5: // Ng
+    prepareMPOlocalN(mpo,0);
+    break;
+  case 6: // Ne
+    prepareMPOlocalN(mpo,1);
     break;
   default:
     cout<<"ERROR: Should not have caleldd prepareMPOlocalOp with type "<<optype<<endl;
