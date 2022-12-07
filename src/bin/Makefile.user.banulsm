@@ -5,11 +5,20 @@
 #
 ###########################################################
 
+
+# Version of primme (3, 2, 1 supported; otherwise no primme)
+
+PRIMMEV=3
+
+#ifndef PRIMMEV
 # Uncomment to disable PRIMME linking
 # DEFINES += -UUSING_PRIMME
+#endif
+#ifeq ($PRIMEV,0)
+# DEFINES += -UUSING_PRIMME
+#endif
 
 #DEFINES += -DSTRUCTARRAYPROB
-
 #DEFINES += -DCHECKDIMS=1
 
 ## Optimization levels
@@ -73,12 +82,31 @@ endif
 # Location of primme headers
 ###########################################################
 
+ifeq ($(PRIMMEV),3)
+$(warning "Using primme v3")
+export PRIMMEH_DIR=../wrapper/primme_headers_v3
+DEFINES += -DPRIMMEv2
+LIBPRIMME=primme3
+else
+ifeq ($(PRIMMEV),2)
+# For v2
+$(warning "Using primme v2")
 export PRIMMEH_DIR=../wrapper/primme_headers_v2
 DEFINES += -DPRIMMEv2
 LIBPRIMME=primme
+else
+ifeq ($PRIMMEV,1)
 # For the first version
-#export PRIMMEH_DIR=../wrapper/primme_headers
-#LIBPRIMME=zprimme
+$(warning "Using primme v1. WARNING!!! Obsolete!")
+export PRIMMEH_DIR=../wrapper/primme_headers
+LIBPRIMME=zprimme
+else
+$(warning "Not using primme!!")
+DEFINES += -UUSING_PRIMME
+endif
+endif
+endif
+
 
 ###########################################################
 # Additional source files 
@@ -142,7 +170,7 @@ EXEC = schwinger schwingerSp schwingerEx schwingerExZ schwingerExZR schwingerExZ
 
 EXEC += thermalIsing testHana therm_eLoLe therm_eLoLe_ineff thermExL thermExL_1024 tdIsing
 
-EXEC += testIO
+EXEC += testIO isingOpen
 
 #EXEC += coherent0 coherent coherentEx coherentInv coherentEvo coherentSpe coherentLR coherentLRS coherentLR2 coherentM coherentLRS1 dissipXY coherentEV coherentD coherentDS coherentAd coherentAdSp coherentR overlapR
 
@@ -810,3 +838,9 @@ fH2obsB: $(OBJFILES) $(FH2OBJ_BLOCK) twofermihubbardObsSiteBlock.o
 
 #fH2gs: OBJFILES += $(FH2OBJ) twofermihubbardGSmod.o
 #fH2gs: $(OBJFILES) $(FH2OBJ) twofermihubbardGSmod.o
+
+## Lindblad M Eq
+
+OPENOBJ = IsingLocalDissipLiouvillian.o
+isingOpen: OBJFILES += $(OPENOBJ) isingDissipative.o
+isingOpen: $(OBJFILES) $(OPENOBJ) isingDissipative.o

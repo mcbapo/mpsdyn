@@ -956,6 +956,7 @@ const mwArray invertDiag(const mwArray& mwA,int& nr,const double tol){
 
 
 const mwArray inverse(const mwArray& mwA,int& nr){
+  nr=0; // all the values, in principle
   return inverse(mwA,nr,0.);
 }
 
@@ -970,6 +971,7 @@ const mwArray inverse(const mwArray& mwA,int& nr,
     return invertDiag(mwA,nr,tol);
   // If not diagonal, svd and invert the diagonal
   mwArray U,S,Vdagger; // place for the results
+  nr=0;
   wrapper::svd(mwA,tol,nr,U,S,Vdagger);
   cout<<"mwArray::inverse found "<<nr<<" singular values"<<endl;
   cout<<" and sizes U "<<U.getDimensions()<<", S "<<S.getDimensions()
@@ -1619,6 +1621,7 @@ void mwArray::resize(const Indices& newdims,double noise){
 	<<" for resize (current "<<dims<<")"<<endl;
     exit(212);
   }
+  //cout<<"resize "<<*this<<" to "<<newdims<<endl;
   int Nnrcomponents=1;
   Indices newcumdims(vector<int>(rank,1));
   for(int k=0;k<rank;k++){
@@ -1637,6 +1640,7 @@ void mwArray::resize(const Indices& newdims,double noise){
     }
   }  
   //cout<<"RESIZE: olddims "<<dims<<" -> "<<newdims<<endl;
+  //cout<<"components="<<components<<", newcomp="<<newcomp<<endl;
   // read them all and write, one by one, to the new positions
   Indices oldidx(vector<int>(rank,0));
   //Indices _oldidx(rank,0);
@@ -1661,6 +1665,7 @@ void mwArray::resize(const Indices& newdims,double noise){
   components=newcomp;
   dims=newdims;
   nrcomponents=Nnrcomponents;
+  // cout<<"components="<<components<<", newcomp="<<newcomp<<endl;
 }
 
 void mwArray::savetext(ofstream& data,bool real) const {

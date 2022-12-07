@@ -353,7 +353,7 @@ int main(){
 
   cout<<"Test inverse"<<endl;
   mwArray A90(Indices(5,5));A90.fillRandom();
-  int nrVals;
+  int nrVals=0;
   mwArray A91=inverse(A90,nrVals);
   //cout<<setprecision(10)<<endl;
   cout<<"Computed inverse of "<<A90<<endl;
@@ -377,8 +377,11 @@ int main(){
   A92.permute(Indices(order1));
   A93.permute(Indices(order2));
   mwArray A95=contractLeg(A92,2,A93,3);
-  cout<<"Difference between both forms of contracting:"<<endl;
-  cout<<A94-A95<<endl;
+  cout<<"Difference between both forms of contracting (max element):"<<endl;
+  mwArray auxA=A94-A95;
+  complex_t maxV;Indices posMax;
+  auxA.getMaxElement(maxV,posMax);
+  cout<<maxV<<" @ "<<posMax<<endl;
 
   cout<<"Test multiple leg contraction"<<endl;
   Indices dimsC(2,3,2); int cTot=dimsC[0]*dimsC[1]*dimsC[2];
@@ -391,5 +394,8 @@ int main(){
   order2=Indices(4,1,5,2,6,3);A97.permute(order2);
   mwArray A99=contractLegs(A96,Indices(2,3,5),A97,Indices(2,4,6));
   cout<<"Difference between both forms of contracting:"<<endl;
-  cout<<A98-A99<<endl;
+  auxA=A98-A99;
+  auxA.getMaxElement(maxV,posMax);
+  cout<<maxV<<" @ "<<posMax<<endl;
+  //cout<<A98-A99<<endl;
 }

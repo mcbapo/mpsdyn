@@ -72,40 +72,6 @@ int main(int argc,const char* argv[]){
   }
   cout<<"Writing output to file "<<outfname<<endl;
 
-  // Could create more files, if needed, f.i.
-  // char energy_[150];
-  // char correlationx[150];
-  // char correlationy[150];
-  // char correlationz[150];
-  // char correlationxx[150];
-  // char correlationyy[150];
-  // char correlationzz[150];
-
-  // sprintf(energy_,"%s/IO_eigenenergy_%d_%1.2f_%D",basedir,L,gamma,D);
-  // sprintf(correlationx,"%s/IO_x_%d_%1.2f_%D",basedir,L,gamma,D);
-  // sprintf(correlationy,"%s/IO_y_%d_%1.2f_%D",basedir,L,gamma,D);
-  // sprintf(correlationz,"%s/IO_z_%d_%1.2f_%D",basedir,L,gamma,D);
-  // sprintf(correlationxx,"%s/IO_xx_%d_%1.2f_%D",basedir,L,gamma,D);
-  // sprintf(correlationyy,"%s/IO_yy_%d_%1.2f_%D",basedir,L,gamma,D);
-  // sprintf(correlationzz,"%s/IO_zz_%d_%1.2f_%D",basedir,L,gamma,D);
-  
-  // ofstream* outcox;
-  // outcox=new ofstream(correlationx,ios::app);
-  // ofstream* outcoy;
-  // outcoy=new ofstream(correlationy,ios::app);
-  // ofstream* outcoz;
-  // outcoz=new ofstream(correlationz,ios::app);  
-  // ofstream* outxx;
-  // outxx=new ofstream(correlationxx,ios::app);
-  // ofstream* outyy;
-  // outyy=new ofstream(correlationyy,ios::app);
-  // ofstream* outzz;
-  // outzz=new ofstream(correlationzz,ios::app);
-
-  // They should be opened whenever you are going to start using them (after having the GS, for intance)
-  // DO NOT FORGET TO CLOSE AND DELETE THEM WHEN DONE!
-  
-
   //srandom(time(NULL));
   int Dd=D;
   double g=gamma;

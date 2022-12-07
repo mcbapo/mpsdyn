@@ -6,8 +6,9 @@
 #
 ###########################################################
 
-# Uncomment to disable PRIMME linking
-# DEFINES += -UUSING_PRIMME
+# Version of PRIMME (supported 1, 2, 3; otherwise no primme)
+
+PRIMMEV=3
 
 #DEFINES += -DSTRUCTARRAYPROB
 
@@ -74,9 +75,30 @@ endif
 # Location of primme headers
 ###########################################################
 
+ifeq ($(PRIMMEV),3)
+$(warning "Using primme v3")
+export PRIMMEH_DIR=../wrapper/primme_headers_v3
+DEFINES += -DPRIMMEv2
+LIBPRIMME=primme3
+else
+ifeq ($(PRIMMEV),2)
+# For v2
+$(warning "Using primme v2")
 export PRIMMEH_DIR=../wrapper/primme_headers_v2
 DEFINES += -DPRIMMEv2
 LIBPRIMME=primme
+else
+ifeq ($PRIMMEV,1)
+# For the first version
+$(warning "Using primme v1. WARNING!!! Obsolete!")
+export PRIMMEH_DIR=../wrapper/primme_headers
+LIBPRIMME=zprimme
+else
+$(warning "Not using primme!!")
+DEFINES += -UUSING_PRIMME
+endif
+endif
+endif
 
 ###########################################################
 # Additional source files 
@@ -117,7 +139,7 @@ thermalIsing: OBJFILES += thermalIsing.o
 thermalIsing: $(OBJFILES) thermalIsing.o
 
 #[Add further targets, for instance]
-# HEISOBJ = HeisenbergHamiltonian.cpp
+# HEISOBJ = HeisenbergHamiltonian.o
 # heisenberg: OBJFILES += $(HEISOBJ) testHeisenberg.o
 # heisenberg: $(OBJFILES) $(HEISOBJ) testHeisenberg.o
 

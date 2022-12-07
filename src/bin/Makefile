@@ -95,12 +95,6 @@ export LD=g++
 ###########################################################
 
 ###########################################################
-#  System dependent instructions (libraries, etc)
-#  
-include Makefile.arch
-###########################################################
-
-###########################################################
 # For the version that uses disk storage, call make as: 
 # make DISK=1
 ifeq ($(DISK),)
@@ -179,9 +173,20 @@ OBJFILES = $(WRAPPEROBJ) $(SRCOBJ)
 # can define a _v2 directory, instead
 export PRIMMEH_DIR=../wrapper/primme_headers
 
+
 include Makefile.tests
 
+###########################################################
+# User specific targets in Makefile.user.[name]
+
 include $(USER_SPECIFIC_MAKEFILE)
+
+###########################################################
+#  System dependent instructions (libraries, etc)
+#  
+include Makefile.arch
+###########################################################
+
 
 INCLUDES+= -I. 
 INCLUDES+= -I$(PRIMMEH_DIR)

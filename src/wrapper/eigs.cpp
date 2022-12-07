@@ -372,9 +372,9 @@ int wrapper::call_eigs_primme(primme_params* primme,std::vector<complex_t>& Dval
   int nev=primme->numEvals;
   int N=primme->n;
   // Place for results, as PRIMME likes it
-  double *evals=new double[nev]; // real eigenvalues
-  PRIMME_COMPLEX* evecs=new PRIMME_COMPLEX[N*nev];
-  double* rnorms=new double[nev];
+  double *evals=new double[2*nev]; // real eigenvalues
+  PRIMME_COMPLEX* evecs=new PRIMME_COMPLEX[N*2*nev];
+  double* rnorms=new double[2*nev];
   //cout<<"In call_eigs_primme(U="<<U<<")"<<endl;
   //primme_display_params(*primme);
 
@@ -392,8 +392,8 @@ int wrapper::call_eigs_primme(primme_params* primme,std::vector<complex_t>& Dval
 #endif
     }
   }
-  //   cout<<"Calling eigs_primme with init U="<<U<<endl;
-  
+  // cout<<"Calling eigs_primme with init U="<<U<<endl;
+
   // Call the solver itself
   int ret = zprimme(evals, evecs, rnorms, primme);
   

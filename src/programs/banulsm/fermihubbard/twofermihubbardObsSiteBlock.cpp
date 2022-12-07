@@ -291,7 +291,7 @@ int main(int argc,const char* argv[]){
 	*out<<"% two-point correlators. Key for Op: 1=Sx Sx, 2=Sy Sy, 3=Sz Sz, 4= Tz Tz"<<endl;
 	*out<<"%L\tD\t Op\t i\t j\t <Op>_ij\t";
 	*out<<endl;
-	appS=1; // already initialized
+	//appS=1; // already initialized
 	out->close();delete out;
       }
       out=new ofstream(outfnameSite.data(),ios::app);
