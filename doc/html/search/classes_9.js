@@ -1,10 +1,9 @@
 var searchData=
 [
-  ['mpo_0',['MPO',['../class_m_p_o.html',1,'']]],
-  ['mpomultiplier_1',['MPOMultiplier',['../class_m_p_o_multiplier.html',1,'']]],
-  ['mps_2',['MPS',['../class_m_p_s.html',1,'']]],
-  ['multiflavorschwingerhamiltonian_3',['MultiFlavorSchwingerHamiltonian',['../class_multi_flavor_schwinger_hamiltonian.html',1,'']]],
-  ['multilplier_4',['Multilplier',['../class_multilplier.html',1,'']]],
-  ['multiplier_5',['Multiplier',['../class_multiplier.html',1,'']]],
-  ['mwarray_6',['mwArray',['../classmw_array.html',1,'']]]
+  ['level_0',['Level',['../class_level.html',1,'']]],
+  ['limitstochastichamiltonian_1',['LimitStochasticHamiltonian',['../class_limit_stochastic_hamiltonian.html',1,'']]],
+  ['linearcombinationmultiplier_2',['LinearCombinationMultiplier',['../class_linear_combination_multiplier.html',1,'']]],
+  ['liouvillian_3',['Liouvillian',['../class_liouvillian.html',1,'']]],
+  ['liouvillianxyedges_4',['LiouvillianXYEdges',['../class_liouvillian_x_y_edges.html',1,'']]],
+  ['lmghamiltonian_5',['LMGHamiltonian',['../class_l_m_g_hamiltonian.html',1,'']]]
 ];

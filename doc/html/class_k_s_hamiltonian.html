@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logoMPSDYN.png"/></td>
   <td id="projectalign">
    <div id="projectname">mpsdyn
    </div>
@@ -223,13 +224,13 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
       </table>
 </div><div class="memdoc">
 <p >Creates an instance of the Kogut-Susskind-Hamiltonian. The form of the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is given by </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ H = M\sum_n (-1)^n\psi_n^\dagger\psi_n - \frac{i}{2a}\sum_n \left(\psi_n^\dagger L_{+,n}\psi_{n+1}+h.c.\right)+\frac{g^2}{2}\sum_n L_{z,n}^2 \]" src="form_256.png"/>
+<img class="formulaDsp" alt="\[ H = M\sum_n (-1)^n\psi_n^\dagger\psi_n - \frac{i}{2a}\sum_n \left(\psi_n^\dagger L_{+,n}\psi_{n+1}+h.c.\right)+\frac{g^2}{2}\sum_n L_{z,n}^2 \]" src="form_260.png"/>
 </p>
 <p> After a Jordan Wigner transformation and rendering the result dimensionless we obtain the spin <a class="el" href="class_hamiltonian.html">Hamiltonian</a> which is implemented in this class. The formula is the following: </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[W = x\sum_n\left[\sigma^+_n L_{+,n}\sigma_{n+1}^- + \sigma^-_n L_{-,n}\sigma_{n+1}^+\right] + \frac{\mu}{2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n L_{z,n}^2  \]" src="form_257.png"/>
+<img class="formulaDsp" alt="\[W = x\sum_n\left[\sigma^+_n L_{+,n}\sigma_{n+1}^- + \sigma^-_n L_{-,n}\sigma_{n+1}^+\right] + \frac{\mu}{2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n L_{z,n}^2  \]" src="form_261.png"/>
 </p>
 <p> Since the groundstate search could bring us out of the sector of the states which fulfill Gauss' law, we add an additional penalty: </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[P(\lambda)= \lambda \sum_n\left( L_{z,n} - L_{z,n-1} -\frac{1}{2}\left(\sigma^z_n +(-1)^n\right)\right)^2 \]" src="form_258.png"/>
+<img class="formulaDsp" alt="\[P(\lambda)= \lambda \sum_n\left( L_{z,n} - L_{z,n-1} -\frac{1}{2}\left(\sigma^z_n +(-1)^n\right)\right)^2 \]" src="form_262.png"/>
 </p>
  
 </div>
@@ -253,7 +254,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
 <p >Construct the <a class="el" href="class_m_p_o.html">MPO</a> representation of the total charge operator </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\[
 Q_\mathrm{tot}= \sum_{n=1}^{N} \frac{1}{2}\left(\sigma^z_n +(-1)^n\right) 
-\]" src="form_267.png"/>
+\]" src="form_271.png"/>
 </p>
  
 </div>
@@ -286,9 +287,9 @@ Q_\mathrm{tot}= \sum_{n=1}^{N} \frac{1}{2}\left(\sigma^z_n +(-1)^n\right)
 <p >Get the <a class="el" href="class_m_p_o.html">MPO</a> representation for </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\[
 \ \frac{\sqrt{x}}{N}\sum_{n=0}^{N-1}(-1)^n\left(\frac{1+\sigma_n^z}{2}\right).
-\]" src="form_265.png"/>
+\]" src="form_269.png"/>
 </p>
-<p> If factor_off is set to true, the prefactor <img class="formulaInl" alt="$ \sqrt{x}/N $" src="form_262.png"/> is omitted. </p>
+<p> If factor_off is set to true, the prefactor <img class="formulaInl" alt="$ \sqrt{x}/N $" src="form_266.png"/> is omitted. </p>
 
 </div>
 </div>
@@ -320,9 +321,9 @@ Q_\mathrm{tot}= \sum_{n=1}^{N} \frac{1}{2}\left(\sigma^z_n +(-1)^n\right)
 <p >Get the <a class="el" href="class_m_p_o.html">MPO</a> representation for </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\[
 \Gamma^5 = \frac{\sqrt{x}}{N}\sum_{n=0}^{N-2}(-1)^n\left(\sigma_n^+L^+_n\sigma^-_{n+1} + \sigma_n^-L^-_n\sigma^+_{n+1} \right).
-\]" src="form_261.png"/>
+\]" src="form_265.png"/>
 </p>
-<p> If factor_off is set to true, the prefactor <img class="formulaInl" alt="$ \sqrt{x}/N $" src="form_262.png"/> is omitted. </p>
+<p> If factor_off is set to true, the prefactor <img class="formulaInl" alt="$ \sqrt{x}/N $" src="form_266.png"/> is omitted. </p>
 
 </div>
 </div>
@@ -354,9 +355,9 @@ Q_\mathrm{tot}= \sum_{n=1}^{N} \frac{1}{2}\left(\sigma^z_n +(-1)^n\right)
 <p >Get the <a class="el" href="class_m_p_o.html">MPO</a> representation for </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\[
 \Gamma^\alpha = \frac{1}{N}\sum_{n=0}^{N-2}\left(L_{z,n}+\alpha \right).
-\]" src="form_263.png"/>
+\]" src="form_267.png"/>
 </p>
-<p> If factor_off is set to true, the prefactor <img class="formulaInl" alt="$ 1/N $" src="form_264.png"/> is omitted. </p>
+<p> If factor_off is set to true, the prefactor <img class="formulaInl" alt="$ 1/N $" src="form_268.png"/> is omitted. </p>
 
 </div>
 </div>
@@ -407,14 +408,14 @@ Q_\mathrm{tot}= \sum_{n=1}^{N} \frac{1}{2}\left(\sigma^z_n +(-1)^n\right)
 <p >Construct the discretized version of the momentum operator </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\[
    \hat{P}=\int dx \psi^\dagger(x)i\partial\psi(x)
-\]" src="form_253.png"/>
+\]" src="form_257.png"/>
 </p>
 <p> which is given by </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\[
   \hat{O}_p=-ix\sum_n\left[\sigma_n^-\sigma_{n+1}^z\sigma_{n+2}^+ - \mathrm{h.c.}\right]
-\]" src="form_266.png"/>
+\]" src="form_270.png"/>
 </p>
-<p> after making it dimensionless like the <a class="el" href="class_hamiltonian.html">Hamiltonian</a>. The constant <img class="formulaInl" alt="$ x $" src="form_255.png"/> is not taken into account and has to be added by hand afterwards </p>
+<p> after making it dimensionless like the <a class="el" href="class_hamiltonian.html">Hamiltonian</a>. The constant <img class="formulaInl" alt="$ x $" src="form_259.png"/> is not taken into account and has to be added by hand afterwards </p>
 
 </div>
 </div>
@@ -443,7 +444,7 @@ Q_\mathrm{tot}= \sum_{n=1}^{N} \frac{1}{2}\left(\sigma^z_n +(-1)^n\right)
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for the penalty term <img class="formulaInl" alt="$ \sum_{n=1}^{N}\left(L(n)-L(n-1)-\frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]\right)^2 $" src="form_259.png"/> in the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> which ensures the Gauss Law. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. If a strength greater than zero is given explicitly, then it is taken as constant in front of the operator, otherwise the constant <img class="formulaInl" alt="$ \lambda $" src="form_260.png"/> for the penalty out of the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is taken. </p>
+<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for the penalty term <img class="formulaInl" alt="$ \sum_{n=1}^{N}\left(L(n)-L(n-1)-\frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]\right)^2 $" src="form_263.png"/> in the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> which ensures the Gauss Law. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. If a strength greater than zero is given explicitly, then it is taken as constant in front of the operator, otherwise the constant <img class="formulaInl" alt="$ \lambda $" src="form_264.png"/> for the penalty out of the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is taken. </p>
 
 </div>
 </div>
@@ -806,8 +807,8 @@ Q_\mathrm{tot}= \sum_{n=1}^{N} \frac{1}{2}\left(\sigma^z_n +(-1)^n\right)
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_k_s_hamiltonian_8h_source.html">KSHamiltonian.h</a></li>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/cpp/KSHamiltonian.cpp</li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_k_s_hamiltonian_8h_source.html">KSHamiltonian.h</a></li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/cpp/KSHamiltonian.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

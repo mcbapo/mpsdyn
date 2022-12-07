@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logoMPSDYN.png"/></td>
   <td id="projectalign">
    <div id="projectname">mpsdyn
    </div>
@@ -67,25 +68,26 @@ $(function() {
 <div class="contents">
 <div class="textblock"><h1><a class="anchor" id="intro_sec"></a>
 Matrix Product State Code</h1>
-<p >This is a basic code which implements the basic functionality needed to do calculations with Matrix Product States, including variational searches for ground state and excited staes of MPOs, time evolution (via Trotterization) and some additional methods. The code structure is described below.</p>
+<p >This is a basic code which implements the basic functionality needed to doc calculations with Matrix Product States. The code structure is described below.</p>
 <h1><a class="anchor" id="install_sec"></a>
 Structure</h1>
 <p >A brief description of the folder structure is given below: </p><ul>
 <li><b>bin</b> <br  />
- Contains the (user specific) makefiles and the binary files after compiling. To use the library, each new user should create a file Make.user.USERNAME in this directory (copy from example) and include here their targets, directories and rules. <br  />
-Start with "make test1" and run the program "./test1" (which tests functionality of basic tensor class and operations), to check the installation is correct. Run "make clean" to remove all objects from the directory, or "make cleanall" to remove also executables. </li>
+ Contains the (user specific) makefiles and the binary files after compiling. </li>
 <li><b>config</b> <br  />
  Contains configuration files which are used as input to set the parameters of a run. </li>
 <li><b>core</b> <br  />
- Contains all header and cpp files which provide the core functionality such as <a class="el" href="class_m_p_s.html">MPS</a>, basic Hamiltonians and more general MPOs, Tensor contractions and other things. </li>
+ Contains all header and cpp files which provide the core functionality such as <a class="el" href="class_m_p_s.html">MPS</a>, Hamiltonians and more general MPOs, Tensor contractions and other things. </li>
 <li><b>libs</b> <br  />
- Folder to store the libraries needed on to link against for certain operating systems. See below for requirements. </li>
+ Folder to store the libraries needed on to link against for certain operating systems. </li>
+<li><b>matlab</b> <br  />
+ A bunch of scripts to evaluate and check calculations. The subfolders named after the users contain user specific scripts. The subfolder core contains scripts which are generally useful to check <a class="el" href="class_m_p_o.html">MPO</a> implementations and other things. </li>
 <li><b>models</b> <br  />
  A collection of various models which have been developed by the users and have proven to be reliable over the time. </li>
 <li><b>projects</b> <br  />
- Contains a collection of projects which are currently developed by the users or in collaboration among several users. As a new user, you should add a directory for your own here. </li>
+ Contains a collection of projects which are currently developed by the users or in collaboration among several users. </li>
 <li><b>programs</b> <br  />
- Contains a collection of various programs. Also separated by username. </li>
+ Contains a collection of various programs. </li>
 <li><b>tests</b> <br  />
  In this folder a collection of tests is stored which are there to test the basic functions and a few basic models of the <a class="el" href="class_m_p_s.html">MPS</a> code. Compiling these tests is also a useful starting point for new users to see if everything is set up properly on their machine and is working. </li>
 <li><b>wrapper</b> <br  />
@@ -102,8 +104,8 @@ Requirements</h1>
 <h2><a class="anchor" id="linux"></a>
 Linux</h2>
 <p >After compiling the (static) PRIMME libraries <code>libdprimme.a</code>, <code>libprimme.a</code> and <code>libzprimme.a</code>, they have to be put in <code>/usr/local/lib</code> to be compliant with the Makefile structure</p>
-<p >Last update of the mainpage: </p><dl class="section author"><dt>Author</dt><dd>M.C. Banuls </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>04/08/22 </dd></dl>
+<p >Last update of the mainpage: </p><dl class="section author"><dt>Author</dt><dd>Stefan Kühn </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>07/04/16 </dd></dl>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->

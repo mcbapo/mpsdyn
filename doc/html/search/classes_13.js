@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['z2hamiltonian_0',['Z2Hamiltonian',['../class_z2_hamiltonian.html',1,'']]]
+  ['x_0',['X',['../class_x.html',1,'']]]
 ];

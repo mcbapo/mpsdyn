@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logoMPSDYN.png"/></td>
   <td id="projectalign">
    <div id="projectname">mpsdyn
    </div>
@@ -253,7 +254,7 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Creates an instance of the multi flavor Schwinger <a class="el" href="class_hamiltonian.html">Hamiltonian</a> for a chain of length N_sites, and N_flavor per site. The parameter x is the hopping parameter, mu and nu have to be vectors of length N_flavor specifying the mass and the chemical potential for each flavor respectively. If <img class="formulaInl" alt="$ \lambda\neq 0 $" src="form_273.png"/> is given, a penalty is used to penalize states which have total charge not equal to zero. The resulting <a class="el" href="class_hamiltonian.html">Hamiltonian</a> <a class="el" href="class_m_p_o.html">MPO</a> has bond dimension 3+2*N_flavor. </p><dl class="section warning"><dt>Warning</dt><dd>Right now the penalty pushing the model in the charge zero sub-sector is only working for <b>EVEN</b> number of sites </dd></dl>
+<p >Creates an instance of the multi flavor Schwinger <a class="el" href="class_hamiltonian.html">Hamiltonian</a> for a chain of length N_sites, and N_flavor per site. The parameter x is the hopping parameter, mu and nu have to be vectors of length N_flavor specifying the mass and the chemical potential for each flavor respectively. If <img class="formulaInl" alt="$ \lambda\neq 0 $" src="form_277.png"/> is given, a penalty is used to penalize states which have total charge not equal to zero. The resulting <a class="el" href="class_hamiltonian.html">Hamiltonian</a> <a class="el" href="class_m_p_o.html">MPO</a> has bond dimension 3+2*N_flavor. </p><dl class="section warning"><dt>Warning</dt><dd>Right now the penalty pushing the model in the charge zero sub-sector is only working for <b>EVEN</b> number of sites </dd></dl>
 
 </div>
 </div>
@@ -330,7 +331,7 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Creates an instance of the multi flavor Schwinger <a class="el" href="class_hamiltonian.html">Hamiltonian</a> for a chain of length N_sites, and N_flavor per site. The parameter x is the hopping parameter, mu and nu have to be vectors of length N_flavor specifying the mass and the chemical potential for each flavor respectively. If <img class="formulaInl" alt="$ \lambda\neq 0 $" src="form_273.png"/> is given, a penalty is used to penalize states which have total charge not equal to zero. The parameter eta specifies the strength of the penalty fixing the flavor penalized_flavor to the particle number Npenalized_flavor. This version should only be used if the penalty is really needed, as it yields a <a class="el" href="class_hamiltonian.html">Hamiltonian</a> <a class="el" href="class_m_p_o.html">MPO</a> with bond dimension 4+2*N_flavor. </p><dl class="section warning"><dt>Warning</dt><dd>Right now the penalty pushing the model in the charge zero sub-sector is only working for <b>EVEN</b> number of sites </dd></dl>
+<p >Creates an instance of the multi flavor Schwinger <a class="el" href="class_hamiltonian.html">Hamiltonian</a> for a chain of length N_sites, and N_flavor per site. The parameter x is the hopping parameter, mu and nu have to be vectors of length N_flavor specifying the mass and the chemical potential for each flavor respectively. If <img class="formulaInl" alt="$ \lambda\neq 0 $" src="form_277.png"/> is given, a penalty is used to penalize states which have total charge not equal to zero. The parameter eta specifies the strength of the penalty fixing the flavor penalized_flavor to the particle number Npenalized_flavor. This version should only be used if the penalty is really needed, as it yields a <a class="el" href="class_hamiltonian.html">Hamiltonian</a> <a class="el" href="class_m_p_o.html">MPO</a> with bond dimension 4+2*N_flavor. </p><dl class="section warning"><dt>Warning</dt><dd>Right now the penalty pushing the model in the charge zero sub-sector is only working for <b>EVEN</b> number of sites </dd></dl>
 
 </div>
 </div>
@@ -368,7 +369,7 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
 \mathrm{is\_downup} =&amp; |\downarrow\rangle \otimes |\uparrow\rangle \otimes |\downarrow\rangle \otimes |\uparrow\rangle \dots \\ 
 \mathrm{is\_up} =&amp; |\uparrow\rangle|\otimes |\uparrow\rangle \otimes |\uparrow\rangle \dots \\
 \mathrm{is\_down} =&amp; |\downarrow\rangle|\otimes |\downarrow\rangle \otimes|\downarrow\rangle \dots 
-\end{eqnarray*}" src="form_286.png"/>
+\end{eqnarray*}" src="form_290.png"/>
 </p>
  
 </div>
@@ -389,7 +390,7 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
       </table>
 </div><div class="memdoc">
 <p >Get the total charge <a class="el" href="class_m_p_o.html">MPO</a> given by </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} Q_{nf} = \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} \frac{1+\sigma_z^{nN_f+f}}{2}-\frac{1}{2}\left(1-(-1)^n\right) = \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} \frac{1}{2}\left(-1\right)^n+\frac{1}{2}\sigma_z^{nN_f+f} \]" src="form_280.png"/>
+<img class="formulaDsp" alt="\[ \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} Q_{nf} = \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} \frac{1+\sigma_z^{nN_f+f}}{2}-\frac{1}{2}\left(1-(-1)^n\right) = \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} \frac{1}{2}\left(-1\right)^n+\frac{1}{2}\sigma_z^{nN_f+f} \]" src="form_284.png"/>
 </p>
  
 </div>
@@ -419,10 +420,10 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the (flavor resolved) charge <a class="el" href="class_m_p_o.html">MPO</a>. If a flavor between 0 and <img class="formulaInl" alt="$ N_\mathrm{flavor} -1 $" src="form_276.png"/> is specified, the charge <a class="el" href="class_m_p_o.html">MPO</a> is given for this flavor, resulting in </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ \sum_{n=0}^{N-1}  Q_{nf} = \sum_{n=0}^{N-1} \frac{1+\sigma_z^{nN_f+f}}{2}-\frac{1}{2}\left(1-(-1)^n\right) = \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} \frac{1}{2}\left(-1\right)^n+\frac{1}{2}\sigma_z^{nN_f+f}. \]" src="form_281.png"/>
+<p >Get the (flavor resolved) charge <a class="el" href="class_m_p_o.html">MPO</a>. If a flavor between 0 and <img class="formulaInl" alt="$ N_\mathrm{flavor} -1 $" src="form_280.png"/> is specified, the charge <a class="el" href="class_m_p_o.html">MPO</a> is given for this flavor, resulting in </p><p class="formulaDsp">
+<img class="formulaDsp" alt="\[ \sum_{n=0}^{N-1}  Q_{nf} = \sum_{n=0}^{N-1} \frac{1+\sigma_z^{nN_f+f}}{2}-\frac{1}{2}\left(1-(-1)^n\right) = \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} \frac{1}{2}\left(-1\right)^n+\frac{1}{2}\sigma_z^{nN_f+f}. \]" src="form_285.png"/>
 </p>
-<p> If a negative number is given, all flavors are summed resulting in <img class="formulaInl" alt="$ \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} Q_{nf} $" src="form_282.png"/>. </p>
+<p> If a negative number is given, all flavors are summed resulting in <img class="formulaInl" alt="$ \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} Q_{nf} $" src="form_286.png"/>. </p>
 
 </div>
 </div>
@@ -457,7 +458,7 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the flavor resolved charge <a class="el" href="class_m_p_o.html">MPO</a> <img class="formulaInl" alt="$ Q_{nf} = \frac{1}{2}\left(-1\right)^n+\frac{1}{2}\sigma_z^{nN_f+f} $" src="form_283.png"/> at a single site n. </p>
+<p >Get the flavor resolved charge <a class="el" href="class_m_p_o.html">MPO</a> <img class="formulaInl" alt="$ Q_{nf} = \frac{1}{2}\left(-1\right)^n+\frac{1}{2}\sigma_z^{nN_f+f} $" src="form_287.png"/> at a single site n. </p>
 
 </div>
 </div>
@@ -487,7 +488,7 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
       </table>
 </div><div class="memdoc">
 <p >Get the penalty <a class="el" href="class_m_p_o.html">MPO</a> for the charge </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ \lambda\left(\sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} Q_{nf}\right)^2 \]" src="form_284.png"/>
+<img class="formulaDsp" alt="\[ \lambda\left(\sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} Q_{nf}\right)^2 \]" src="form_288.png"/>
 </p>
 <p> If the flag const_off is set to true, then <img class="formulaInl" alt="$\lambda$" src="form_64.png"/> is set to 1 independent of the value which was set originally in the constructor. </p>
 
@@ -518,7 +519,7 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the condensate <a class="el" href="class_m_p_o.html">MPO</a> <img class="formulaInl" alt="$ \frac{\sqrt{x}}{N}\sum_{n=0}^{N-1}\sum_{f=0}^{N_f-1}\bar{\psi}_{n,f}\psi_{n,f}=\frac{\sqrt{x}}{N}\sum_{n=0}^{N-1}\sum_{f=0}^{N_f-1}(-1)^n\left(\frac{1+\sigma_z^{nN_f+f}}{2}\right) $" src="form_274.png"/> (simply a wrapper for the more general routine kept for compatibility). If factor_off is set to true the prefactor <img class="formulaInl" alt="$ \sqrt{x}/N$" src="form_275.png"/> is set to 1. </p>
+<p >Get the condensate <a class="el" href="class_m_p_o.html">MPO</a> <img class="formulaInl" alt="$ \frac{\sqrt{x}}{N}\sum_{n=0}^{N-1}\sum_{f=0}^{N_f-1}\bar{\psi}_{n,f}\psi_{n,f}=\frac{\sqrt{x}}{N}\sum_{n=0}^{N-1}\sum_{f=0}^{N_f-1}(-1)^n\left(\frac{1+\sigma_z^{nN_f+f}}{2}\right) $" src="form_278.png"/> (simply a wrapper for the more general routine kept for compatibility). If factor_off is set to true the prefactor <img class="formulaInl" alt="$ \sqrt{x}/N$" src="form_279.png"/> is set to 1. </p>
 
 </div>
 </div>
@@ -553,7 +554,7 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the (flavor resolved) condensate <a class="el" href="class_m_p_o.html">MPO</a>. If a flavor between 0 and <img class="formulaInl" alt="$ N_\mathrm{flavor} -1 $" src="form_276.png"/> is specified, the condensate <a class="el" href="class_m_p_o.html">MPO</a> is given for this flavor, resulting in <img class="formulaInl" alt="$ \frac{\sqrt{x}}{N}\sum_{n=0}^{N-1}\bar{\psi}_{n,f}\psi_{n,f}= \frac{\sqrt{x}}{N}\sum_{n=0}^{N-1}(-1)^n\left(\frac{1+\sigma_z^{nN_f+f}}{2}\right)$" src="form_277.png"/>, if a negative number is given, all flavors are summed resulting in <img class="formulaInl" alt="$ \frac{\sqrt{x}}{N}\sum_{n=0}^{N-1}\sum_{f=0}^{N_f-1}\bar{\psi}_{n,f}\psi_{n,f} = \frac{\sqrt{x}}{N}\sum_{n=0}^{N-1}\sum_{f=0}^{N_f-1}(-1)^n\left(\frac{1+\sigma_z^{nN_f+f}}{2}\right) $" src="form_278.png"/>. If factor_off is set to true the prefactor <img class="formulaInl" alt="$ \sqrt{x}/N$" src="form_275.png"/> is set to 1. </p>
+<p >Get the (flavor resolved) condensate <a class="el" href="class_m_p_o.html">MPO</a>. If a flavor between 0 and <img class="formulaInl" alt="$ N_\mathrm{flavor} -1 $" src="form_280.png"/> is specified, the condensate <a class="el" href="class_m_p_o.html">MPO</a> is given for this flavor, resulting in <img class="formulaInl" alt="$ \frac{\sqrt{x}}{N}\sum_{n=0}^{N-1}\bar{\psi}_{n,f}\psi_{n,f}= \frac{\sqrt{x}}{N}\sum_{n=0}^{N-1}(-1)^n\left(\frac{1+\sigma_z^{nN_f+f}}{2}\right)$" src="form_281.png"/>, if a negative number is given, all flavors are summed resulting in <img class="formulaInl" alt="$ \frac{\sqrt{x}}{N}\sum_{n=0}^{N-1}\sum_{f=0}^{N_f-1}\bar{\psi}_{n,f}\psi_{n,f} = \frac{\sqrt{x}}{N}\sum_{n=0}^{N-1}\sum_{f=0}^{N_f-1}(-1)^n\left(\frac{1+\sigma_z^{nN_f+f}}{2}\right) $" src="form_282.png"/>. If factor_off is set to true the prefactor <img class="formulaInl" alt="$ \sqrt{x}/N$" src="form_279.png"/> is set to 1. </p>
 
 </div>
 </div>
@@ -594,7 +595,7 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the condensate <a class="el" href="class_m_p_o.html">MPO</a> <img class="formulaInl" alt="$ \frac{\sqrt{x}}{N}(-1)^n\left(\frac{1+\sigma_z^{nN_f+f}}{2}\right) $" src="form_279.png"/>. If factor_off is set to true the prefactor <img class="formulaInl" alt="$ \sqrt{x}/N$" src="form_275.png"/> is set to 1. </p>
+<p >Get the condensate <a class="el" href="class_m_p_o.html">MPO</a> <img class="formulaInl" alt="$ \frac{\sqrt{x}}{N}(-1)^n\left(\frac{1+\sigma_z^{nN_f+f}}{2}\right) $" src="form_283.png"/>. If factor_off is set to true the prefactor <img class="formulaInl" alt="$ \sqrt{x}/N$" src="form_279.png"/> is set to 1. </p>
 
 </div>
 </div>
@@ -663,7 +664,7 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get local part of the time evolution operator (everything except the long range electric field part which is not local) for time step <code>dt</code>. If <code>imag_time</code> is set to true, the imaginary time version is constructed. If a <code>site</code> between <img class="formulaInl" alt="$ 0 $" src="form_291.png"/> and <img class="formulaInl" alt="$ N_\mathrm{sites} - 1$" src="form_292.png"/> is specified then the operator starts at this site, otherwise it is placed approximately in the middle of the system. The purpose of this operator is to test an extrapolation method by Philippe Corboz where he extrapolates in the truncation error rather than in the bond dimension (<a href="http://journals.aps.org/prb/abstract/10.1103/PhysRevB.93.045116">see reference here</a>) </p>
+<p >Get local part of the time evolution operator (everything except the long range electric field part which is not local) for time step <code>dt</code>. If <code>imag_time</code> is set to true, the imaginary time version is constructed. If a <code>site</code> between <img class="formulaInl" alt="$ 0 $" src="form_295.png"/> and <img class="formulaInl" alt="$ N_\mathrm{sites} - 1$" src="form_296.png"/> is specified then the operator starts at this site, otherwise it is placed approximately in the middle of the system. The purpose of this operator is to test an extrapolation method by Philippe Corboz where he extrapolates in the truncation error rather than in the bond dimension (<a href="http://journals.aps.org/prb/abstract/10.1103/PhysRevB.93.045116">see reference here</a>) </p>
 
 </div>
 </div>
@@ -805,7 +806,7 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get a projector which projects on a state with N_f fermions in flavor f. </p><dl class="section warning"><dt>Warning</dt><dd>The bond dimension will be increasing from 1 to <img class="formulaInl" alt="$ \lfloor\frac{N}{2}\rfloor $" src="form_287.png"/> starting from each site, thus an application is costly </dd></dl>
+<p >Get a projector which projects on a state with N_f fermions in flavor f. </p><dl class="section warning"><dt>Warning</dt><dd>The bond dimension will be increasing from 1 to <img class="formulaInl" alt="$ \lfloor\frac{N}{2}\rfloor $" src="form_291.png"/> starting from each site, thus an application is costly </dd></dl>
 
 </div>
 </div>
@@ -846,7 +847,7 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> representation for <img class="formulaInl" alt="$ \eta \Bigl(\sum_{n=0}^{N_\mathrm{sites}}\frac{1}{2}\left(\sigma_z^{nN_\mathrm{flavor}+\mathrm{flavor}}+1\right) - N_f\Bigr)^2 $" src="form_288.png"/>. If <code>factor_off</code> is set to true then <img class="formulaInl" alt="$ \eta=1.0 $" src="form_289.png"/> is used, otherwise the value of <img class="formulaInl" alt="$ \eta $" src="form_290.png"/> form the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is taken. </p>
+<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> representation for <img class="formulaInl" alt="$ \eta \Bigl(\sum_{n=0}^{N_\mathrm{sites}}\frac{1}{2}\left(\sigma_z^{nN_\mathrm{flavor}+\mathrm{flavor}}+1\right) - N_f\Bigr)^2 $" src="form_292.png"/>. If <code>factor_off</code> is set to true then <img class="formulaInl" alt="$ \eta=1.0 $" src="form_293.png"/> is used, otherwise the value of <img class="formulaInl" alt="$ \eta $" src="form_294.png"/> form the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is taken. </p>
 
 </div>
 </div>
@@ -895,7 +896,7 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
   </tr>
 </table>
 </div><div class="memdoc">
-<p >Apply a spin operator on flavor <img class="formulaInl" alt="$ f $" src="form_268.png"/> on site <img class="formulaInl" alt="$ n $" src="form_269.png"/>, where n is now an index ranging from <img class="formulaInl" alt="$ 0$" src="form_270.png"/> to <img class="formulaInl" alt="$ N_\mathrm{sites}-1$" src="form_271.png"/> and f <img class="formulaInl" alt="$ 0$" src="form_270.png"/> to <img class="formulaInl" alt="$ N_\mathrm{flavors}-1$" src="form_272.png"/>. The index given has to be a valid fermionic site, this is not checked in the routine! </p>
+<p >Apply a spin operator on flavor <img class="formulaInl" alt="$ f $" src="form_272.png"/> on site <img class="formulaInl" alt="$ n $" src="form_273.png"/>, where n is now an index ranging from <img class="formulaInl" alt="$ 0$" src="form_274.png"/> to <img class="formulaInl" alt="$ N_\mathrm{sites}-1$" src="form_275.png"/> and f <img class="formulaInl" alt="$ 0$" src="form_274.png"/> to <img class="formulaInl" alt="$ N_\mathrm{flavors}-1$" src="form_276.png"/>. The index given has to be a valid fermionic site, this is not checked in the routine! </p>
 
 </div>
 </div>
@@ -1047,7 +1048,7 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the time evolution operator for the mass, chemical potential and electric field part. If the flag imag_time is set to true, imaginary time is used. If a value of lmax&gt;0 is given, all field values greater than lmax are truncated, otherwise the bond dimension will be proportional to <img class="formulaInl" alt="$ N_\mathrm{sites}\cdot N_\mathrm{flavor} $" src="form_285.png"/>. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>Implement truncation </dd></dl>
+<p >Get the time evolution operator for the mass, chemical potential and electric field part. If the flag imag_time is set to true, imaginary time is used. If a value of lmax&gt;0 is given, all field values greater than lmax are truncated, otherwise the bond dimension will be proportional to <img class="formulaInl" alt="$ N_\mathrm{sites}\cdot N_\mathrm{flavor} $" src="form_289.png"/>. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000017">Todo:</a></b></dt><dd>Implement truncation </dd></dl>
 
 </div>
 </div>
@@ -1186,8 +1187,8 @@ vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>nu<
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_multi_flavor_schwinger_hamiltonian_8h_source.html">MultiFlavorSchwingerHamiltonian.h</a></li>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/cpp/MultiFlavorSchwingerHamiltonian.cpp</li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_multi_flavor_schwinger_hamiltonian_8h_source.html">MultiFlavorSchwingerHamiltonian.h</a></li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/cpp/MultiFlavorSchwingerHamiltonian.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logoMPSDYN.png"/></td>
   <td id="projectalign">
    <div id="projectname">mpsdyn
    </div>
@@ -293,15 +294,15 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lxprefactor</b></td
       </table>
 </div><div class="memdoc">
 <p >Creates an instance of the Kogut-Susskind-Hamiltonian. The form of the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is given by </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ H = M\sum_n (-1)^n\psi_n^\dagger\psi_n + x\sum_n \left(\psi_n^\dagger L_{+,n}\psi_{n+1}+h.c.\right)+\frac{g^2}{8}\sum_n L_{z,n}^2\]" src="form_234.png"/>
+<img class="formulaDsp" alt="\[ H = M\sum_n (-1)^n\psi_n^\dagger\psi_n + x\sum_n \left(\psi_n^\dagger L_{+,n}\psi_{n+1}+h.c.\right)+\frac{g^2}{8}\sum_n L_{z,n}^2\]" src="form_238.png"/>
 </p>
 <p> After a Jordan Wigner transformation and rendering the result dimensionless we obtain the spin <a class="el" href="class_hamiltonian.html">Hamiltonian</a> which is implemented in this class. The formula is the following: </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[H = x\sum_n\left[\sigma^+_n L_{+,n}\sigma_{n+1}^- + \sigma^-_n L_{-,n}\sigma_{n+1}^+\right] + \frac{4M}{g^2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n L_{z,n}^2  \]" src="form_235.png"/>
+<img class="formulaDsp" alt="\[H = x\sum_n\left[\sigma^+_n L_{+,n}\sigma_{n+1}^- + \sigma^-_n L_{-,n}\sigma_{n+1}^+\right] + \frac{4M}{g^2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n L_{z,n}^2  \]" src="form_239.png"/>
 </p>
 <p> Since the groundstate search could bring us out of the sector of the states which fulfill Gauss' law, we add an additional penalty: </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ \lambda \sum_n\left( L_{z,n} - L_{z,n-1} -\frac{1}{2}\left(\sigma^z_n +(-1)^n\right)\right)^2\]" src="form_236.png"/>
+<img class="formulaDsp" alt="\[ \lambda \sum_n\left( L_{z,n} - L_{z,n-1} -\frac{1}{2}\left(\sigma^z_n +(-1)^n\right)\right)^2\]" src="form_240.png"/>
 </p>
-<p> The exact form of the operators <img class="formulaInl" alt="$ L_{+,n},L_{-,n} $" src="form_237.png"/> is determined by the model one wants to look at.</p>
+<p> The exact form of the operators <img class="formulaInl" alt="$ L_{+,n},L_{-,n} $" src="form_241.png"/> is determined by the model one wants to look at.</p>
 <p >If the effective model is chosen, the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> (in spin formulation) is the following: </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\begin{eqnarray*}
   H &amp;=&amp; H_b + H_f + H_E + H_M + H_\lambda \\
@@ -310,11 +311,11 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lxprefactor</b></td
   H_E &amp;=&amp; \sum_n L_{z,n}^2 \\ 
   H_b &amp;=&amp; c\sum_n\frac{L_{x,n}}{\sqrt{l(l+1)}}\\
   H_\lambda &amp;=&amp; \lambda\sum_n\left[L_{z,n}-L_{z,n-1}-\frac{1}{2}\left(\sigma^z_n+(-1)^n\right)\right]^2.
-  \end{eqnarray*}" src="form_238.png"/>
+  \end{eqnarray*}" src="form_242.png"/>
 </p>
-<p> This <a class="el" href="class_hamiltonian.html">Hamiltonian</a> has the a low energy limit, which coincides with the above form of <img class="formulaInl" alt="$ H $" src="form_239.png"/>.</p>
+<p> This <a class="el" href="class_hamiltonian.html">Hamiltonian</a> has the a low energy limit, which coincides with the above form of <img class="formulaInl" alt="$ H $" src="form_243.png"/>.</p>
 <p >If "realZn" is chosen, the kinetic term for the gauge field is replaced by the one of a real Zn lattice gauge theory which gives as <a class="el" href="class_hamiltonian.html">Hamiltonian</a> </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ H =  x\sum_n\left[\sigma^+_n L_{+,n}\sigma_{n+1}^- + \sigma^-_n L_{-,n}\sigma_{n+1}^+\right] + \frac{\mu}{2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n \left[1-\cos\left(\frac{2\pi}{d}L_{z,n}\right)\right]\]" src="form_240.png"/>
+<img class="formulaDsp" alt="\[ H =  x\sum_n\left[\sigma^+_n L_{+,n}\sigma_{n+1}^- + \sigma^-_n L_{-,n}\sigma_{n+1}^+\right] + \frac{\mu}{2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n \left[1-\cos\left(\frac{2\pi}{d}L_{z,n}\right)\right]\]" src="form_244.png"/>
 </p>
  
 </div>
@@ -345,7 +346,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lxprefactor</b></td
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for the penalty term <img class="formulaInl" alt="$ \sum_{n=1}^N\left(\exp\left(i\frac{2\pi}{N}(L(n)-L(n-1)-\frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]\right)-1\right)\cdot \left(\exp\left(i\frac{2\pi}{N}(L(n)-L(n-1)-\frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]\right)-1\right)^\dagger$" src="form_244.png"/> in the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> which ensures the Gauss Law modulo the dimension of the bosonic Hilbertspaces. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. If a strength greater than zero is given explicitly, then it is taken as constant in front of the operator, otherwise the constant for the penalty out of the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is taken. </p>
+<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for the penalty term <img class="formulaInl" alt="$ \sum_{n=1}^N\left(\exp\left(i\frac{2\pi}{N}(L(n)-L(n-1)-\frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]\right)-1\right)\cdot \left(\exp\left(i\frac{2\pi}{N}(L(n)-L(n-1)-\frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]\right)-1\right)^\dagger$" src="form_248.png"/> in the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> which ensures the Gauss Law modulo the dimension of the bosonic Hilbertspaces. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. If a strength greater than zero is given explicitly, then it is taken as constant in front of the operator, otherwise the constant for the penalty out of the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is taken. </p>
 
 </div>
 </div>
@@ -364,7 +365,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lxprefactor</b></td
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Return the <a class="el" href="class_m_p_o.html">MPO</a> representation of the Charge <a class="el" href="class_operator.html">Operator</a> <img class="formulaInl" alt="$ \frac{1}{2}\sum_{n=1}^N (\sigma_z(n)+(-1)^n) $" src="form_242.png"/> </p>
+<p >Return the <a class="el" href="class_m_p_o.html">MPO</a> representation of the Charge <a class="el" href="class_operator.html">Operator</a> <img class="formulaInl" alt="$ \frac{1}{2}\sum_{n=1}^N (\sigma_z(n)+(-1)^n) $" src="form_246.png"/> </p>
 
 </div>
 </div>
@@ -383,7 +384,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lxprefactor</b></td
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for the condensate fraction <img class="formulaInl" alt="$ \frac{\sqrt{x}}{N}\sum_{n=1}^N\left(-1\right)^n(1+\sigma_z(n)) $" src="form_226.png"/>. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. </p>
+<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for the condensate fraction <img class="formulaInl" alt="$ \frac{\sqrt{x}}{N}\sum_{n=1}^N\left(-1\right)^n(1+\sigma_z(n)) $" src="form_230.png"/>. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. </p>
 
 </div>
 </div>
@@ -422,7 +423,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lxprefactor</b></td
 <img class="formulaDsp" alt="\begin{eqnarray*}
 U_\mathrm{odd} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-_{n+1} +  \sigma^-_n \frac{-iL_{-,n}}{\sqrt{l(l+1)}}\sigma^+_{n+1} \right] + \frac{\mu}{2}(-1)\left[\sigma^z_n+1\right] + \frac{\mu}{2}(+1)\left[\sigma^z_{n+1}+1\right] + L_{z,n}^2\quad\quad\quad\mbox{for n odd} \\
 U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-_{n+1} +  \sigma^-_n \frac{-iL_{-,n}}{\sqrt{l(l+1)}}\sigma^+_{n+1} \right] + \frac{\mu}{2}(+1)\left[\sigma^z_n+1\right] + \frac{\mu}{2}(-1)\left[\sigma^z_{n+1}+1\right] + L_{z,n}^2\quad\quad\quad\mbox{for n odd} \\
-\end{eqnarray*}" src="form_228.png"/>
+\end{eqnarray*}" src="form_232.png"/>
 </p>
 <p> Generate the two MPOs for time evolution (odd-even-splitting) with desired time step dt. The <a class="el" href="class_hamiltonian.html">Hamiltonian</a> for time evolution does not include a penalty term since the generator of the Gauss Law commutes with the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> and therefore the state stays in the Gauss Law fulfilling sector of the Hilbertspace as long as the initial state has been in this sector. The two MPOs look like in the formula above. </p><dl class="section warning"><dt>Warning</dt><dd>This routine is deprecated and only acts as a wrapper which calls <a class="el" href="class_kogut_susskind_hamiltonian.html#a4e15c46eb6d78fe6d95e4c683b867ed8">constructUoddMPO</a> and <a class="el" href="class_kogut_susskind_hamiltonian.html#a747533eebb1915f7c56e2a13f83fef72">constructUevenMPO</a> to ensure compatibility with older versions </dd></dl>
 
@@ -453,7 +454,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Construct the <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-_{n+1} $" src="form_229.png"/> which flips a spin-down spin-up pair </p>
+<p >Construct the <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-_{n+1} $" src="form_233.png"/> which flips a spin-down spin-up pair </p>
 
 </div>
 </div>
@@ -482,7 +483,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Construct the <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sigma^-_{n}\frac{iL_{-,n}}{\sqrt{l(l+1)}}\sigma^+_{n+1} $" src="form_230.png"/> which flips a spin-up spin-down pair. </p>
+<p >Construct the <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sigma^-_{n}\frac{iL_{-,n}}{\sqrt{l(l+1)}}\sigma^+_{n+1} $" src="form_234.png"/> which flips a spin-up spin-down pair. </p>
 
 </div>
 </div>
@@ -511,7 +512,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \frac{1}{2}[\sigma_z(n) + (-1)^n] $" src="form_224.png"/> since it might be needed for a special site it is not stored in the object itself, a reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. The parameter n specifies the fermionic site for which the <a class="el" href="class_m_p_o.html">MPO</a> will be constructed, where n corresponds to a DMRG site, not a spin site. </p>
+<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \frac{1}{2}[\sigma_z(n) + (-1)^n] $" src="form_228.png"/> since it might be needed for a special site it is not stored in the object itself, a reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. The parameter n specifies the fermionic site for which the <a class="el" href="class_m_p_o.html">MPO</a> will be constructed, where n corresponds to a DMRG site, not a spin site. </p>
 
 </div>
 </div>
@@ -540,13 +541,13 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_s.html">MPS</a> (which fulfills GaussLaw <img class="formulaInl" alt="$ L(n)-L(n-1) = \frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]$" src="form_231.png"/>) and therefore can be used as initial state to do time evolution and stay in the GaussLaw fulfilling subspace. The possibilities up to now are </p><p class="formulaDsp">
+<p >Generate an <a class="el" href="class_m_p_s.html">MPS</a> (which fulfills GaussLaw <img class="formulaInl" alt="$ L(n)-L(n-1) = \frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]$" src="form_235.png"/>) and therefore can be used as initial state to do time evolution and stay in the GaussLaw fulfilling subspace. The possibilities up to now are </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\begin{eqnarray*}
 \mathrm{is\_updown} &amp;= |\uparrow\rangle\otimes |0\rangle\otimes |\downarrow\rangle\dots \\
 \mathrm{is\_downup} &amp;= |\downarrow\rangle\otimes |0\rangle\otimes |\uparrow\rangle\dots \\
 \mathrm{is\_upup} &amp;= |\uparrow\rangle\otimes |0\rangle\otimes |\uparrow\rangle \dots\\
 \mathrm{is\_downdown} &amp;= |\downarrow\rangle\otimes |0\rangle\otimes |\downarrow\rangle\dots
-\end{eqnarray*}" src="form_245.png"/>
+\end{eqnarray*}" src="form_249.png"/>
 </p>
  
 </div>
@@ -624,7 +625,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sum_nL(n) $" src="form_223.png"/>. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. </p>
+<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sum_nL(n) $" src="form_227.png"/>. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. </p>
 
 </div>
 </div>
@@ -646,14 +647,14 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
 <p >Construct the discretized version of the momentum operator </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\[
    \hat{P}=\int dx \psi^\dagger(x)i\partial\psi(x)
-\]" src="form_253.png"/>
+\]" src="form_257.png"/>
 </p>
 <p> which is given by </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\[
    \hat{O}_p=-ix\sum_n\left[\sigma_n^-\sigma_{n+1}^z\sigma_{n+2}^+ - \mathrm{h.c.}\right]
-\]" src="form_254.png"/>
+\]" src="form_258.png"/>
 </p>
-<p> after making it dimensionless like the <a class="el" href="class_hamiltonian.html">Hamiltonian</a>. The constant <img class="formulaInl" alt="$ x $" src="form_255.png"/> is not taken into account and has to be added by hand afterwards </p>
+<p> after making it dimensionless like the <a class="el" href="class_hamiltonian.html">Hamiltonian</a>. The constant <img class="formulaInl" alt="$ x $" src="form_259.png"/> is not taken into account and has to be added by hand afterwards </p>
 
 </div>
 </div>
@@ -682,7 +683,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for the penalty term <img class="formulaInl" alt="$ \sum_{n=1}^N\left(L(n)-L(n-1)-\frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]\right)^2 $" src="form_227.png"/> in the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> which ensures the Gauss Law. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. If a strength greater than zero is given explicitly, then it is taken as constant in front of the operator, otherwise the constant for the penalty out of the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is taken. </p>
+<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for the penalty term <img class="formulaInl" alt="$ \sum_{n=1}^N\left(L(n)-L(n-1)-\frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]\right)^2 $" src="form_231.png"/> in the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> which ensures the Gauss Law. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. If a strength greater than zero is given explicitly, then it is taken as constant in front of the operator, otherwise the constant for the penalty out of the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is taken. </p>
 
 </div>
 </div>
@@ -711,7 +712,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sigma_z(n) $" src="form_243.png"/> since it might be needed for a special site it is not stored in the object itself, a reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. The parameter n specifies the fermionic site for which the <a class="el" href="class_m_p_o.html">MPO</a> will be constructed, where n corresponds to a DMRG site, not a spin site. </p>
+<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sigma_z(n) $" src="form_247.png"/> since it might be needed for a special site it is not stored in the object itself, a reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. The parameter n specifies the fermionic site for which the <a class="el" href="class_m_p_o.html">MPO</a> will be constructed, where n corresponds to a DMRG site, not a spin site. </p>
 
 </div>
 </div>
@@ -730,7 +731,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Return the <a class="el" href="class_m_p_o.html">MPO</a> representation of operator for the total <img class="formulaInl" alt="$ S_z $" src="form_241.png"/>, <img class="formulaInl" alt="$ \sum_{n=1}^N \sigma_z(n). $" src="form_222.png"/> </p>
+<p >Return the <a class="el" href="class_m_p_o.html">MPO</a> representation of operator for the total <img class="formulaInl" alt="$ S_z $" src="form_245.png"/>, <img class="formulaInl" alt="$ \sum_{n=1}^N \sigma_z(n). $" src="form_226.png"/> </p>
 
 </div>
 </div>
@@ -858,7 +859,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >The time evolution operator can by approximated by its taylor series up to first order <img class="formulaInl" alt="$ U(t)=\exp(-i\Delta t W)\approx 1 - i\Delta t H $" src="form_233.png"/>. This function generates a single <a class="el" href="class_m_p_o.html">MPO</a> for that approximation of the time evolution operator. It is not unitary contrary to the Padé approximant of Contractor::approximateExponential(const MPO&amp;,const MPS&amp;,MPS&amp;,double,int,bool,double ,double), but it is numerically cheaper. The bond dimension of the resulting <a class="el" href="class_m_p_o.html">MPO</a> is four. </p><dl class="section warning"><dt>Warning</dt><dd>Deprecated, works only for the cQED model! </dd></dl>
+<p >The time evolution operator can by approximated by its taylor series up to first order <img class="formulaInl" alt="$ U(t)=\exp(-i\Delta t W)\approx 1 - i\Delta t H $" src="form_237.png"/>. This function generates a single <a class="el" href="class_m_p_o.html">MPO</a> for that approximation of the time evolution operator. It is not unitary contrary to the Padé approximant of Contractor::approximateExponential(const MPO&amp;,const MPS&amp;,MPS&amp;,double,int,bool,double ,double), but it is numerically cheaper. The bond dimension of the resulting <a class="el" href="class_m_p_o.html">MPO</a> is four. </p><dl class="section warning"><dt>Warning</dt><dd>Deprecated, works only for the cQED model! </dd></dl>
 
 </div>
 </div>
@@ -887,7 +888,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >The time evolution operator can by approximated by its taylor series up to first order <img class="formulaInl" alt="$ U(t)=\exp(-i\Delta t W)\approx 1 - i\Delta t H $" src="form_233.png"/>. This function generates a single <a class="el" href="class_m_p_o.html">MPO</a> for that approximation of the time evolution operator. It is not unitary contrary to the Padé approximant of Contractor::approximateExponential(const MPO&amp;,const MPS&amp;,MPS&amp;,double,int,bool,double ,double), but it is numerically cheaper. The bond dimension of the resulting <a class="el" href="class_m_p_o.html">MPO</a> is four. </p><dl class="section warning"><dt>Warning</dt><dd>Right now, it only works for the cQED, Zn and Zncyclic model, noisy models or the effective cQED models are not supported </dd></dl>
+<p >The time evolution operator can by approximated by its taylor series up to first order <img class="formulaInl" alt="$ U(t)=\exp(-i\Delta t W)\approx 1 - i\Delta t H $" src="form_237.png"/>. This function generates a single <a class="el" href="class_m_p_o.html">MPO</a> for that approximation of the time evolution operator. It is not unitary contrary to the Padé approximant of Contractor::approximateExponential(const MPO&amp;,const MPS&amp;,MPS&amp;,double,int,bool,double ,double), but it is numerically cheaper. The bond dimension of the resulting <a class="el" href="class_m_p_o.html">MPO</a> is four. </p><dl class="section warning"><dt>Warning</dt><dd>Right now, it only works for the cQED, Zn and Zncyclic model, noisy models or the effective cQED models are not supported </dd></dl>
 
 </div>
 </div>
@@ -906,7 +907,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Projection operator to project the state into the Gauss Law fulfilling subspace. This version is global and projects at every spin site at once. Basically it is the same as <img class="formulaInl" alt="$ \sum_n $" src="form_246.png"/> GaussProjector2(MPO &amp;mpo, int n) , however it is more efficient than doing this sum since it is only a single <a class="el" href="class_m_p_o.html">MPO</a>. </p>
+<p >Projection operator to project the state into the Gauss Law fulfilling subspace. This version is global and projects at every spin site at once. Basically it is the same as <img class="formulaInl" alt="$ \sum_n $" src="form_250.png"/> GaussProjector2(MPO &amp;mpo, int n) , however it is more efficient than doing this sum since it is only a single <a class="el" href="class_m_p_o.html">MPO</a>. </p>
 
 </div>
 </div>
@@ -1134,7 +1135,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Function to generate a superposition of mesons and antimesions (strings of length 1) peaked around site <img class="formulaInl" alt="$ n=1,\dots,N_\mathrm{fermions}-1$" src="form_250.png"/> with momentum <img class="formulaInl" alt="$ k $" src="form_251.png"/>. This is done by forming a superposition <img class="formulaInl" alt="$ \sum_n \exp(-I\cdot k\cdot n)\exp\left(-\frac{1}{2w^2}(n-n_0)^2\right) $" src="form_252.png"/>. Here the antimesons (mesons starting at even sites) are taken into account). </p>
+<p >Function to generate a superposition of mesons and antimesions (strings of length 1) peaked around site <img class="formulaInl" alt="$ n=1,\dots,N_\mathrm{fermions}-1$" src="form_254.png"/> with momentum <img class="formulaInl" alt="$ k $" src="form_255.png"/>. This is done by forming a superposition <img class="formulaInl" alt="$ \sum_n \exp(-I\cdot k\cdot n)\exp\left(-\frac{1}{2w^2}(n-n_0)^2\right) $" src="form_256.png"/>. Here the antimesons (mesons starting at even sites) are taken into account). </p>
 
 </div>
 </div>
@@ -1175,7 +1176,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Function to generate a superposition of mesons (strings of length 1) peaked around site <img class="formulaInl" alt="$ n=1,\dots,N_\mathrm{fermions}-1$" src="form_250.png"/> with momentum <img class="formulaInl" alt="$ k $" src="form_251.png"/>. This is done by forming a superposition <img class="formulaInl" alt="$ \sum_n \exp(-I\cdot k\cdot n)\exp\left(-\frac{1}{2w^2}(n-n_0)^2\right) $" src="form_252.png"/>. Here Mesons are only taken to start at odd sites. </p>
+<p >Function to generate a superposition of mesons (strings of length 1) peaked around site <img class="formulaInl" alt="$ n=1,\dots,N_\mathrm{fermions}-1$" src="form_254.png"/> with momentum <img class="formulaInl" alt="$ k $" src="form_255.png"/>. This is done by forming a superposition <img class="formulaInl" alt="$ \sum_n \exp(-I\cdot k\cdot n)\exp\left(-\frac{1}{2w^2}(n-n_0)^2\right) $" src="form_256.png"/>. Here Mesons are only taken to start at odd sites. </p>
 
 </div>
 </div>
@@ -1216,7 +1217,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Function to generate a string operator <img class="formulaInl" alt="$ S_{nl} = -i\sigma^+_nL^+_n\dots L^+_{n+l-1}\sigma^-_{n+l} $" src="form_247.png"/> of length <img class="formulaInl" alt="$ l $" src="form_248.png"/> starting at site <img class="formulaInl" alt="$ n=1,\dots,N_\mathrm{fermions}$" src="form_249.png"/>. If n is odd, the adjoint operator is constructed (such that the operators generate a string on the strong coupling vacuum and does not annihilate it). If the flag for the adjoint operator is set to true, then the adjoint operator is constructed. In case the value for n&lt;=0 then the string is automatically placed approximately in the middle of the chain. </p>
+<p >Function to generate a string operator <img class="formulaInl" alt="$ S_{nl} = -i\sigma^+_nL^+_n\dots L^+_{n+l-1}\sigma^-_{n+l} $" src="form_251.png"/> of length <img class="formulaInl" alt="$ l $" src="form_252.png"/> starting at site <img class="formulaInl" alt="$ n=1,\dots,N_\mathrm{fermions}$" src="form_253.png"/>. If n is odd, the adjoint operator is constructed (such that the operators generate a string on the strong coupling vacuum and does not annihilate it). If the flag for the adjoint operator is set to true, then the adjoint operator is constructed. In case the value for n&lt;=0 then the string is automatically placed approximately in the middle of the chain. </p>
 
 </div>
 </div>
@@ -1546,8 +1547,8 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_kogut_susskind_hamiltonian_8h_source.html">KogutSusskindHamiltonian.h</a></li>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/cpp/KogutSusskindHamiltonian.cpp</li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_kogut_susskind_hamiltonian_8h_source.html">KogutSusskindHamiltonian.h</a></li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/cpp/KogutSusskindHamiltonian.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['_7edoubleoperator_0',['~DoubleOperator',['../class_double_operator.html#ae160cc3085a4fc213e66bcecf98c7c6f',1,'DoubleOperator']]],
-  ['_7efoldedoperator_1',['~FoldedOperator',['../class_folded_operator.html#a47e74dc71ef614680e2d47d85be564be',1,'FoldedOperator']]],
-  ['_7ejoinedoperator_2',['~JoinedOperator',['../class_joined_operator.html#ac72ba9f524d3b78ce663fe6471786ec4',1,'JoinedOperator']]],
-  ['_7emwarray_3',['~mwArray',['../classmw_array.html#ae3c1ac094b3ff6bac68e19fab7da4f92',1,'mwArray']]],
-  ['_7esinglebathhamiltonian_4',['~SingleBathHamiltonian',['../class_single_bath_hamiltonian.html#a649028b8a87f8f52fb121f77773b326c',1,'SingleBathHamiltonian']]],
-  ['_7ethermofieldhamiltonian_5',['~ThermofieldHamiltonian',['../class_thermofield_hamiltonian.html#a07b7decd4cb0816701d9967a26b633ce',1,'ThermofieldHamiltonian']]]
+  ['z2_5fphasediagram_2ecpp_0',['Z2_phasediagram.cpp',['../_z2__phasediagram_8cpp.html',1,'']]],
+  ['z2hamiltonian_1',['Z2Hamiltonian',['../class_z2_hamiltonian.html',1,'Z2Hamiltonian'],['../class_z2_hamiltonian.html#acd882603c39e69c57ad70805278ff136',1,'Z2Hamiltonian::Z2Hamiltonian(int L, double x, double mu)'],['../class_z2_hamiltonian.html#a53602916a85b52d61aae75c896531fb7',1,'Z2Hamiltonian::Z2Hamiltonian(int L, double x, double mu, double lambda)'],['../class_z2_hamiltonian.html#a449ca0f4f6dc52ede1c3a5986dfdf987',1,'Z2Hamiltonian::Z2Hamiltonian(int L, double x, double mu, double alpha, double lambda)']]],
+  ['z2hamiltonian_2ecpp_2',['Z2Hamiltonian.cpp',['../_z2_hamiltonian_8cpp.html',1,'']]],
+  ['z2hamiltonian_2eh_3',['Z2Hamiltonian.h',['../_z2_hamiltonian_8h.html',1,'']]],
+  ['zgelsd_5f_4',['zgelsd_',['../lsd_8cpp.html#a7d54024f85277cb03bb523890cc6ef4f',1,'lsd.cpp']]],
+  ['znpenalties_2ecpp_5',['ZnPenalties.cpp',['../_zn_penalties_8cpp.html',1,'']]]
 ];

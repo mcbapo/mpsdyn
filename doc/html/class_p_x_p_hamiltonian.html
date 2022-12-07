@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logoMPSDYN.png"/></td>
   <td id="projectalign">
    <div id="projectname">mpsdyn
    </div>
@@ -179,12 +180,12 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>pbc</b></td></tr>
 <div class="textblock"><p >Implementation of a PXP <a class="el" href="class_hamiltonian.html">Hamiltonian</a>, </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\[
 H=-J (\sum_{i=1}^{L-2} P^{[i]} \sigma_x^{[i+1]} P^{[i+2]} + \sigma_x^{[1]} P^{[2]} + P^{[L-1]} \sigma_x^{[L]} ), 
-\]" src="form_189.png"/>
+\]" src="form_193.png"/>
 </p>
-<p> where <img class="formulaInl" alt="$P=(1+\sigma_z)/2$" src="form_190.png"/> is the projector onto <img class="formulaInl" alt="$|0\rangle$" src="form_191.png"/>. In the case of periodic boundary conditions, instead of the above, we have </p><p class="formulaDsp">
+<p> where <img class="formulaInl" alt="$P=(1+\sigma_z)/2$" src="form_194.png"/> is the projector onto <img class="formulaInl" alt="$|0\rangle$" src="form_195.png"/>. In the case of periodic boundary conditions, instead of the above, we have </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\[
 H=-\sum_{i=1}^{L} P^{[i]} \sigma_x^{[i+1]} P^{[i+2]}.
-\]" src="form_192.png"/>
+\]" src="form_196.png"/>
 </p>
 <p> The class also implements a projector onto the constrained subspace (annihilating states with two excitations next to each other). If a penalty lambda is provided, the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> includes a penalty term associating that value to any pair of neighbouring excitations. This can be used instead of the projector for some purposes. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -431,8 +432,8 @@ H=-\sum_{i=1}^{L} P^{[i]} \sigma_x^{[i+1]} P^{[i+2]}.
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/banulsm/headers/<a class="el" href="_p_x_p_hamiltonian_8h_source.html">PXPHamiltonian.h</a></li>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/banulsm/cpp/<a class="el" href="_p_x_p_hamiltonian_8cpp.html">PXPHamiltonian.cpp</a></li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/banulsm/headers/<a class="el" href="_p_x_p_hamiltonian_8h_source.html">PXPHamiltonian.h</a></li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/banulsm/cpp/<a class="el" href="_p_x_p_hamiltonian_8cpp.html">PXPHamiltonian.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

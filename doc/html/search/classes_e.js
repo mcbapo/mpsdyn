@@ -1,30 +1,5 @@
 var searchData=
 [
-  ['samplingconfig_0',['SamplingConfig',['../class_sampling_config.html',1,'']]],
-  ['schwingerhamiltonian_1',['SchwingerHamiltonian',['../class_schwinger_hamiltonian.html',1,'']]],
-  ['schwingerhamiltonianagigausslaw_2',['SchwingerHamiltonianAGIGaussLaw',['../class_schwinger_hamiltonian_a_g_i_gauss_law.html',1,'']]],
-  ['schwingerhamiltoniangigausslaw_3',['SchwingerHamiltonianGIGaussLaw',['../class_schwinger_hamiltonian_g_i_gauss_law.html',1,'']]],
-  ['schwingerhamiltonianngigausslaw_4',['SchwingerHamiltonianNGIGaussLaw',['../class_schwinger_hamiltonian_n_g_i_gauss_law.html',1,'']]],
-  ['schwingerhamiltoniannongaugeinvariant_5',['SchwingerHamiltonianNonGaugeinvariant',['../class_schwinger_hamiltonian_non_gaugeinvariant.html',1,'']]],
-  ['schwingerhamiltoniansz_6',['SchwingerHamiltonianSz',['../class_schwinger_hamiltonian_sz.html',1,'']]],
-  ['schwingerhamiltonianszsr_7',['SchwingerHamiltonianSzSR',['../class_schwinger_hamiltonian_sz_s_r.html',1,'']]],
-  ['shagigausslawangular_8',['SHAGIGaussLawAngular',['../class_s_h_a_g_i_gauss_law_angular.html',1,'']]],
-  ['shgigausslawangular_9',['SHGIGaussLawAngular',['../class_s_h_g_i_gauss_law_angular.html',1,'']]],
-  ['shngigausslawangular_10',['SHNGIGaussLawAngular',['../class_s_h_n_g_i_gauss_law_angular.html',1,'']]],
-  ['shnumberoperator_11',['SHNumberOperator',['../class_s_h_number_operator.html',1,'']]],
-  ['singlebathhamiltonian_12',['SingleBathHamiltonian',['../class_single_bath_hamiltonian.html',1,'']]],
-  ['site_13',['Site',['../class_site.html',1,'']]],
-  ['softcoulombhamiltonian_14',['SoftCoulombHamiltonian',['../class_soft_coulomb_hamiltonian.html',1,'']]],
-  ['spinmpo_15',['SpinMPO',['../class_spin_m_p_o.html',1,'']]],
-  ['stacktracenode_16',['stackTraceNode',['../structstack_trace_node.html',1,'']]],
-  ['state_17',['state',['../structstate.html',1,'']]],
-  ['stochastichamiltonian_18',['StochasticHamiltonian',['../class_stochastic_hamiltonian.html',1,'']]],
-  ['str_19',['str',['../structstr.html',1,'']]],
-  ['string_5ft_20',['string_t',['../structstring__t.html',1,'']]],
-  ['su2hamiltonian_21',['SU2Hamiltonian',['../class_s_u2_hamiltonian.html',1,'']]],
-  ['su2hamiltoniangis_22',['SU2HamiltonianGIS',['../class_s_u2_hamiltonian_g_i_s.html',1,'']]],
-  ['su2hamiltoniannolinks_23',['SU2HamiltonianNoLinks',['../class_s_u2_hamiltonian_no_links.html',1,'']]],
-  ['su2hamiltoniannolinksdimless_24',['SU2HamiltonianNoLinksDimless',['../class_s_u2_hamiltonian_no_links_dimless.html',1,'']]],
-  ['su2hamiltoniannolinksdimlessq_25',['SU2HamiltonianNoLinksDimlessQ',['../class_s_u2_hamiltonian_no_links_dimless_q.html',1,'']]],
-  ['su2hamiltoniannolinksq_26',['SU2HamiltonianNoLinksQ',['../class_s_u2_hamiltonian_no_links_q.html',1,'']]]
+  ['reducedsu2hamiltonian_0',['ReducedSU2Hamiltonian',['../class_reduced_s_u2_hamiltonian.html',1,'']]],
+  ['restarting_5fparams_1',['restarting_params',['../structrestarting__params.html',1,'']]]
 ];

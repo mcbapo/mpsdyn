@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logoMPSDYN.png"/></td>
   <td id="projectalign">
    <div id="projectname">mpsdyn
    </div>
@@ -109,7 +110,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae02627c81c78bac6bcfd47f20673ba5a inherit pub_methods_class_hamiltonian"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >Implementation of SoftCoulomb <a class="el" href="class_hamiltonian.html">Hamiltonian</a> for fixed number of sites, using an <a class="el" href="class_m_p_o.html">MPO</a> approximation as a sum of a certain number of exponentials. We include the local potential corresponding to the nucleus (total charge Z and located in the center of the system, in position <img class="formulaInl" alt="$l_Z$" src="form_196.png"/>). </p><p class="formulaDsp">
+<div class="textblock"><p >Implementation of SoftCoulomb <a class="el" href="class_hamiltonian.html">Hamiltonian</a> for fixed number of sites, using an <a class="el" href="class_m_p_o.html">MPO</a> approximation as a sum of a certain number of exponentials. We include the local potential corresponding to the nucleus (total charge Z and located in the center of the system, in position <img class="formulaInl" alt="$l_Z$" src="form_200.png"/>). </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\[
 H=\sum_{i=1}^{L-1} \frac{1}{2 \Delta^2} \left ( c_{i,\sigma}^{\dagger} c_{i+1,\sigma} +
 c_{i+1,\sigma}^{\dagger} c_{i,\sigma} \right ) -
@@ -118,7 +119,7 @@ c_{i+1,\sigma}^{\dagger} c_{i,\sigma} \right ) -
 +\sum_{i=1}^{L} \mu n_i
 +\eta \left( \sum_{i=1}^{L} n_i -N_e\right)^2
 +\eta_S \vec{S}^2
-\]" src="form_197.png"/>
+\]" src="form_201.png"/>
 </p>
 <p> Notice it is defined in terms of spin matrices, not sigmas. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -269,7 +270,7 @@ c_{i+1,\sigma}^{\dagger} c_{i,\sigma} \right ) -
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Return the mpo corresponding to <img class="formulaInl" alt="$\vec{S}^2$" src="form_198.png"/>, i.e. total spin (bond dimension 5). </p>
+<p >Return the mpo corresponding to <img class="formulaInl" alt="$\vec{S}^2$" src="form_202.png"/>, i.e. total spin (bond dimension 5). </p>
 
 </div>
 </div>
@@ -301,8 +302,8 @@ c_{i+1,\sigma}^{\dagger} c_{i,\sigma} \right ) -
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/banulsm/headers/<a class="el" href="_soft_coulomb_hamiltonian_8h_source.html">SoftCoulombHamiltonian.h</a></li>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/banulsm/cpp/SoftCoulombHamiltonian.cpp</li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/banulsm/headers/<a class="el" href="_soft_coulomb_hamiltonian_8h_source.html">SoftCoulombHamiltonian.h</a></li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/banulsm/cpp/SoftCoulombHamiltonian.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

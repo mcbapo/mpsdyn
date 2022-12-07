@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logoMPSDYN.png"/></td>
   <td id="projectalign">
    <div id="projectname">mpsdyn
    </div>
@@ -276,9 +277,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>d_fermi</b></td></tr>
       </table>
 </div><div class="memdoc">
 <p >Creates an instance of the truncated SU(2)-<a class="el" href="class_hamiltonian.html">Hamiltonian</a>. The form of the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is given by </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ H = M\sum_n (-1)^n\psi_n^\dagger\psi_n +  \varepsilon\sum_n \left(\psi_n^\dagger U_{n}\psi_{n+1}+h.c.\right)+\frac{g^2}{2}\sum_n L_{z,n}^2,\]" src="form_349.png"/>
+<img class="formulaDsp" alt="\[ H = M\sum_n (-1)^n\psi_n^\dagger\psi_n +  \varepsilon\sum_n \left(\psi_n^\dagger U_{n}\psi_{n+1}+h.c.\right)+\frac{g^2}{2}\sum_n L_{z,n}^2,\]" src="form_353.png"/>
 </p>
-<p> where <img class="formulaInl" alt="$ \psi_n $" src="form_350.png"/> is a two component color spinor containing two single component fermionic fields <img class="formulaInl" alt="$ \phi_{1,2}$" src="form_351.png"/> where the index refers to the species of fermions. After a generalized Jordan Wigner transformation and we obtain the spin <a class="el" href="class_hamiltonian.html">Hamiltonian</a> which is implemented in this class. The formula is the following: </p><p class="formulaDsp">
+<p> where <img class="formulaInl" alt="$ \psi_n $" src="form_354.png"/> is a two component color spinor containing two single component fermionic fields <img class="formulaInl" alt="$ \phi_{1,2}$" src="form_355.png"/> where the index refers to the species of fermions. After a generalized Jordan Wigner transformation and we obtain the spin <a class="el" href="class_hamiltonian.html">Hamiltonian</a> which is implemented in this class. The formula is the following: </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\begin{eqnarray*}
 H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_{1}^-(n+1)\right.\\
    &amp;+&amp; i\sigma^+_1(n)\sigma^z_2(n) U_{01,n}\sigma_{1}^z(n+1)\sigma_{2}^-(n+1)\\
@@ -287,7 +288,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
    &amp;+&amp; \left.h.c.\right]\\
    &amp;+&amp;\frac{M}{2}\sum_n(-1)^n\left[ (\sigma^z_{1}(n)+1)+(\sigma^z_{2}(n)+1)\right] \\
    &amp;+&amp;\frac{g^2}{2} \sum_n L_{z,n}^2.
-\end{eqnarray*}" src="form_352.png"/>
+\end{eqnarray*}" src="form_356.png"/>
 </p>
  
 </div>
@@ -382,7 +383,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Same as other constructor, however here it is possible to have a site depended mass plus charges specified at the position charge_pos. The charge at position n is ensured via the penalty <img class="formulaInl" alt="$ \lambda\left(\sum_\alpha Q_\alpha(n) Q_\alpha(n) - \frac{3}{4}\right) = \lambda\left(1+\sigma^z_{1}(n)\sigma^z_{2}(n)\right) $" src="form_353.png"/>. As <img class="formulaInl" alt="$ \sum_\alpha Q_\alpha(n) Q_\alpha(n) $" src="form_354.png"/> is a Casimir <a class="el" href="class_operator.html">Operator</a>, this is gauge invariant. </p>
+<p >Same as other constructor, however here it is possible to have a site depended mass plus charges specified at the position charge_pos. The charge at position n is ensured via the penalty <img class="formulaInl" alt="$ \lambda\left(\sum_\alpha Q_\alpha(n) Q_\alpha(n) - \frac{3}{4}\right) = \lambda\left(1+\sigma^z_{1}(n)\sigma^z_{2}(n)\right) $" src="form_357.png"/>. As <img class="formulaInl" alt="$ \sum_\alpha Q_\alpha(n) Q_\alpha(n) $" src="form_358.png"/> is a Casimir <a class="el" href="class_operator.html">Operator</a>, this is gauge invariant. </p>
 
 </div>
 </div>
@@ -424,7 +425,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Build the <a class="el" href="class_m_p_o.html">MPO</a> the reduced <a class="el" href="class_m_p_o.html">MPO</a> <img class="formulaInl" alt="$ O=I_A\otimes Tr_A(S|0\rangle\langle 0|S^\dagger) $" src="form_377.png"/> such that <img class="formulaInl" alt="$ \langle\Psi|O|\Psi\rangle $" src="form_378.png"/> gives the probability to have string in region B. </p>
+<p >Build the <a class="el" href="class_m_p_o.html">MPO</a> the reduced <a class="el" href="class_m_p_o.html">MPO</a> <img class="formulaInl" alt="$ O=I_A\otimes Tr_A(S|0\rangle\langle 0|S^\dagger) $" src="form_381.png"/> such that <img class="formulaInl" alt="$ \langle\Psi|O|\Psi\rangle $" src="form_382.png"/> gives the probability to have string in region B. </p>
 
 </div>
 </div>
@@ -460,7 +461,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
       </table>
 </div><div class="memdoc">
 <p >Generate the the approximated time evolution <a class="el" href="class_m_p_o.html">MPO</a> </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[U(t+\Delta t,t)=1-i\Delta t H\]" src="form_355.png"/>
+<img class="formulaDsp" alt="\[U(t+\Delta t,t)=1-i\Delta t H\]" src="form_359.png"/>
 </p>
 <p> with time step dt. As this approximation is not unitary, the state has to be normalized after every step. If the flag imag_time is set to true, than the <a class="el" href="class_m_p_o.html">MPO</a> for imaginary time evolution instead of real time will be constructed. </p>
 
@@ -498,7 +499,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
       </table>
 </div><div class="memdoc">
 <p >Generate the the approximated time evolution <a class="el" href="class_m_p_o.html">MPO</a> </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[U(t+\Delta t,t)=1-i\Delta t H\]" src="form_355.png"/>
+<img class="formulaDsp" alt="\[U(t+\Delta t,t)=1-i\Delta t H\]" src="form_359.png"/>
 </p>
 <p> with time step dt. As this approximation is not unitary, the state has to be normalized after every step. This version takes into account a possible site depended mass. If the flag imag_time is set to true, than the <a class="el" href="class_m_p_o.html">MPO</a> for imaginary time evolution instead of real time will be constructed. </p>
 
@@ -548,7 +549,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
       </table>
 </div><div class="memdoc">
 <p >Generate the the approximated time evolution <a class="el" href="class_m_p_o.html">MPO</a> </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[U(t+\Delta t,t)=1-i\Delta t H\]" src="form_355.png"/>
+<img class="formulaDsp" alt="\[U(t+\Delta t,t)=1-i\Delta t H\]" src="form_359.png"/>
 </p>
 <p> with time step dt. As this approximation is not unitary, the state has to be normalized after every step. This version takes into account a possible site depended mass plus static charges. If the flag imag_time is set to true, than the <a class="el" href="class_m_p_o.html">MPO</a> for imaginary time evolution instead of real time will be constructed. </p>
 
@@ -585,7 +586,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
 \mathrm{is\_downup} &amp;= |\downarrow\rangle|\downarrow\rangle\otimes |0\rangle\otimes|\uparrow\rangle |\uparrow\rangle \dots\\
 \mathrm{is\_up} &amp;= |\uparrow\rangle|\uparrow\rangle\otimes |0\rangle\otimes|\uparrow\rangle |\uparrow\rangle \dots\\
 \mathrm{is\_down} &amp;= |\downarrow\rangle|\downarrow\rangle\otimes |0\rangle\otimes|\downarrow\rangle |\downarrow\rangle \dots\\
-\end{eqnarray*}" src="form_363.png"/>
+\end{eqnarray*}" src="form_367.png"/>
 </p>
  
 </div>
@@ -662,7 +663,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get projection operators for all the even and all the odd sides which allow to project in the subspace <img class="formulaInl" alt="$ G_\alpha(n)=0\,\forall n\neq pos \,\wedge\, n\neq pos+leng $" src="form_364.png"/> and <img class="formulaInl" alt="$ G_\alpha(pos)=1/2 $" src="form_365.png"/>, <img class="formulaInl" alt="$ G_\alpha(pos+leng)=-1/2 $" src="form_366.png"/>. The component <img class="formulaInl" alt="$ \alpha $" src="form_367.png"/> is selected by comp. If a position smaller than zero is specified, then the automatic placing of the routines creating strings is used. </p>
+<p >Get projection operators for all the even and all the odd sides which allow to project in the subspace <img class="formulaInl" alt="$ G_\alpha(n)=0\,\forall n\neq pos \,\wedge\, n\neq pos+leng $" src="form_368.png"/> and <img class="formulaInl" alt="$ G_\alpha(pos)=1/2 $" src="form_369.png"/>, <img class="formulaInl" alt="$ G_\alpha(pos+leng)=-1/2 $" src="form_370.png"/>. The component <img class="formulaInl" alt="$ \alpha $" src="form_371.png"/> is selected by comp. If a position smaller than zero is specified, then the automatic placing of the routines creating strings is used. </p>
 
 </div>
 </div>
@@ -799,7 +800,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
   </tr>
 </table>
 </div><div class="memdoc">
-<p >Getter for the value of the interaction <img class="formulaInl" alt="$ \varepsilon $" src="form_304.png"/> </p>
+<p >Getter for the value of the interaction <img class="formulaInl" alt="$ \varepsilon $" src="form_308.png"/> </p>
 
 </div>
 </div>
@@ -825,7 +826,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
   </tr>
 </table>
 </div><div class="memdoc">
-<p >Getter for the value of the mass <img class="formulaInl" alt="$ \mu $" src="form_305.png"/> </p>
+<p >Getter for the value of the mass <img class="formulaInl" alt="$ \mu $" src="form_309.png"/> </p>
 
 </div>
 </div>
@@ -866,7 +867,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p ><a class="el" href="class_m_p_o.html">MPO</a> to compute the charge squared correlation function <img class="formulaInl" alt="$ \langle Q^\dagger_\alpha(\mathrm{pos})Q_\alpha(\mathrm{pos}) Q^\dagger_\alpha(\mathrm{pos+length})Q_\alpha(\mathrm{pos+length})\rangle $" src="form_387.png"/>. If the flag projector_on is set to true, then configurations which are not strong coupling inside the string are projected out. </p><dl class="section warning"><dt>Warning</dt><dd>Compared to getChargeSquareMPO(MPO &amp;mpo, unsigned int pos) and getChargeSquareMPO(MPO &amp;mpo) the prefactor 1/8 is neglected! </dd></dl>
+<p ><a class="el" href="class_m_p_o.html">MPO</a> to compute the charge squared correlation function <img class="formulaInl" alt="$ \langle Q^\dagger_\alpha(\mathrm{pos})Q_\alpha(\mathrm{pos}) Q^\dagger_\alpha(\mathrm{pos+length})Q_\alpha(\mathrm{pos+length})\rangle $" src="form_391.png"/>. If the flag projector_on is set to true, then configurations which are not strong coupling inside the string are projected out. </p><dl class="section warning"><dt>Warning</dt><dd>Compared to getChargeSquareMPO(MPO &amp;mpo, unsigned int pos) and getChargeSquareMPO(MPO &amp;mpo) the prefactor 1/8 is neglected! </dd></dl>
 
 </div>
 </div>
@@ -907,7 +908,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p ><a class="el" href="class_m_p_o.html">MPO</a> to compute the charge squared correlation function <img class="formulaInl" alt="$ \langle Q^\dagger_\alpha(\mathrm{pos})Q_\alpha(\mathrm{pos})U_\mathrm{pos}\dots U_\mathrm{pos+length-1} Q^\dagger_\alpha(\mathrm{pos+length})Q_\alpha(\mathrm{pos+length})\rangle $" src="form_388.png"/> where <img class="formulaInl" alt="$ U_\mathrm{n}=\exp\left(i\,\mathrm{factor}\,\pi Q^\dagger_\alpha(n)Q_\alpha(n)\right) $" src="form_389.png"/> are unitaries acting on the spins on site n to prevent the decay of correlations. The constant <img class="formulaInl" alt="$ \mathrm{factor} $" src="form_390.png"/> can be chosen arbitraryly, setting it to zero corresponds to having identities everywhere in betwen. </p><dl class="section warning"><dt>Warning</dt><dd>Once factor is chosen it cannot be changed during the entire run! The prefactors are again neglected as in getChargeCorrelatorMPO </dd></dl>
+<p ><a class="el" href="class_m_p_o.html">MPO</a> to compute the charge squared correlation function <img class="formulaInl" alt="$ \langle Q^\dagger_\alpha(\mathrm{pos})Q_\alpha(\mathrm{pos})U_\mathrm{pos}\dots U_\mathrm{pos+length-1} Q^\dagger_\alpha(\mathrm{pos+length})Q_\alpha(\mathrm{pos+length})\rangle $" src="form_392.png"/> where <img class="formulaInl" alt="$ U_\mathrm{n}=\exp\left(i\,\mathrm{factor}\,\pi Q^\dagger_\alpha(n)Q_\alpha(n)\right) $" src="form_393.png"/> are unitaries acting on the spins on site n to prevent the decay of correlations. The constant <img class="formulaInl" alt="$ \mathrm{factor} $" src="form_394.png"/> can be chosen arbitraryly, setting it to zero corresponds to having identities everywhere in betwen. </p><dl class="section warning"><dt>Warning</dt><dd>Once factor is chosen it cannot be changed during the entire run! The prefactors are again neglected as in getChargeCorrelatorMPO </dd></dl>
 
 </div>
 </div>
@@ -942,7 +943,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> representation of the charge operator <img class="formulaInl" alt="$ Q_{n,\alpha}= \frac{1}{2} \Psi_n^\dagger\sigma_\alpha\Psi_n $" src="form_370.png"/>. Here pos is an a site index ranging between <img class="formulaInl" alt="$ 1 $" src="form_356.png"/> and <img class="formulaInl" alt="$ N_\mathrm{fermions}$" src="form_357.png"/> and comp labels the color component. </p>
+<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> representation of the charge operator <img class="formulaInl" alt="$ Q_{n,\alpha}= \frac{1}{2} \Psi_n^\dagger\sigma_\alpha\Psi_n $" src="form_374.png"/>. Here pos is an a site index ranging between <img class="formulaInl" alt="$ 1 $" src="form_360.png"/> and <img class="formulaInl" alt="$ N_\mathrm{fermions}$" src="form_361.png"/> and comp labels the color component. </p>
 
 </div>
 </div>
@@ -961,7 +962,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> representation of <img class="formulaInl" alt="$\sum_n Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_371.png"/>. Note that <img class="formulaInl" alt="$ Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_372.png"/> does not seem to gauge invariant at first as the group indices are not contracted. However <img class="formulaInl" alt="$ Q_{n,x}^\dagger Q_{n,x}=Q_{n,y}^\dagger Q_{n,y}=Q_{n,z}^\dagger Q_{n,z} $" src="form_373.png"/>, therefore <img class="formulaInl" alt="$ \sum_\alpha Q_{n,\alpha}^\dagger Q_{n,\alpha} = 3Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_374.png"/> and therefore <img class="formulaInl" alt="$ Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_372.png"/> is nevertheless gauge invariant. </p>
+<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> representation of <img class="formulaInl" alt="$\sum_n Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_375.png"/>. Note that <img class="formulaInl" alt="$ Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_376.png"/> does not seem to gauge invariant at first as the group indices are not contracted. However <img class="formulaInl" alt="$ Q_{n,x}^\dagger Q_{n,x}=Q_{n,y}^\dagger Q_{n,y}=Q_{n,z}^\dagger Q_{n,z} $" src="form_377.png"/>, therefore <img class="formulaInl" alt="$ \sum_\alpha Q_{n,\alpha}^\dagger Q_{n,\alpha} = 3Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_378.png"/> and therefore <img class="formulaInl" alt="$ Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_376.png"/> is nevertheless gauge invariant. </p>
 
 </div>
 </div>
@@ -990,7 +991,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> representation of <img class="formulaInl" alt="$ Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_372.png"/>. Note that <img class="formulaInl" alt="$ Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_372.png"/> does not seem to gauge invariant at first as the group indices are not contracted. However <img class="formulaInl" alt="$ Q_{n,x}^\dagger Q_{n,x}=Q_{n,y}^\dagger Q_{n,y}=Q_{n,z}^\dagger Q_{n,z} $" src="form_373.png"/>, therefore <img class="formulaInl" alt="$ \sum_\alpha Q_{n,\alpha}^\dagger Q_{n,\alpha} = 3Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_374.png"/> and therefore <img class="formulaInl" alt="$ Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_372.png"/> is nevertheless gauge invariant. </p>
+<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> representation of <img class="formulaInl" alt="$ Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_376.png"/>. Note that <img class="formulaInl" alt="$ Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_376.png"/> does not seem to gauge invariant at first as the group indices are not contracted. However <img class="formulaInl" alt="$ Q_{n,x}^\dagger Q_{n,x}=Q_{n,y}^\dagger Q_{n,y}=Q_{n,z}^\dagger Q_{n,z} $" src="form_377.png"/>, therefore <img class="formulaInl" alt="$ \sum_\alpha Q_{n,\alpha}^\dagger Q_{n,\alpha} = 3Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_378.png"/> and therefore <img class="formulaInl" alt="$ Q_{n,\alpha}^\dagger Q_{n,\alpha} $" src="form_376.png"/> is nevertheless gauge invariant. </p>
 
 </div>
 </div>
@@ -1019,7 +1020,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> for the chiral condensate <img class="formulaInl" alt="$ \frac{\sqrt{\varepsilon}}{N}\sum_{n=1}^N (-1)^n\phi^\dagger_n\phi_n =  $" src="form_391.png"/> </p>
+<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> for the chiral condensate <img class="formulaInl" alt="$ \frac{\sqrt{\varepsilon}}{N}\sum_{n=1}^N (-1)^n\phi^\dagger_n\phi_n =  $" src="form_395.png"/> </p>
 
 </div>
 </div>
@@ -1073,7 +1074,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> representation of <img class="formulaInl" alt="$ \sum_n \Psi_{n}^\dagger \Psi_{n} $" src="form_375.png"/>. Note that this is only the number of fermions for the non-interacting case. This quantity commutes with the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> and therefore should be conserved. </p>
+<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> representation of <img class="formulaInl" alt="$ \sum_n \Psi_{n}^\dagger \Psi_{n} $" src="form_379.png"/>. Note that this is only the number of fermions for the non-interacting case. This quantity commutes with the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> and therefore should be conserved. </p>
 
 </div>
 </div>
@@ -1102,7 +1103,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> representation of <img class="formulaInl" alt="$ \Psi_{n}^\dagger \Psi_{n} $" src="form_376.png"/>. Note that this is only the number of fermions for the non-interacting case. </p>
+<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> representation of <img class="formulaInl" alt="$ \Psi_{n}^\dagger \Psi_{n} $" src="form_380.png"/>. Note that this is only the number of fermions for the non-interacting case. </p>
 
 </div>
 </div>
@@ -1131,7 +1132,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the operator for <img class="formulaInl" alt="$ G_i=\sum_nG^\dagger_i(n)G_i(n),\,\, i\in\{x,y,z\}$" src="form_362.png"/> which allows to monitor if Gauss' Law is fulfilled </p>
+<p >Get the operator for <img class="formulaInl" alt="$ G_i=\sum_nG^\dagger_i(n)G_i(n),\,\, i\in\{x,y,z\}$" src="form_366.png"/> which allows to monitor if Gauss' Law is fulfilled </p>
 
 </div>
 </div>
@@ -1172,7 +1173,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get a a string operator without the fermionic part (so basically a sum over all combinations of <img class="formulaInl" alt="$ U_{a_1a_2}U_{a_2a_3}U_{a_3a_4}\dots U_{a_{l-2}a_{l-1}}, $" src="form_385.png"/> where <img class="formulaInl" alt="$ a_i\in\{0,1\} $" src="form_386.png"/>). This can be used real time evolution to apply it to the interacting vaccum and evolve it in time to mimic realtime dynamics of string breaking in the presence of external charges. </p>
+<p >Get a a string operator without the fermionic part (so basically a sum over all combinations of <img class="formulaInl" alt="$ U_{a_1a_2}U_{a_2a_3}U_{a_3a_4}\dots U_{a_{l-2}a_{l-1}}, $" src="form_389.png"/> where <img class="formulaInl" alt="$ a_i\in\{0,1\} $" src="form_390.png"/>). This can be used real time evolution to apply it to the interacting vaccum and evolve it in time to mimic realtime dynamics of string breaking in the presence of external charges. </p>
 
 </div>
 </div>
@@ -1258,7 +1259,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the <img class="formulaInl" alt="$ J^2(n)$" src="form_361.png"/> , where n has to be an index ranging from <img class="formulaInl" alt="$ 1 $" src="form_356.png"/> to <img class="formulaInl" alt="$ N_\mathrm{fermions}$" src="form_357.png"/> </p>
+<p >Get the <img class="formulaInl" alt="$ J^2(n)$" src="form_365.png"/> , where n has to be an index ranging from <img class="formulaInl" alt="$ 1 $" src="form_360.png"/> to <img class="formulaInl" alt="$ N_\mathrm{fermions}$" src="form_361.png"/> </p>
 
 </div>
 </div>
@@ -1293,7 +1294,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the <img class="formulaInl" alt="$ L_i(n)$" src="form_358.png"/> , where n has to be an index ranging from <img class="formulaInl" alt="$ 1 $" src="form_356.png"/> to <img class="formulaInl" alt="$ N_\mathrm{fermions}$" src="form_357.png"/> and <img class="formulaInl" alt="$ i $" src="form_359.png"/> labels the component, by default the z-component is selected. </p>
+<p >Get the <img class="formulaInl" alt="$ L_i(n)$" src="form_362.png"/> , where n has to be an index ranging from <img class="formulaInl" alt="$ 1 $" src="form_360.png"/> to <img class="formulaInl" alt="$ N_\mathrm{fermions}$" src="form_361.png"/> and <img class="formulaInl" alt="$ i $" src="form_363.png"/> labels the component, by default the z-component is selected. </p>
 
 </div>
 </div>
@@ -1346,7 +1347,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Function to generate an <a class="el" href="class_m_p_o.html">MPO</a> which creates a distribution of mesons (mesons starting at an odd site) and antimesions (mesons starting at an even site). This is achieved by building the superposition <img class="formulaInl" alt="$ \sum_{n=1}^{N_\mathrm{fermions-1}} \exp(-I\cdot k\cdot n)\exp\left(-\frac{1}{2\sigma^2}(n-n_0)^2\right) S_n$" src="form_381.png"/>, where <img class="formulaInl" alt="$ \sigma $" src="form_382.png"/> is the given by the width and <img class="formulaInl" alt="$ k $" src="form_251.png"/> is <img class="formulaInl" alt="$\mathrm{k}_\mathrm{vec}\cdot \pi $" src="form_383.png"/>. <img class="formulaInl" alt="$ S_n $" src="form_384.png"/> is a string operator of length one (whose exact form depends on whether the site is even or odd). If antimesons is set to false, only mesons are taken into account, if mesons is set to false, only antimesons are taken into account. </p>
+<p >Function to generate an <a class="el" href="class_m_p_o.html">MPO</a> which creates a distribution of mesons (mesons starting at an odd site) and antimesions (mesons starting at an even site). This is achieved by building the superposition <img class="formulaInl" alt="$ \sum_{n=1}^{N_\mathrm{fermions-1}} \exp(-I\cdot k\cdot n)\exp\left(-\frac{1}{2\sigma^2}(n-n_0)^2\right) S_n$" src="form_385.png"/>, where <img class="formulaInl" alt="$ \sigma $" src="form_386.png"/> is the given by the width and <img class="formulaInl" alt="$ k $" src="form_255.png"/> is <img class="formulaInl" alt="$\mathrm{k}_\mathrm{vec}\cdot \pi $" src="form_387.png"/>. <img class="formulaInl" alt="$ S_n $" src="form_388.png"/> is a string operator of length one (whose exact form depends on whether the site is even or odd). If antimesons is set to false, only mesons are taken into account, if mesons is set to false, only antimesons are taken into account. </p>
 
 </div>
 </div>
@@ -1665,7 +1666,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the <img class="formulaInl" alt="$ R_i(n)$" src="form_360.png"/> , where n has to be an index ranging from <img class="formulaInl" alt="$ 1 $" src="form_356.png"/> to <img class="formulaInl" alt="$ N_\mathrm{fermions}$" src="form_357.png"/> and <img class="formulaInl" alt="$ i $" src="form_359.png"/> labels the component, by default the z-component is selected. </p>
+<p >Get the <img class="formulaInl" alt="$ R_i(n)$" src="form_364.png"/> , where n has to be an index ranging from <img class="formulaInl" alt="$ 1 $" src="form_360.png"/> to <img class="formulaInl" alt="$ N_\mathrm{fermions}$" src="form_361.png"/> and <img class="formulaInl" alt="$ i $" src="form_363.png"/> labels the component, by default the z-component is selected. </p>
 
 </div>
 </div>
@@ -1726,7 +1727,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the spin on site <img class="formulaInl" alt="$ n$" src="form_300.png"/> for species 1, where n has to be an index ranging from <img class="formulaInl" alt="$ 1 $" src="form_356.png"/> to <img class="formulaInl" alt="$ N_\mathrm{fermions}$" src="form_357.png"/>, by default the z-component is selected. </p>
+<p >Get the spin on site <img class="formulaInl" alt="$ n$" src="form_304.png"/> for species 1, where n has to be an index ranging from <img class="formulaInl" alt="$ 1 $" src="form_360.png"/> to <img class="formulaInl" alt="$ N_\mathrm{fermions}$" src="form_361.png"/>, by default the z-component is selected. </p>
 
 </div>
 </div>
@@ -1761,7 +1762,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the spin on site <img class="formulaInl" alt="$ n$" src="form_300.png"/> for species 2, where n has to be an index ranging from <img class="formulaInl" alt="$ 1 $" src="form_356.png"/> to <img class="formulaInl" alt="$ N_\mathrm{fermions}$" src="form_357.png"/>, by default the z-component is selected. </p>
+<p >Get the spin on site <img class="formulaInl" alt="$ n$" src="form_304.png"/> for species 2, where n has to be an index ranging from <img class="formulaInl" alt="$ 1 $" src="form_360.png"/> to <img class="formulaInl" alt="$ N_\mathrm{fermions}$" src="form_361.png"/>, by default the z-component is selected. </p>
 
 </div>
 </div>
@@ -1802,7 +1803,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Returns an <a class="el" href="class_m_p_o.html">MPO</a> which allows to create a string on top of an arbitrary state. If a position in between <img class="formulaInl" alt="$ 1 $" src="form_356.png"/> and <img class="formulaInl" alt="$ N_\mathrm{fermions}$" src="form_357.png"/> is specified, the resulting string will start at the desired position, if a zero is given, the string will be placed approximately in the middle of the chain. The operator is chosen such that on the strong coupling vacuum a valid string would be generated which means <img class="formulaInl" alt="$ \Psi_nU_n\dots U_{n+l-1}\Psi^\dagger_n $" src="form_368.png"/> for strings starting at odd n and <img class="formulaInl" alt="$ \Psi_n^\dagger U_n^\dagger\dots U_{n+l-1}^\dagger\Psi_n $" src="form_369.png"/> starting at even n. If the conjugate is set true, this is flipped around. </p>
+<p >Returns an <a class="el" href="class_m_p_o.html">MPO</a> which allows to create a string on top of an arbitrary state. If a position in between <img class="formulaInl" alt="$ 1 $" src="form_360.png"/> and <img class="formulaInl" alt="$ N_\mathrm{fermions}$" src="form_361.png"/> is specified, the resulting string will start at the desired position, if a zero is given, the string will be placed approximately in the middle of the chain. The operator is chosen such that on the strong coupling vacuum a valid string would be generated which means <img class="formulaInl" alt="$ \Psi_nU_n\dots U_{n+l-1}\Psi^\dagger_n $" src="form_372.png"/> for strings starting at odd n and <img class="formulaInl" alt="$ \Psi_n^\dagger U_n^\dagger\dots U_{n+l-1}^\dagger\Psi_n $" src="form_373.png"/> starting at even n. If the conjugate is set true, this is flipped around. </p>
 
 </div>
 </div>
@@ -1843,7 +1844,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Build the string projector <img class="formulaInl" alt="$ P=\sum_{i_k\neq 2}|2\rangle |i_1\rangle \dots \ |i_{L-1}\rangle|2\rangle \langle 2| \langle i_1| \dots \ \langle i_{L-1}|\langle 2| $" src="form_379.png"/> which detects a string of length <img class="formulaInl" alt="$ L $" src="form_380.png"/> starting at position pos. A string is here a stat with flux different from zero on the links in between two links with flux zero. The resulting <a class="el" href="class_m_p_o.html">MPO</a> is a projector which projects all non strings state on zero. If fermions is set to a value different from zero, it also checks if the configuration inside the string is valid (meaning no single fermion on a site inside the string). If the value 1 is given, it is only checked if there is no site with a single fermion on the site, if the value 2 is given, occupation is right (particles on odd sites, antiparticles on even sites). </p>
+<p >Build the string projector <img class="formulaInl" alt="$ P=\sum_{i_k\neq 2}|2\rangle |i_1\rangle \dots \ |i_{L-1}\rangle|2\rangle \langle 2| \langle i_1| \dots \ \langle i_{L-1}|\langle 2| $" src="form_383.png"/> which detects a string of length <img class="formulaInl" alt="$ L $" src="form_384.png"/> starting at position pos. A string is here a stat with flux different from zero on the links in between two links with flux zero. The resulting <a class="el" href="class_m_p_o.html">MPO</a> is a projector which projects all non strings state on zero. If fermions is set to a value different from zero, it also checks if the configuration inside the string is valid (meaning no single fermion on a site inside the string). If the value 1 is given, it is only checked if there is no site with a single fermion on the site, if the value 2 is given, occupation is right (particles on odd sites, antiparticles on even sites). </p>
 
 </div>
 </div>
@@ -2034,7 +2035,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
   </tr>
 </table>
 </div><div class="memdoc">
-<p >Setter for the value of the interaction <img class="formulaInl" alt="$ \varepsilon $" src="form_304.png"/> </p>
+<p >Setter for the value of the interaction <img class="formulaInl" alt="$ \varepsilon $" src="form_308.png"/> </p>
 
 </div>
 </div>
@@ -2061,7 +2062,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
   </tr>
 </table>
 </div><div class="memdoc">
-<p >Setter for the value of the interaction <img class="formulaInl" alt="$ \mu $" src="form_305.png"/> </p>
+<p >Setter for the value of the interaction <img class="formulaInl" alt="$ \mu $" src="form_309.png"/> </p>
 
 </div>
 </div>
@@ -2088,7 +2089,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
   </tr>
 </table>
 </div><div class="memdoc">
-<p >Setter for site dependend values of the interaction <img class="formulaInl" alt="$ \mu $" src="form_305.png"/> </p>
+<p >Setter for site dependend values of the interaction <img class="formulaInl" alt="$ \mu $" src="form_309.png"/> </p>
 
 </div>
 </div>
@@ -2115,7 +2116,7 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
   </tr>
 </table>
 </div><div class="memdoc">
-<p >As the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> after changing <img class="formulaInl" alt="$ \varepsilon $" src="form_304.png"/> might not be immediately needed, the user has to update the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> <a class="el" href="class_m_p_o.html">MPO</a> manually with this function </p><dl class="section warning"><dt>Warning</dt><dd>Only working for site independent mass </dd></dl>
+<p >As the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> after changing <img class="formulaInl" alt="$ \varepsilon $" src="form_308.png"/> might not be immediately needed, the user has to update the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> <a class="el" href="class_m_p_o.html">MPO</a> manually with this function </p><dl class="section warning"><dt>Warning</dt><dd>Only working for site independent mass </dd></dl>
 
 </div>
 </div>
@@ -2141,13 +2142,13 @@ H = &amp;\varepsilon &amp;\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_
   </tr>
 </table>
 </div><div class="memdoc">
-<p >As the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> after changing <img class="formulaInl" alt="$ \varepsilon $" src="form_304.png"/> might not be immediately needed, the user has to update the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> <a class="el" href="class_m_p_o.html">MPO</a> manually with this function </p><dl class="section warning"><dt>Warning</dt><dd>Only working for real site depended mass, not the special case where only one mass is given </dd></dl>
+<p >As the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> after changing <img class="formulaInl" alt="$ \varepsilon $" src="form_308.png"/> might not be immediately needed, the user has to update the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> <a class="el" href="class_m_p_o.html">MPO</a> manually with this function </p><dl class="section warning"><dt>Warning</dt><dd>Only working for real site depended mass, not the special case where only one mass is given </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_s_u2_hamiltonian_8h_source.html">SU2Hamiltonian.h</a></li>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/cpp/<a class="el" href="_s_u2_hamiltonian_8cpp.html">SU2Hamiltonian.cpp</a></li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_s_u2_hamiltonian_8h_source.html">SU2Hamiltonian.h</a></li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/cpp/<a class="el" href="_s_u2_hamiltonian_8cpp.html">SU2Hamiltonian.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

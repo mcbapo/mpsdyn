@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logoMPSDYN.png"/></td>
   <td id="projectalign">
    <div id="projectname">mpsdyn
    </div>
@@ -292,7 +293,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Creates an instance of the truncated SU(2)-<a class="el" href="class_hamiltonian.html">Hamiltonian</a> in the reduced basis. This version allows to include a penalty with strength <img class="formulaInl" alt="$ \lambda $" src="form_260.png"/>. </p><dl class="section warning"><dt>Warning</dt><dd>The bond dimension of the version with penalty is significantly higher, it should therefore be only used if a finite penalty is desired and not with <img class="formulaInl" alt="$ \lambda = 0 $" src="form_303.png"/> </dd></dl>
+<p >Creates an instance of the truncated SU(2)-<a class="el" href="class_hamiltonian.html">Hamiltonian</a> in the reduced basis. This version allows to include a penalty with strength <img class="formulaInl" alt="$ \lambda $" src="form_264.png"/>. </p><dl class="section warning"><dt>Warning</dt><dd>The bond dimension of the version with penalty is significantly higher, it should therefore be only used if a finite penalty is desired and not with <img class="formulaInl" alt="$ \lambda = 0 $" src="form_307.png"/> </dd></dl>
 
 </div>
 </div>
@@ -341,7 +342,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Construct an arbitrary product state as <a class="el" href="class_m_p_s.html">MPS</a>, the vector sites specifies the fermionic occupation numbers as well as the states of the links on the sites in the form <img class="formulaInl" alt="$ |n_1\rangle|2l_1\rangle|n_2\rangle|2l_2\rangle ...$" src="form_306.png"/>, where <img class="formulaInl" alt="$ l_i\in\{0,\dots,(d_\mathrm{link}-1)/2\}$" src="form_307.png"/> . The resulting state will be normalized and right gauged. </p>
+<p >Construct an arbitrary product state as <a class="el" href="class_m_p_s.html">MPS</a>, the vector sites specifies the fermionic occupation numbers as well as the states of the links on the sites in the form <img class="formulaInl" alt="$ |n_1\rangle|2l_1\rangle|n_2\rangle|2l_2\rangle ...$" src="form_310.png"/>, where <img class="formulaInl" alt="$ l_i\in\{0,\dots,(d_\mathrm{link}-1)/2\}$" src="form_311.png"/> . The resulting state will be normalized and right gauged. </p>
 
 </div>
 </div>
@@ -402,7 +403,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
   </tr>
 </table>
 </div><div class="memdoc">
-<p >Getter for the value of the interaction <img class="formulaInl" alt="$ \varepsilon $" src="form_304.png"/> </p>
+<p >Getter for the value of the interaction <img class="formulaInl" alt="$ \varepsilon $" src="form_308.png"/> </p>
 
 </div>
 </div>
@@ -428,7 +429,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
   </tr>
 </table>
 </div><div class="memdoc">
-<p >Getter for the value of the mass <img class="formulaInl" alt="$ \mu $" src="form_305.png"/> </p>
+<p >Getter for the value of the mass <img class="formulaInl" alt="$ \mu $" src="form_309.png"/> </p>
 
 </div>
 </div>
@@ -458,7 +459,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
       </table>
 </div><div class="memdoc">
 <p >Get the charge square operator, which is in the occupation number basis essentially given by </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ Q^2_\alpha = \frac{1}{4} |1\rangle\langle 1|.\]" src="form_308.png"/>
+<img class="formulaDsp" alt="\[ Q^2_\alpha = \frac{1}{4} |1\rangle\langle 1|.\]" src="form_312.png"/>
 </p>
  
 </div>
@@ -488,7 +489,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Chiral condensate <a class="el" href="class_m_p_o.html">MPO</a> <img class="formulaInl" alt="$ \frac{\sqrt{\varepsilon}}{N}\sum_{n=1}^N (-1)^n\phi^\dagger_n\phi_n $" src="form_309.png"/> </p>
+<p >Chiral condensate <a class="el" href="class_m_p_o.html">MPO</a> <img class="formulaInl" alt="$ \frac{\sqrt{\varepsilon}}{N}\sum_{n=1}^N (-1)^n\phi^\dagger_n\phi_n $" src="form_313.png"/> </p>
 
 </div>
 </div>
@@ -517,7 +518,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Check (locally on position n) if the Gauss Law is fulfilled via computing an <a class="el" href="class_m_p_o.html">MPO</a> representation for the operator <img class="formulaInl" alt="$left(L_n-L_{n-1}\right)^2-Q_n^2 $" src="form_310.png"/>. The operator <img class="formulaInl" alt="$ L_n $" src="form_311.png"/> is the one giving the value <img class="formulaInl" alt="$ l $" src="form_248.png"/> for the flux on link <img class="formulaInl" alt="$ n $" src="form_269.png"/> (and not <img class="formulaInl" alt="$ l(l+1) $" src="form_312.png"/> contrary to the operator for the electric energy). </p>
+<p >Check (locally on position n) if the Gauss Law is fulfilled via computing an <a class="el" href="class_m_p_o.html">MPO</a> representation for the operator <img class="formulaInl" alt="$left(L_n-L_{n-1}\right)^2-Q_n^2 $" src="form_314.png"/>. The operator <img class="formulaInl" alt="$ L_n $" src="form_315.png"/> is the one giving the value <img class="formulaInl" alt="$ l $" src="form_252.png"/> for the flux on link <img class="formulaInl" alt="$ n $" src="form_273.png"/> (and not <img class="formulaInl" alt="$ l(l+1) $" src="form_316.png"/> contrary to the operator for the electric energy). </p>
 <p >Array to store the operators acting on a link</p>
 
 </div>
@@ -547,7 +548,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Check globally if the Gauss Law is fulfilled. This is done with the positive semidefinite operator <img class="formulaInl" alt="$ \lambda\left(\left(L_n^2-L_{n-1}^2\right)-Q_n^2\right)^2 $" src="form_313.png"/>. If the strength is set to 0, then the value specified in the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> for <img class="formulaInl" alt="$ \lambda$" src="form_314.png"/> is taken. If a finite value is given, this one is used for <img class="formulaInl" alt="$ \lambda $" src="form_260.png"/>. </p>
+<p >Check globally if the Gauss Law is fulfilled. This is done with the positive semidefinite operator <img class="formulaInl" alt="$ \lambda\left(\left(L_n^2-L_{n-1}^2\right)-Q_n^2\right)^2 $" src="form_317.png"/>. If the strength is set to 0, then the value specified in the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> for <img class="formulaInl" alt="$ \lambda$" src="form_318.png"/> is taken. If a finite value is given, this one is used for <img class="formulaInl" alt="$ \lambda $" src="form_264.png"/>. </p>
 <p >Array to store the operators acting on a link</p>
 
 </div>
@@ -733,7 +734,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get a projector on the Gauss Law fulfilling subspace which is given by states <img class="formulaInl" alt="$ |l_1\rangle \otimes|n\rangle\otimes |l_2\rangle $" src="form_315.png"/> where <img class="formulaInl" alt="$ l_2=l_1\pm \frac{1}{2} $" src="form_316.png"/> for <img class="formulaInl" alt="$ n=1 $" src="form_317.png"/> and <img class="formulaInl" alt="$ l_2=l_1 $" src="form_318.png"/> for <img class="formulaInl" alt="$ n=0,2 $" src="form_319.png"/>. </p><dl class="section warning"><dt>Warning</dt><dd>The bond dimension of this <a class="el" href="class_m_p_o.html">MPO</a> is locally up to <img class="formulaInl" alt="$ d_\mathrm{link}^2 $" src="form_320.png"/>, thus an application of the projectors is costly! </dd></dl>
+<p >Get a projector on the Gauss Law fulfilling subspace which is given by states <img class="formulaInl" alt="$ |l_1\rangle \otimes|n\rangle\otimes |l_2\rangle $" src="form_319.png"/> where <img class="formulaInl" alt="$ l_2=l_1\pm \frac{1}{2} $" src="form_320.png"/> for <img class="formulaInl" alt="$ n=1 $" src="form_321.png"/> and <img class="formulaInl" alt="$ l_2=l_1 $" src="form_322.png"/> for <img class="formulaInl" alt="$ n=0,2 $" src="form_323.png"/>. </p><dl class="section warning"><dt>Warning</dt><dd>The bond dimension of this <a class="el" href="class_m_p_o.html">MPO</a> is locally up to <img class="formulaInl" alt="$ d_\mathrm{link}^2 $" src="form_324.png"/>, thus an application of the projectors is costly! </dd></dl>
 
 </div>
 </div>
@@ -780,7 +781,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get a projector on the Gauss Law fulfilling subspace of strings between heavy external charges. This space is given by by states <img class="formulaInl" alt="$ |l_1\rangle \otimes|n\rangle\otimes |l_2\rangle $" src="form_315.png"/> where <img class="formulaInl" alt="$ l_2=l_1\pm \frac{1}{2} $" src="form_316.png"/> for <img class="formulaInl" alt="$ n=1 $" src="form_317.png"/> and <img class="formulaInl" alt="$ l_2=l_1 $" src="form_318.png"/> for <img class="formulaInl" alt="$ n=0,2 $" src="form_319.png"/> except for the sites pos and pos+length, where there is an offset by quanta allowed. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>Could be more efficient with bond dimension <img class="formulaInl" alt="$ d_\mathrm{link} $" src="form_321.png"/>! </dd></dl>
+<p >Get a projector on the Gauss Law fulfilling subspace of strings between heavy external charges. This space is given by by states <img class="formulaInl" alt="$ |l_1\rangle \otimes|n\rangle\otimes |l_2\rangle $" src="form_319.png"/> where <img class="formulaInl" alt="$ l_2=l_1\pm \frac{1}{2} $" src="form_320.png"/> for <img class="formulaInl" alt="$ n=1 $" src="form_321.png"/> and <img class="formulaInl" alt="$ l_2=l_1 $" src="form_322.png"/> for <img class="formulaInl" alt="$ n=0,2 $" src="form_323.png"/> except for the sites pos and pos+length, where there is an offset by quanta allowed. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000018">Todo:</a></b></dt><dd>Could be more efficient with bond dimension <img class="formulaInl" alt="$ d_\mathrm{link} $" src="form_325.png"/>! </dd></dl>
 
 </div>
 </div>
@@ -809,7 +810,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get a projector on the Gauss Law fulfilling subspace which is given by states <img class="formulaInl" alt="$ |l_1\rangle \otimes|n\rangle\otimes |l_2\rangle $" src="form_315.png"/> where <img class="formulaInl" alt="$ l_2=l_1\pm \frac{1}{2} $" src="form_316.png"/> for <img class="formulaInl" alt="$ n=1 $" src="form_317.png"/> and <img class="formulaInl" alt="$ l_2=l_1 $" src="form_318.png"/> for <img class="formulaInl" alt="$ n=0,2 $" src="form_319.png"/>. </p><dl class="section warning"><dt>Warning</dt><dd>This is an experiment if I can build a projector with lower bond dimension <img class="formulaInl" alt="$ d_\mathrm{link} $" src="form_321.png"/>, thus an application should be way less costly then the previous version. </dd></dl>
+<p >Get a projector on the Gauss Law fulfilling subspace which is given by states <img class="formulaInl" alt="$ |l_1\rangle \otimes|n\rangle\otimes |l_2\rangle $" src="form_319.png"/> where <img class="formulaInl" alt="$ l_2=l_1\pm \frac{1}{2} $" src="form_320.png"/> for <img class="formulaInl" alt="$ n=1 $" src="form_321.png"/> and <img class="formulaInl" alt="$ l_2=l_1 $" src="form_322.png"/> for <img class="formulaInl" alt="$ n=0,2 $" src="form_323.png"/>. </p><dl class="section warning"><dt>Warning</dt><dd>This is an experiment if I can build a projector with lower bond dimension <img class="formulaInl" alt="$ d_\mathrm{link} $" src="form_325.png"/>, thus an application should be way less costly then the previous version. </dd></dl>
 
 </div>
 </div>
@@ -891,7 +892,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get a projector on the Gauss Law fulfilling subspace of strings between heavy external charges. This space is given by by states <img class="formulaInl" alt="$ |l_1\rangle \otimes|n\rangle\otimes |l_2\rangle $" src="form_315.png"/> where <img class="formulaInl" alt="$ l_2=l_1\pm \frac{1}{2} $" src="form_316.png"/> for <img class="formulaInl" alt="$ n=1 $" src="form_317.png"/> and <img class="formulaInl" alt="$ l_2=l_1 $" src="form_318.png"/> for <img class="formulaInl" alt="$ n=0,2 $" src="form_319.png"/> except for the sites pos and pos+length, where there is an offset by quanta allowed. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000019">Todo:</a></b></dt><dd>Could be more efficient with bond dimension <img class="formulaInl" alt="$ d_\mathrm{link} $" src="form_321.png"/>! </dd></dl>
+<p >Get a projector on the Gauss Law fulfilling subspace of strings between heavy external charges. This space is given by by states <img class="formulaInl" alt="$ |l_1\rangle \otimes|n\rangle\otimes |l_2\rangle $" src="form_319.png"/> where <img class="formulaInl" alt="$ l_2=l_1\pm \frac{1}{2} $" src="form_320.png"/> for <img class="formulaInl" alt="$ n=1 $" src="form_321.png"/> and <img class="formulaInl" alt="$ l_2=l_1 $" src="form_322.png"/> for <img class="formulaInl" alt="$ n=0,2 $" src="form_323.png"/> except for the sites pos and pos+length, where there is an offset by quanta allowed. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000019">Todo:</a></b></dt><dd>Could be more efficient with bond dimension <img class="formulaInl" alt="$ d_\mathrm{link} $" src="form_325.png"/>! </dd></dl>
 
 </div>
 </div>
@@ -910,7 +911,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the sum of local projectors on the Gauss Law fulfilling subspace which is given by states <img class="formulaInl" alt="$ |l_1\rangle \otimes|n\rangle\otimes |l_2\rangle $" src="form_315.png"/> where <img class="formulaInl" alt="$ l_2=l_1\pm \frac{1}{2} $" src="form_316.png"/> for <img class="formulaInl" alt="$ n=1 $" src="form_317.png"/> and <img class="formulaInl" alt="$ l_2=l_1 $" src="form_318.png"/> for <img class="formulaInl" alt="$ n=0,2 $" src="form_319.png"/>. Thus one can check, if the Gauss Law is fulfilled during evolution. The bond dimension of the operator is given by <img class="formulaInl" alt="$ d_\mathrm{link}+2 $" src="form_322.png"/> </p>
+<p >Get the sum of local projectors on the Gauss Law fulfilling subspace which is given by states <img class="formulaInl" alt="$ |l_1\rangle \otimes|n\rangle\otimes |l_2\rangle $" src="form_319.png"/> where <img class="formulaInl" alt="$ l_2=l_1\pm \frac{1}{2} $" src="form_320.png"/> for <img class="formulaInl" alt="$ n=1 $" src="form_321.png"/> and <img class="formulaInl" alt="$ l_2=l_1 $" src="form_322.png"/> for <img class="formulaInl" alt="$ n=0,2 $" src="form_323.png"/>. Thus one can check, if the Gauss Law is fulfilled during evolution. The bond dimension of the operator is given by <img class="formulaInl" alt="$ d_\mathrm{link}+2 $" src="form_326.png"/> </p>
 
 </div>
 </div>
@@ -1169,7 +1170,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
   </tr>
 </table>
 </div><div class="memdoc">
-<p >Setter for the value of the interaction <img class="formulaInl" alt="$ \varepsilon $" src="form_304.png"/> </p>
+<p >Setter for the value of the interaction <img class="formulaInl" alt="$ \varepsilon $" src="form_308.png"/> </p>
 
 </div>
 </div>
@@ -1196,7 +1197,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
   </tr>
 </table>
 </div><div class="memdoc">
-<p >Setter for the value of the interaction <img class="formulaInl" alt="$ \mu $" src="form_305.png"/> </p>
+<p >Setter for the value of the interaction <img class="formulaInl" alt="$ \mu $" src="form_309.png"/> </p>
 
 </div>
 </div>
@@ -1228,8 +1229,8 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_reduced_s_u2_hamiltonian_8h_source.html">ReducedSU2Hamiltonian.h</a></li>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/cpp/<a class="el" href="_reduced_s_u2_hamiltonian_8cpp.html">ReducedSU2Hamiltonian.cpp</a></li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_reduced_s_u2_hamiltonian_8h_source.html">ReducedSU2Hamiltonian.h</a></li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/cpp/<a class="el" href="_reduced_s_u2_hamiltonian_8cpp.html">ReducedSU2Hamiltonian.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

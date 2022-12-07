@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logoMPSDYN.png"/></td>
   <td id="projectalign">
    <div id="projectname">mpsdyn
    </div>
@@ -256,16 +257,16 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
       </table>
 </div><div class="memdoc">
 <p >Creates an instance of cQED from arXiv: 1303.5050 in 1+1d. The <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is given by </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ H = M\sum_n (-1)^n\psi_n^\dagger\psi_n + \frac{\varepsilon}{\sqrt{l(l+1)}}\sum_n \left(\psi_n^\dagger L_{+,n}\psi_{n+1}+h.c.\right)+\frac{g^2}{8}\sum_n L_{z,n}^2\]" src="form_215.png"/>
+<img class="formulaDsp" alt="\[ H = M\sum_n (-1)^n\psi_n^\dagger\psi_n + \frac{\varepsilon}{\sqrt{l(l+1)}}\sum_n \left(\psi_n^\dagger L_{+,n}\psi_{n+1}+h.c.\right)+\frac{g^2}{8}\sum_n L_{z,n}^2\]" src="form_219.png"/>
 </p>
 <p> where </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[L_+ = a^\dagger b,\quad L_- = b^\dagger a,\quad L_z = \frac{1}{2}(N_a - N_b),\quad l=\frac{1}{2}(N_a+N_b) = \frac{N_0}{2}.  \]" src="form_216.png"/>
+<img class="formulaDsp" alt="\[L_+ = a^\dagger b,\quad L_- = b^\dagger a,\quad L_z = \frac{1}{2}(N_a - N_b),\quad l=\frac{1}{2}(N_a+N_b) = \frac{N_0}{2}.  \]" src="form_220.png"/>
 </p>
-<p> and <img class="formulaInl" alt="$ a$" src="form_217.png"/> and <img class="formulaInl" alt="$ b $" src="form_218.png"/> are the annihilation operators for two different bosonic species. The total number of bosons per link, <img class="formulaInl" alt="$ N_{0} $" src="form_219.png"/>, is fixed to an even value. After a Jordan Wigner transformation and rendering the result dimensionless we obtain the spin <a class="el" href="class_hamiltonian.html">Hamiltonian</a> which is implemented in this class. The formula is the following: </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[H = \frac{8\varepsilon}{g^2\sqrt{l(l+1)}}\sum_n\left[\sigma^+_n iL_{+,n}\sigma_{n+1}^- + \sigma^-_n (-iL_{-,n})\sigma_{n+1}^+\right] + \frac{4M}{g^2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n L_{z,n}^2  \]" src="form_220.png"/>
+<p> and <img class="formulaInl" alt="$ a$" src="form_221.png"/> and <img class="formulaInl" alt="$ b $" src="form_222.png"/> are the annihilation operators for two different bosonic species. The total number of bosons per link, <img class="formulaInl" alt="$ N_{0} $" src="form_223.png"/>, is fixed to an even value. After a Jordan Wigner transformation and rendering the result dimensionless we obtain the spin <a class="el" href="class_hamiltonian.html">Hamiltonian</a> which is implemented in this class. The formula is the following: </p><p class="formulaDsp">
+<img class="formulaDsp" alt="\[H = \frac{8\varepsilon}{g^2\sqrt{l(l+1)}}\sum_n\left[\sigma^+_n iL_{+,n}\sigma_{n+1}^- + \sigma^-_n (-iL_{-,n})\sigma_{n+1}^+\right] + \frac{4M}{g^2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n L_{z,n}^2  \]" src="form_224.png"/>
 </p>
 <p> Since the ground state search could bring us out of the sector of the states which fulfill Gauss' law, we add an additional penalty: </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ \lambda \sum_n\left( L_{z,n} - L_{z,n-1} -\frac{1}{2}\left(\sigma^z_n +(-1)^n\right)^2\right)\]" src="form_221.png"/>
+<img class="formulaDsp" alt="\[ \lambda \sum_n\left( L_{z,n} - L_{z,n-1} -\frac{1}{2}\left(\sigma^z_n +(-1)^n\right)^2\right)\]" src="form_225.png"/>
 </p>
  
 </div>
@@ -286,7 +287,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for the condensate fraction <img class="formulaInl" alt="$ \frac{\sqrt{x}}{N}\sum_{n=1}^N\left(-1\right)^n(1+\sigma_z(n)) $" src="form_226.png"/>. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. </p>
+<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for the condensate fraction <img class="formulaInl" alt="$ \frac{\sqrt{x}}{N}\sum_{n=1}^N\left(-1\right)^n(1+\sigma_z(n)) $" src="form_230.png"/>. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. </p>
 
 </div>
 </div>
@@ -325,7 +326,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
 <img class="formulaDsp" alt="\begin{eqnarray*}
 U_\mathrm{odd} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-_{n+1} +  \sigma^-_n \frac{-iL_{-,n}}{\sqrt{l(l+1)}}\sigma^+_{n+1} \right] + \frac{\mu}{2}(-1)\left[\sigma^z_n+1\right] + \frac{\mu}{2}(+1)\left[\sigma^z_{n+1}+1\right] + L_{z,n}^2\quad\quad\quad\mbox{for n odd} \\
 U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-_{n+1} +  \sigma^-_n \frac{-iL_{-,n}}{\sqrt{l(l+1)}}\sigma^+_{n+1} \right] + \frac{\mu}{2}(+1)\left[\sigma^z_n+1\right] + \frac{\mu}{2}(-1)\left[\sigma^z_{n+1}+1\right] + L_{z,n}^2\quad\quad\quad\mbox{for n odd} \\
-\end{eqnarray*}" src="form_228.png"/>
+\end{eqnarray*}" src="form_232.png"/>
 </p>
  
 </div>
@@ -390,7 +391,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Construct the <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-_{n+1} $" src="form_229.png"/> which flips a spin-down spin-up pair </p>
+<p >Construct the <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-_{n+1} $" src="form_233.png"/> which flips a spin-down spin-up pair </p>
 
 </div>
 </div>
@@ -419,7 +420,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Construct the <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sigma^-_{n}\frac{iL_{-,n}}{\sqrt{l(l+1)}}\sigma^+_{n+1} $" src="form_230.png"/> which flips a spin-up spin-down pair. </p>
+<p >Construct the <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sigma^-_{n}\frac{iL_{-,n}}{\sqrt{l(l+1)}}\sigma^+_{n+1} $" src="form_234.png"/> which flips a spin-up spin-down pair. </p>
 
 </div>
 </div>
@@ -448,7 +449,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \frac{1}{2}[\sigma_z(n) + (-1)^n] $" src="form_224.png"/> since it might be needed for a special site it is not stored in the object itself, a reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. The parameter n specifies the fermionic site for which the <a class="el" href="class_m_p_o.html">MPO</a> will be constructed, where n corresponds to a DMRG site, not a spin site. </p>
+<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \frac{1}{2}[\sigma_z(n) + (-1)^n] $" src="form_228.png"/> since it might be needed for a special site it is not stored in the object itself, a reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. The parameter n specifies the fermionic site for which the <a class="el" href="class_m_p_o.html">MPO</a> will be constructed, where n corresponds to a DMRG site, not a spin site. </p>
 
 </div>
 </div>
@@ -477,13 +478,13 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_s.html">MPS</a> (which fulfills GaussLaw <img class="formulaInl" alt="$ L(n)-L(n-1) = \frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]$" src="form_231.png"/>) and therefore can be used as initial state to do time evolution and stay in the GaussLaw fulfilling subspace. The possibilites up to now are </p><p class="formulaDsp">
+<p >Generate an <a class="el" href="class_m_p_s.html">MPS</a> (which fulfills GaussLaw <img class="formulaInl" alt="$ L(n)-L(n-1) = \frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]$" src="form_235.png"/>) and therefore can be used as initial state to do time evolution and stay in the GaussLaw fulfilling subspace. The possibilites up to now are </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\begin{eqnarray*}
 \mathrm{is\_updown} &amp;= |\uparrow\rangle\otimes |0\rangle\otimes |\downarrow\rangle \\
 \mathrm{is\_downup} &amp;= |\downarrow\rangle\otimes |0\rangle\otimes |\uparrow\rangle \\
 \mathrm{is\_upup} &amp;= |\uparrow\rangle\otimes |0\rangle\otimes |\uparrow\rangle \\
 \mathrm{is\_downdown} &amp;= |\downarrow\rangle\otimes |0\rangle\otimes |\downarrow\rangle
-\end{eqnarray*}" src="form_232.png"/>
+\end{eqnarray*}" src="form_236.png"/>
 </p>
  
 </div>
@@ -532,7 +533,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sum_nL(n) $" src="form_223.png"/>. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. </p>
+<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sum_nL(n) $" src="form_227.png"/>. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. </p>
 
 </div>
 </div>
@@ -561,7 +562,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for the penalty term <img class="formulaInl" alt="$ \sum_{n=1}^N\left(L(n)-L(n-1)-\frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]\right)^2 $" src="form_227.png"/> in the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> which ensures the Gauss Law. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. If a strength greater than zero is given explicitly, then it is taken as constant in front of the operator, otherwise the constant for the penalty out of the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is taken. </p>
+<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for the penalty term <img class="formulaInl" alt="$ \sum_{n=1}^N\left(L(n)-L(n-1)-\frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]\right)^2 $" src="form_231.png"/> in the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> which ensures the Gauss Law. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. If a strength greater than zero is given explicitly, then it is taken as constant in front of the operator, otherwise the constant for the penalty out of the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is taken. </p>
 
 </div>
 </div>
@@ -590,7 +591,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sigma_z $" src="form_225.png"/> since it might be needed for a special site it is not stored in the object itself, a reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. The parameter n specifies the fermionic site for which the <a class="el" href="class_m_p_o.html">MPO</a> will be constructed, where n corresponds to a DMRG site, not a spin site. </p>
+<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sigma_z $" src="form_229.png"/> since it might be needed for a special site it is not stored in the object itself, a reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. The parameter n specifies the fermionic site for which the <a class="el" href="class_m_p_o.html">MPO</a> will be constructed, where n corresponds to a DMRG site, not a spin site. </p>
 
 </div>
 </div>
@@ -718,7 +719,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >The time evolution operator can by approximated by its taylor series up to first order <img class="formulaInl" alt="$ U(t)=\exp(-i\Delta t W)\approx 1 - i\Delta t H $" src="form_233.png"/>. This function generates a single <a class="el" href="class_m_p_o.html">MPO</a> for that approximation of the time evolution operator. It is not unitary contrary to the Padé approximant of Contractor::approximateExponential(const MPO&amp;,const MPS&amp;,MPS&amp;,double,int,bool,double ,double), but it is numerically cheaper. The bond dimension of the resulting <a class="el" href="class_m_p_o.html">MPO</a> is four. </p>
+<p >The time evolution operator can by approximated by its taylor series up to first order <img class="formulaInl" alt="$ U(t)=\exp(-i\Delta t W)\approx 1 - i\Delta t H $" src="form_237.png"/>. This function generates a single <a class="el" href="class_m_p_o.html">MPO</a> for that approximation of the time evolution operator. It is not unitary contrary to the Padé approximant of Contractor::approximateExponential(const MPO&amp;,const MPS&amp;,MPS&amp;,double,int,bool,double ,double), but it is numerically cheaper. The bond dimension of the resulting <a class="el" href="class_m_p_o.html">MPO</a> is four. </p>
 
 </div>
 </div>
@@ -747,7 +748,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
         </tr>
       </table>
 </div><div class="memdoc">
-<p >The time evolution operator can by approximated by its taylor series up to first order <img class="formulaInl" alt="$ U(t)=\exp(-i\Delta t W)\approx 1 - i\Delta t H $" src="form_233.png"/>. This function generates a single <a class="el" href="class_m_p_o.html">MPO</a> for that approximation of the time evolution operator. It is not unitary contrary to the Padé approximant of Contractor::approximateExponential(const MPO&amp;,const MPS&amp;,MPS&amp;,double,int,bool,double ,double), but it is numerically cheaper. The bond dimension of the resulting <a class="el" href="class_m_p_o.html">MPO</a> is four. </p>
+<p >The time evolution operator can by approximated by its taylor series up to first order <img class="formulaInl" alt="$ U(t)=\exp(-i\Delta t W)\approx 1 - i\Delta t H $" src="form_237.png"/>. This function generates a single <a class="el" href="class_m_p_o.html">MPO</a> for that approximation of the time evolution operator. It is not unitary contrary to the Padé approximant of Contractor::approximateExponential(const MPO&amp;,const MPS&amp;,MPS&amp;,double,int,bool,double ,double), but it is numerically cheaper. The bond dimension of the resulting <a class="el" href="class_m_p_o.html">MPO</a> is four. </p>
 
 </div>
 </div>
@@ -899,7 +900,7 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
   </tr>
 </table>
 </div><div class="memdoc">
-<p >Return the <a class="el" href="class_m_p_o.html">MPO</a> representation of the Charge <a class="el" href="class_operator.html">Operator</a> <img class="formulaInl" alt="$ \sum_{n=1}^N \sigma_z(n). $" src="form_222.png"/> </p>
+<p >Return the <a class="el" href="class_m_p_o.html">MPO</a> representation of the Charge <a class="el" href="class_operator.html">Operator</a> <img class="formulaInl" alt="$ \sum_{n=1}^N \sigma_z(n). $" src="form_226.png"/> </p>
 
 </div>
 </div>
@@ -1157,8 +1158,8 @@ U_\mathrm{even} &amp;= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_c_q_e_d_8h_source.html">CQED.h</a></li>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/cpp/CQED.cpp</li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_c_q_e_d_8h_source.html">CQED.h</a></li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/cpp/CQED.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

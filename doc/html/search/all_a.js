@@ -1,13 +1,6 @@
 var searchData=
 [
-  ['kogutsusskindhamiltonian_0',['KogutSusskindHamiltonian',['../class_kogut_susskind_hamiltonian.html',1,'KogutSusskindHamiltonian'],['../class_kogut_susskind_hamiltonian.html#aa8fe8f55a5c992dc406fbb62b9a256e4',1,'KogutSusskindHamiltonian::KogutSusskindHamiltonian()']]],
-  ['kogutsusskindhamiltonian_2eh_1',['KogutSusskindHamiltonian.h',['../_kogut_susskind_hamiltonian_8h.html',1,'']]],
-  ['kondohamiltonian_2',['KondoHamiltonian',['../class_kondo_hamiltonian.html',1,'KondoHamiltonian'],['../class_kondo_hamiltonian.html#a0834fa9ad873d61044e3e2ce27fa161d',1,'KondoHamiltonian::KondoHamiltonian(int L, double J, double t)'],['../class_kondo_hamiltonian.html#ab9eae693b19cb22847674acc4957740c',1,'KondoHamiltonian::KondoHamiltonian(int L, double Jpar, double Jperp, double t, double omega=0.)']]],
-  ['kron_3',['kron',['../classmw_array.html#a6918a069e6ec27c2fa3ebad75fe6cd94',1,'mwArray::kron()'],['../classmw_array.html#a2433f33e9789c6950fb877e2078a0240',1,'mwArray::kron()']]],
-  ['ks_5fhamil_5ftest_2ecpp_4',['KS_Hamil_test.cpp',['../_k_s___hamil__test_8cpp.html',1,'']]],
-  ['ks_5foddeven_2ecpp_5',['KS_OddEven.cpp',['../_k_s___odd_even_8cpp.html',1,'']]],
-  ['ks_5fspectrum_2ecpp_6',['KS_spectrum.cpp',['../_k_s__spectrum_8cpp.html',1,'']]],
-  ['ks_5fstringdyn_2ecpp_7',['KS_stringdyn.cpp',['../_k_s__stringdyn_8cpp.html',1,'']]],
-  ['kshamiltonian_8',['KSHamiltonian',['../class_k_s_hamiltonian.html',1,'KSHamiltonian'],['../class_k_s_hamiltonian.html#a29175245266bc0c374beef00d38fcbb3',1,'KSHamiltonian::KSHamiltonian()']]],
-  ['kshamiltonian_2eh_9',['KSHamiltonian.h',['../_k_s_hamiltonian_8h.html',1,'']]]
+  ['jd_5fprojectors_0',['JD_projectors',['../struct_j_d__projectors.html',1,'']]],
+  ['join_1',['join',['../class_m_p_o.html#a4ac28d0b7a2260cba3ee9d46da47f331',1,'MPO']]],
+  ['joinedoperator_2',['JoinedOperator',['../class_joined_operator.html',1,'JoinedOperator'],['../class_joined_operator.html#a38b50abd2d06730da3cab43b648754ec',1,'JoinedOperator::JoinedOperator(int n, const Operator *ops[])'],['../class_joined_operator.html#a2bd7d517c6222025d6f22a784e3cdb9a',1,'JoinedOperator::JoinedOperator(int n, const std::vector&lt; Operator * &gt; &amp;ops)'],['../class_joined_operator.html#a1bfe16f606b7cc5f0cc2fceb965500ea',1,'JoinedOperator::JoinedOperator(const JoinedOperator &amp;op)']]]
 ];

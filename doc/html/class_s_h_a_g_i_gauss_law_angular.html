@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logoMPSDYN.png"/></td>
   <td id="projectalign">
    <div id="projectname">mpsdyn
    </div>
@@ -163,7 +164,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
 <tr class="separator:ae70187ce76becf49f420eb827df336cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >Implementation of the Schwinger <a class="el" href="class_hamiltonian.html">Hamiltonian</a> in the spin representation with simplified link fields that violate the gauge invariance of the <a class="el" href="class_hamiltonian.html">Hamiltonian</a>. This version employs <img class="formulaInl" alt="$ L(n) = a_n^\dagger a_n $" src="form_212.png"/> and chooses <img class="formulaInl" alt="$ \theta(n) $" src="form_213.png"/> accordingly so that in the continuum the commutator fulfills <img class="formulaInl" alt="$ [\theta(n),L(m)]=i\delta_{n,m} $" src="form_214.png"/>. In this version it is possible to set the order up to which the exponential of the link fields is approximated. </p>
+<div class="textblock"><p >Implementation of the Schwinger <a class="el" href="class_hamiltonian.html">Hamiltonian</a> in the spin representation with simplified link fields that violate the gauge invariance of the <a class="el" href="class_hamiltonian.html">Hamiltonian</a>. This version employs <img class="formulaInl" alt="$ L(n) = a_n^\dagger a_n $" src="form_216.png"/> and chooses <img class="formulaInl" alt="$ \theta(n) $" src="form_217.png"/> accordingly so that in the continuum the commutator fulfills <img class="formulaInl" alt="$ [\theta(n),L(m)]=i\delta_{n,m} $" src="form_218.png"/>. In this version it is possible to set the order up to which the exponential of the link fields is approximated. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aff49c9e9075867f97baf4d7e2337fef4" name="aff49c9e9075867f97baf4d7e2337fef4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff49c9e9075867f97baf4d7e2337fef4">&#9670;&nbsp;</a></span>SHAGIGaussLawAngular()</h2>
@@ -226,25 +227,25 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Creates an instance of Schwinger <a class="el" href="class_hamiltonian.html">Hamiltonian</a> for a chain of N fermions, bosonic dimension d and parameters <img class="formulaInl" alt="$ \mu, x, e, \lambda $" src="form_323.png"/> and the order exp_order up to which the exponential is approximated. The bond dimension is set to D. The gauge field on the links is simplified and represented by a <img class="formulaInl" alt="$ d\times d $" src="form_324.png"/> Matrix and therefore the gauge invariance of the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is broken up. The full <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is given by </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ W =\frac{2}{ag^2} H = W_0+xV + \lambda P \]" src="form_325.png"/>
+<p >Creates an instance of Schwinger <a class="el" href="class_hamiltonian.html">Hamiltonian</a> for a chain of N fermions, bosonic dimension d and parameters <img class="formulaInl" alt="$ \mu, x, e, \lambda $" src="form_327.png"/> and the order exp_order up to which the exponential is approximated. The bond dimension is set to D. The gauge field on the links is simplified and represented by a <img class="formulaInl" alt="$ d\times d $" src="form_328.png"/> Matrix and therefore the gauge invariance of the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is broken up. The full <a class="el" href="class_hamiltonian.html">Hamiltonian</a> is given by </p><p class="formulaDsp">
+<img class="formulaDsp" alt="\[ W =\frac{2}{ag^2} H = W_0+xV + \lambda P \]" src="form_329.png"/>
 </p>
 <p> with </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\begin{eqnarray*} 
   W_0 &amp;=&amp; \sum_n L^2(n) + \frac{\mu}{2}\sum_n(-1)^n\sigma_3(n)+N\frac{\mu}{2}\\
   V &amp;=&amp; \sum_n\left[\sigma^+(n)\exp(i\theta(n))\sigma1^-(n+1) + \sigma^+(n+1)\exp(-i\theta(n))\sigma1^-(n)\right] \\
- \end{eqnarray*}" src="form_337.png"/>
+ \end{eqnarray*}" src="form_341.png"/>
 </p>
 <p> For the Pauli-Matrices the following convention is chosen </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\begin{eqnarray*}
    \sigma^+(n) &amp;=&amp; \frac{1}{2}(\sigma_x + i\sigma_y) \\ 
    \sigma^-(n) &amp;=&amp; \frac{1}{2}(\sigma_x - i\sigma_y)
-  \end{eqnarray*}" src="form_327.png"/>
+  \end{eqnarray*}" src="form_331.png"/>
 </p>
-<p> The operator <img class="formulaInl" alt="$ L(n)$" src="form_328.png"/> is represented with the number operator <img class="formulaInl" alt="$ a^\dagger(n)a(n) -\mathrm{offset}$" src="form_338.png"/> (and therefore is diagonal). The offset is chosen in a way, that the diagonal elements of <img class="formulaInl" alt="$ L(n)$" src="form_328.png"/> have integer values from <img class="formulaInl" alt="$ -d_\mathrm{max},\dots,0,\dots,d_\mathrm{max} $" src="form_339.png"/>. The operator <img class="formulaInl" alt="$ \theta(n) $" src="form_213.png"/> is chosen according to the paper "Angle states in quantum mechanics - A. C. de la Torre and J. L. Tiguan" and fulfills the right commutation realtion in the limit of infinite dimension. The term <img class="formulaInl" alt="$ P $" src="form_331.png"/> acts as penalty term and ensures the Gauss-law, it is given by </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ P=\sum_{n=1}^N\left(L(n)^2 - L(n-1)^2 -\frac{1}{2}\left[\sigma_3(n)+(-1)^n\right]\right)^2, \]" src="form_332.png"/>
+<p> The operator <img class="formulaInl" alt="$ L(n)$" src="form_332.png"/> is represented with the number operator <img class="formulaInl" alt="$ a^\dagger(n)a(n) -\mathrm{offset}$" src="form_342.png"/> (and therefore is diagonal). The offset is chosen in a way, that the diagonal elements of <img class="formulaInl" alt="$ L(n)$" src="form_332.png"/> have integer values from <img class="formulaInl" alt="$ -d_\mathrm{max},\dots,0,\dots,d_\mathrm{max} $" src="form_343.png"/>. The operator <img class="formulaInl" alt="$ \theta(n) $" src="form_217.png"/> is chosen according to the paper "Angle states in quantum mechanics - A. C. de la Torre and J. L. Tiguan" and fulfills the right commutation realtion in the limit of infinite dimension. The term <img class="formulaInl" alt="$ P $" src="form_335.png"/> acts as penalty term and ensures the Gauss-law, it is given by </p><p class="formulaDsp">
+<img class="formulaDsp" alt="\[ P=\sum_{n=1}^N\left(L(n)^2 - L(n-1)^2 -\frac{1}{2}\left[\sigma_3(n)+(-1)^n\right]\right)^2, \]" src="form_336.png"/>
 </p>
-<p> where it is assumed that <img class="formulaInl" alt="$ L(N) = 0 = L(0) $" src="form_333.png"/>. </p>
+<p> where it is assumed that <img class="formulaInl" alt="$ L(N) = 0 = L(0) $" src="form_337.png"/>. </p>
 
 </div>
 </div>
@@ -264,7 +265,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for the condensate fraction <img class="formulaInl" alt="$ \frac{\sqrt{x}}{N}\sum_{n=1}^N\left(-1\right)^n(1+\sigma_z(n)) $" src="form_226.png"/>. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. </p>
+<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for the condensate fraction <img class="formulaInl" alt="$ \frac{\sqrt{x}}{N}\sum_{n=1}^N\left(-1\right)^n(1+\sigma_z(n)) $" src="form_230.png"/>. A reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. </p>
 
 </div>
 </div>
@@ -293,7 +294,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \frac{1}{2}[\sigma_z(n) + (-1)^n] $" src="form_224.png"/> since it might be needed for a special site it is not stored in the object itself, a reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. The parameter n specifies the fermionic site for which the <a class="el" href="class_m_p_o.html">MPO</a> will be constructed, where n corresponds to a DMRG site, not a spin site. </p>
+<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \frac{1}{2}[\sigma_z(n) + (-1)^n] $" src="form_228.png"/> since it might be needed for a special site it is not stored in the object itself, a reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. The parameter n specifies the fermionic site for which the <a class="el" href="class_m_p_o.html">MPO</a> will be constructed, where n corresponds to a DMRG site, not a spin site. </p>
 
 </div>
 </div>
@@ -370,7 +371,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sigma_z $" src="form_225.png"/> since it might be needed for a special site it is not stored in the object itself, a reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. The parameter n specifies the fermionic site for which the <a class="el" href="class_m_p_o.html">MPO</a> will be constructed, where n corresponds to a DMRG site, not a spin site. </p>
+<p >Generate an <a class="el" href="class_m_p_o.html">MPO</a> for <img class="formulaInl" alt="$ \sigma_z $" src="form_229.png"/> since it might be needed for a special site it is not stored in the object itself, a reference to an <a class="el" href="class_m_p_o.html">MPO</a> has to be given which will be overwritten. The parameter n specifies the fermionic site for which the <a class="el" href="class_m_p_o.html">MPO</a> will be constructed, where n corresponds to a DMRG site, not a spin site. </p>
 
 </div>
 </div>
@@ -396,7 +397,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
   </tr>
 </table>
 </div><div class="memdoc">
-<p >Return the <a class="el" href="class_m_p_o.html">MPO</a> representation of the Charge <a class="el" href="class_operator.html">Operator</a> <img class="formulaInl" alt="$ \sum_{n=1}^N \sigma_z(n). $" src="form_222.png"/> </p>
+<p >Return the <a class="el" href="class_m_p_o.html">MPO</a> representation of the Charge <a class="el" href="class_operator.html">Operator</a> <img class="formulaInl" alt="$ \sum_{n=1}^N \sigma_z(n). $" src="form_226.png"/> </p>
 
 </div>
 </div>
@@ -511,8 +512,8 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>lambda</b></td></tr
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_s_h_a_g_i_gauss_law_angular_8h_source.html">SHAGIGaussLawAngular.h</a></li>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/cpp/SHAGIGaussLawAngular.cpp</li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_s_h_a_g_i_gauss_law_angular_8h_source.html">SHAGIGaussLawAngular.h</a></li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/cpp/SHAGIGaussLawAngular.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

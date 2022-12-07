@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['indices_0',['Indices',['../class_indices.html',1,'Indices'],['../classshrt_1_1_indices.html',1,'shrt::Indices']]],
-  ['isinghamiltonian_1',['IsingHamiltonian',['../class_ising_hamiltonian.html',1,'']]]
+  ['hamiltonian_0',['Hamiltonian',['../class_hamiltonian.html',1,'']]],
+  ['heisenbergancillarynoisehamiltonian_1',['HeisenbergAncillaryNoiseHamiltonian',['../class_heisenberg_ancillary_noise_hamiltonian.html',1,'']]],
+  ['heisenberghamiltonian_2',['HeisenbergHamiltonian',['../class_heisenberg_hamiltonian.html',1,'']]],
+  ['heisenberghamiltonian2d_3',['HeisenbergHamiltonian2D',['../class_heisenberg_hamiltonian2_d.html',1,'']]],
+  ['hermitiantensormultiplier_4',['HermitianTensorMultiplier',['../class_hermitian_tensor_multiplier.html',1,'']]]
 ];

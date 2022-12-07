@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logoMPSDYN.png"/></td>
   <td id="projectalign">
    <div id="projectname">mpsdyn
    </div>
@@ -351,7 +352,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Compute the matrix exponential by diagonalizing a full matrix and exponentiating the diagonal of eigenvalues: <img class="formulaInl" alt="$ exp(A) = U exp(D) U^{\dagger}$" src="form_440.png"/>. The matrix should be diagonalizable. The coefficient coeff can contain a factor to put in the exponent. </p>
+<p >Compute the matrix exponential by diagonalizing a full matrix and exponentiating the diagonal of eigenvalues: <img class="formulaInl" alt="$ exp(A) = U exp(D) U^{\dagger}$" src="form_444.png"/>. The matrix should be diagonalizable. The coefficient coeff can contain a factor to put in the exponent. </p>
 
 </div>
 </div>
@@ -752,7 +753,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Computes the singular Value decomposition of matrix A, returns U, S, V+ such that <img class="formulaInl" alt="$A=U\cdot S\cdot V^{\dagger}$" src="form_439.png"/>. Then analyzes how many singular values are bigger than the provided tol, and returns this number in nr. If the original matrix was MxN, the sizes of the returned arrays will be U(Mxnr), S(nrxnr) and V(nrxnr). IMPORTANT: If tol is to be used to cut the small values, set nr to 0. Otherwise, nr values are kept at most. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000026">Todo:</a></b></dt><dd>Call the lapack routine once before, to assess optimal size! </dd></dl>
+<p >Computes the singular Value decomposition of matrix A, returns U, S, V+ such that <img class="formulaInl" alt="$A=U\cdot S\cdot V^{\dagger}$" src="form_443.png"/>. Then analyzes how many singular values are bigger than the provided tol, and returns this number in nr. If the original matrix was MxN, the sizes of the returned arrays will be U(Mxnr), S(nrxnr) and V(nrxnr). IMPORTANT: If tol is to be used to cut the small values, set nr to 0. Otherwise, nr values are kept at most. </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000026">Todo:</a></b></dt><dd>Call the lapack routine once before, to assess optimal size! </dd></dl>
 
 </div>
 </div>
@@ -799,7 +800,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Singular Value decomposition of matrix A, returns U, S, V+ such that <img class="formulaInl" alt="$A=U\cdot S\cdot V^{\dagger}$" src="form_439.png"/>. If flag full is set to true, full unitaries are returned. </p>
+<p >Singular Value decomposition of matrix A, returns U, S, V+ such that <img class="formulaInl" alt="$A=U\cdot S\cdot V^{\dagger}$" src="form_443.png"/>. If flag full is set to true, full unitaries are returned. </p>
 
 </div>
 </div>

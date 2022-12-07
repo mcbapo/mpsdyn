@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logoMPSDYN.png"/></td>
   <td id="projectalign">
    <div id="projectname">mpsdyn
    </div>
@@ -210,14 +211,14 @@ std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Implementation of a chain with two types of spins, <img class="formulaInl" alt="$\sigma_n,\,
-\tau_n$" src="form_171.png"/>, corresponding to two Heisenberg chains coupled by a <img class="formulaInl" alt="$\sigma_z^{[n]} \tau_z^{[n]}$" src="form_172.png"/> term. Different to <a class="el" href="class_heisenberg_hamiltonian.html">HeisenbergHamiltonian</a>, here all the coefficients are translationally invariant. The second type of spins, when traced out, realizes a random magnetic field for the first chain. </p><p class="formulaDsp">
+\tau_n$" src="form_173.png"/>, corresponding to two Heisenberg chains coupled by a <img class="formulaInl" alt="$\sigma_z^{[n]} \tau_z^{[n]}$" src="form_174.png"/> term. Different to <a class="el" href="class_heisenberg_hamiltonian.html">HeisenbergHamiltonian</a>, here all the coefficients are translationally invariant. The second type of spins, when traced out, realizes a random magnetic field for the first chain. </p><p class="formulaDsp">
 <img class="formulaDsp" alt="\[
 H=\sum_{i=1}^{L-1} \frac{1}{4}\left ( \vec{\sigma}^{[i]}\vec{\sigma}^{[i+1]} +
 J \vec{\tau}^{[i]}\vec{\tau}^{[i+1]} \right ) +    
 \sum_{i=1}^{L} B \frac{1}{4} \sigma_z^{[i]}\tau_z^{[i]} 
-\]" src="form_173.png"/>
+\]" src="form_175.png"/>
 </p>
-<p> The <img class="formulaInl" alt="$\frac{1}{4}$" src="form_174.png"/> are due to the fact that the implementation is defined in terms of spin matrices, not sigmas, as in the parent <a class="el" href="class_heisenberg_hamiltonian.html">HeisenbergHamiltonian</a>. The implementation is done in terms of a single chain, in which <img class="formulaInl" alt="$\sigma$" src="form_175.png"/> and <img class="formulaInl" alt="$\tau$" src="form_176.png"/> sites alternate. </p>
+<p> The <img class="formulaInl" alt="$\frac{1}{4}$" src="form_176.png"/> are due to the fact that the implementation is defined in terms of spin matrices, not sigmas, as in the parent <a class="el" href="class_heisenberg_hamiltonian.html">HeisenbergHamiltonian</a>. The implementation is done in terms of a single chain, in which <img class="formulaInl" alt="$\sigma$" src="form_177.png"/> and <img class="formulaInl" alt="$\tau$" src="form_178.png"/> sites alternate. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9898bee7ebbf52a3f92573b64b6a7459" name="a9898bee7ebbf52a3f92573b64b6a7459"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9898bee7ebbf52a3f92573b64b6a7459">&#9670;&nbsp;</a></span>HeisenbergAncillaryNoiseHamiltonian() <span class="overload">[1/2]</span></h2>
@@ -356,7 +357,7 @@ J \vec{\tau}^{[i]}\vec{\tau}^{[i+1]} \right ) +
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Construct the MPOs corresponding to the evolution operator. In particular, we use the even-odd splitting for the sigma and tau Heisenberg terms independently, and require an additional exponential for the mixed term. Each of the methods prepares a particular term, with the given complex factor in the exponential, delta. For real time evolution, delta is -i*tau, for imaginary time, it should be -tau. The even/odd terms require a third (boolean) argument, sigma, to determine whether the term for <img class="formulaInl" alt="$\sigma$" src="form_175.png"/> (if true, default) or for <img class="formulaInl" alt="$tau$" src="form_177.png"/> (if false) is computed. </p>
+<p >Construct the MPOs corresponding to the evolution operator. In particular, we use the even-odd splitting for the sigma and tau Heisenberg terms independently, and require an additional exponential for the mixed term. Each of the methods prepares a particular term, with the given complex factor in the exponential, delta. For real time evolution, delta is -i*tau, for imaginary time, it should be -tau. The even/odd terms require a third (boolean) argument, sigma, to determine whether the term for <img class="formulaInl" alt="$\sigma$" src="form_177.png"/> (if true, default) or for <img class="formulaInl" alt="$tau$" src="form_179.png"/> (if false) is computed. </p>
 
 </div>
 </div>
@@ -416,8 +417,8 @@ J \vec{\tau}^{[i]}\vec{\tau}^{[i+1]} \right ) +
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/banulsm/headers/<a class="el" href="_heisenberg_ancillary_noise_hamiltonian_8h_source.html">HeisenbergAncillaryNoiseHamiltonian.h</a></li>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/banulsm/cpp/HeisenbergAncillaryNoiseHamiltonian.cpp</li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/banulsm/headers/<a class="el" href="_heisenberg_ancillary_noise_hamiltonian_8h_source.html">HeisenbergAncillaryNoiseHamiltonian.h</a></li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/banulsm/cpp/HeisenbergAncillaryNoiseHamiltonian.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

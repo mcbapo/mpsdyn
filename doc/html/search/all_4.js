@@ -1,22 +1,10 @@
 var searchData=
 [
-  ['eig_0',['eig',['../namespacewrapper.html#aeccf0c2ce3cb169f6f6fcb858c2a9dad',1,'wrapper']]],
-  ['eigensolver_1',['EigenSolver',['../_contractor_8h.html#a76798acdd00c42b2a3c1adf41086f551',1,'Contractor.h']]],
-  ['eignh_2',['eigNH',['../namespacewrapper.html#a0b2243d56e850224b92b984ea6ae3bb1',1,'wrapper']]],
-  ['eigs_3',['eigs',['../namespacewrapper.html#a671606a77e53e6f4dbabf88302a47215',1,'wrapper::eigs(const mwArray &amp;A, const int k, const char *which, std::vector&lt; complex_t &gt; &amp;D, mwArray &amp;U, bool eigv=0, double tol=0.)'],['../namespacewrapper.html#aad819a75d2059f3162ba98d84aaa5a55',1,'wrapper::eigs(Multiplier &amp;multi, const int k, const char *which, std::vector&lt; complex_t &gt; &amp;D, mwArray &amp;U, bool eigv=0, double tol=0.)']]],
-  ['element_4',['element',['../classmw_array.html#aff6e3e1c927f7cdae8117bf84f47a0cf',1,'mwArray']]],
-  ['estimatetruncationerror_2ecpp_5',['EstimateTruncationError.cpp',['../_estimate_truncation_error_8cpp.html',1,'']]],
-  ['evolutionmpo_6',['EvolutionMPO',['../class_c_q_e_d.html#a8aad7408039b02a8fe1ffcdec64c697b',1,'CQED::EvolutionMPO()'],['../class_kogut_susskind_hamiltonian.html#ad92a7684e232e6a758aa68ae9304da76',1,'KogutSusskindHamiltonian::EvolutionMPO()'],['../class_s_h_g_i_gauss_law_angular.html#ae9c18e86b4e93c44b722dc8f620b7b13',1,'SHGIGaussLawAngular::EvolutionMPO()']]],
-  ['evolutionmpo2_7',['EvolutionMPO2',['../class_c_q_e_d.html#ad188e84e1c2fc0bd38fe060dbda2776e',1,'CQED::EvolutionMPO2()'],['../class_kogut_susskind_hamiltonian.html#a1a9b819aa76ca14f820491c4e9dc6b1f',1,'KogutSusskindHamiltonian::EvolutionMPO2()']]],
-  ['expandoper_8',['expandOper',['../_m_p_o_8cpp.html#a779c5d0617245310f2ca5abc58b99b9a',1,'expandOper(const MPO &amp;mpo, mwArray &amp;oper):&#160;MPO.cpp'],['../_m_p_o_8h.html#a779c5d0617245310f2ca5abc58b99b9a',1,'expandOper(const MPO &amp;mpo, mwArray &amp;oper):&#160;MPO.cpp']]],
-  ['expandvec_9',['expandVec',['../_m_p_s_8cpp.html#afe61a0b6f9b41a5fa5e45b7690a2c9c8',1,'expandVec(const MPS &amp;mps, mwArray &amp;vec):&#160;MPS.cpp'],['../_m_p_s_8h.html#afe61a0b6f9b41a5fa5e45b7690a2c9c8',1,'expandVec(const MPS &amp;mps, mwArray &amp;vec):&#160;MPS.cpp']]],
-  ['expm_10',['expm',['../namespacewrapper.html#ae746ee8605a977a5d4ab2e0489875628',1,'wrapper']]],
-  ['expmtaylor_11',['expmTaylor',['../namespacewrapper.html#a98f141f312da5f237cd1a1fcfe13835e',1,'wrapper']]],
-  ['exportformatlab_12',['exportForMatlab',['../class_m_p_o.html#ad1a94b6ad0059930d0b240c9fc247e87',1,'MPO::exportForMatlab()'],['../class_m_p_s.html#a8cadf6b6aa48bc336bf58cb593d06a42',1,'MPS::exportForMatlab()']]],
-  ['exportmpotext_13',['exportMPOtext',['../class_m_p_o.html#a6ada542ee602e12800a81a1e6f8dd18a',1,'MPO']]],
-  ['exportmps_14',['exportMPS',['../class_m_p_s.html#a076198c780874f203f06ed9ec1bc9b40',1,'MPS']]],
-  ['exportmpstext_15',['exportMPStext',['../class_m_p_s.html#aaf69dc57b1692fd1e25003227211d5a8',1,'MPS']]],
-  ['exportumps_16',['exportuMPS',['../classu_m_p_s.html#a418e3ad74960e2b96dd4cc83624da57a',1,'uMPS']]],
-  ['extendmpo_17',['extendMPO',['../_m_p_s_8cpp.html#ade68023a633531bac676e097f70725df',1,'extendMPO(const MPO &amp;simpleMPO, MPO &amp;doubleMPO, int dimA):&#160;MPS.cpp'],['../_m_p_s_8h.html#ade68023a633531bac676e097f70725df',1,'extendMPO(const MPO &amp;simpleMPO, MPO &amp;doubleMPO, int dimA):&#160;MPS.cpp']]],
-  ['extendtransposempo_18',['extendTransposeMPO',['../_m_p_s_8cpp.html#a9396cf962846e72f7cdae9e4c323da94',1,'extendTransposeMPO(const MPO &amp;simpleMPO, MPO &amp;doubleMPO, int dimA):&#160;MPS.cpp'],['../_m_p_s_8h.html#a9396cf962846e72f7cdae9e4c323da94',1,'extendTransposeMPO(const MPO &amp;simpleMPO, MPO &amp;doubleMPO, int dimA):&#160;MPS.cpp']]]
+  ['decreasebonddim_0',['decreaseBondDim',['../class_file_site.html#abbe9e8dc568c5980ab87fa0334a83498',1,'FileSite::decreaseBondDim()'],['../class_site.html#ae75a5347e07b057183638b1545164037',1,'Site::decreaseBondDim()']]],
+  ['decreasephysdim_1',['decreasePhysDim',['../class_file_site.html#a5da8d76d9fa0982e2436ede8b2c74282',1,'FileSite::decreasePhysDim()'],['../class_site.html#af6f3c565acaf18345aaebfa78e7946d7',1,'Site::decreasePhysDim()']]],
+  ['deleteop_2',['deleteOp',['../class_m_p_o.html#abefb14d79fd990296d081ccb2ea3d6a7',1,'MPO']]],
+  ['diag_3',['diag',['../classmw_array.html#a497e2b7717bd5264641677f239733cd3',1,'mwArray::diag()'],['../classmw_array.html#a544ad5f34f767ae571b506b6e9d550fc',1,'mwArray::diag()'],['../classmw_array.html#ada62bc6248dff949dc614779874dd79f',1,'mwArray::diag()']]],
+  ['diagonalmpofrommps_4',['diagonalMPOfromMPS',['../_m_p_s_8cpp.html#a62c90b19f80c61295b0321e041207da6',1,'diagonalMPOfromMPS(const MPS &amp;mps, MPO &amp;mpo, bool conj):&#160;MPS.cpp'],['../_m_p_s_8h.html#a62c90b19f80c61295b0321e041207da6',1,'diagonalMPOfromMPS(const MPS &amp;mps, MPO &amp;mpo, bool conj):&#160;MPS.cpp']]],
+  ['doublempo_5',['doubleMPO',['../_m_p_s_8cpp.html#af084606e2a63ba677a7c59054d884683',1,'doubleMPO(const MPO &amp;simpleMPO, MPO &amp;doubleMPO, bool conj_):&#160;MPS.cpp'],['../_m_p_s_8h.html#a73da78be343a986145b44e842b9de3f1',1,'doubleMPO(const MPO &amp;simpleMPO, MPO &amp;doubleMPO, bool conjugate=false):&#160;MPS.cpp']]],
+  ['doubleoperator_6',['DoubleOperator',['../class_double_operator.html',1,'DoubleOperator'],['../class_double_operator.html#a704b2fdafce128640156ea9816065941',1,'DoubleOperator::DoubleOperator(const mwArray &amp;dataL, const mwArray &amp;dataR)'],['../class_double_operator.html#ab4881f68d169106d083f3aa50f57cdf1',1,'DoubleOperator::DoubleOperator(const DoubleOperator &amp;op)']]]
 ];

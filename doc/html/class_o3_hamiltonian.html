@@ -20,6 +20,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr id="projectrow">
+  <td id="projectlogo"><img alt="Logo" src="logoMPSDYN.png"/></td>
   <td id="projectalign">
    <div id="projectname">mpsdyn
    </div>
@@ -218,9 +219,9 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>q</b></td></tr>
       </table>
 </div><div class="memdoc">
 <p >Creates an instance of the truncated O(3) <a class="el" href="class_hamiltonian.html">Hamiltonian</a> with chemical potential for a chain of length N_sites sites </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ H = c_1 \sum_k \mathbf{J}^2_k + c_2\sum_k J^z_k + c_3\sum_k \mathbf{n}_k \mathbf{n}_{k+1}. \]" src="form_293.png"/>
+<img class="formulaDsp" alt="\[ H = c_1 \sum_k \mathbf{J}^2_k + c_2\sum_k J^z_k + c_3\sum_k \mathbf{n}_k \mathbf{n}_{k+1}. \]" src="form_297.png"/>
 </p>
-<p> If <img class="formulaInl" alt="$ \lambda\neq 0 $" src="form_273.png"/> is given, a penalty for the last sector is added which energetically penalizes states with an angular momentum of <img class="formulaInl" alt="$ l_\mathrm{max} $" src="form_294.png"/>. </p>
+<p> If <img class="formulaInl" alt="$ \lambda\neq 0 $" src="form_277.png"/> is given, a penalty for the last sector is added which energetically penalizes states with an angular momentum of <img class="formulaInl" alt="$ l_\mathrm{max} $" src="form_298.png"/>. </p>
 
 </div>
 </div>
@@ -292,12 +293,12 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>q</b></td></tr>
       </table>
 </div><div class="memdoc">
 <p >Creates an instance of the truncated O(3) <a class="el" href="class_hamiltonian.html">Hamiltonian</a> with chemical potential for a chain of length N_sites sites </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ H = c_1 \sum_k \mathbf{J}^2_k + c_2\sum_k J^z_k + c_3\sum_k \mathbf{n}_k \mathbf{n}_{k+1}. \]" src="form_293.png"/>
+<img class="formulaDsp" alt="\[ H = c_1 \sum_k \mathbf{J}^2_k + c_2\sum_k J^z_k + c_3\sum_k \mathbf{n}_k \mathbf{n}_{k+1}. \]" src="form_297.png"/>
 </p>
-<p> If <img class="formulaInl" alt="$ \lambda\neq 0 $" src="form_273.png"/> is given, a penalty for the last sector is added which energetically penalizes states with an angular momentum of <img class="formulaInl" alt="$ l_\mathrm{max} $" src="form_294.png"/>. Additionally the penalty term </p><p class="formulaDsp">
-<img class="formulaDsp" alt="\[ \eta (\sum_k J^z_k - q)^2 \]" src="form_295.png"/>
+<p> If <img class="formulaInl" alt="$ \lambda\neq 0 $" src="form_277.png"/> is given, a penalty for the last sector is added which energetically penalizes states with an angular momentum of <img class="formulaInl" alt="$ l_\mathrm{max} $" src="form_298.png"/>. Additionally the penalty term </p><p class="formulaDsp">
+<img class="formulaDsp" alt="\[ \eta (\sum_k J^z_k - q)^2 \]" src="form_299.png"/>
 </p>
-<p> which allows for targeting a sector of a certain total charge <img class="formulaInl" alt="$ q $" src="form_296.png"/>. </p>
+<p> which allows for targeting a sector of a certain total charge <img class="formulaInl" alt="$ q $" src="form_300.png"/>. </p>
 
 </div>
 </div>
@@ -317,7 +318,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>q</b></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> for the total charge <img class="formulaInl" alt="$ Q=\sum_n J^z_n$" src="form_298.png"/> </p>
+<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> for the total charge <img class="formulaInl" alt="$ Q=\sum_n J^z_n$" src="form_302.png"/> </p>
 
 </div>
 </div>
@@ -336,7 +337,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>q</b></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> for the total charge squared <img class="formulaInl" alt="$ Q^2=\left(\sum_n J^z_n\right)^2 = \sum_n (J^z_n)^2 + 2\sum_n \sum_{k&gt;n} J^z_n J^z_k $" src="form_299.png"/> </p>
+<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> for the total charge squared <img class="formulaInl" alt="$ Q^2=\left(\sum_n J^z_n\right)^2 = \sum_n (J^z_n)^2 + 2\sum_n \sum_{k&gt;n} J^z_n J^z_k $" src="form_303.png"/> </p>
 
 </div>
 </div>
@@ -467,7 +468,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>q</b></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> for the potential term in the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> corresponding to <img class="formulaInl" alt="$ \mathbf{n}_k \mathbf{n}_{k+1} $" src="form_297.png"/> </p>
+<p >Get the <a class="el" href="class_m_p_o.html">MPO</a> for the potential term in the <a class="el" href="class_hamiltonian.html">Hamiltonian</a> corresponding to <img class="formulaInl" alt="$ \mathbf{n}_k \mathbf{n}_{k+1} $" src="form_301.png"/> </p>
 
 </div>
 </div>
@@ -596,8 +597,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>q</b></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_o3_hamiltonian_8h_source.html">O3Hamiltonian.h</a></li>
-<li>/Users/banulsm/svn_to_port/mpsdyn/mpsdyn/src/projects/skuehn/cpp/<a class="el" href="_o3_hamiltonian_8cpp.html">O3Hamiltonian.cpp</a></li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/headers/<a class="el" href="_o3_hamiltonian_8h_source.html">O3Hamiltonian.h</a></li>
+<li>/Users/banulsm/GIT/mpsdyn/src/projects/skuehn/cpp/<a class="el" href="_o3_hamiltonian_8cpp.html">O3Hamiltonian.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
