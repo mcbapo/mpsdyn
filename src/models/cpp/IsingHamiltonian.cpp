@@ -168,6 +168,11 @@ void IsingHamiltonian::getUMPO(MPO& mpo,complex_t deltaC,double t,
 
 mwArray IsingHamiltonian::isingU2MPO(complex_t eps,int pos) const{
   int D=2;int Dl=D;int Dr=D;
+  if(eps==ZERO_c){
+    mwArray res=identityMatrix(d);
+    res.reshape(Indices(d,1,d,1));
+    return res;
+  }
   mwArray C(Indices(D,D,3));
   if(pos!=0&&pos!=N-1){// middle term
     C.setElement(cosh(eps),Indices(0,0,0));
