@@ -512,7 +512,7 @@ void prepareMPOlocalSTz(MPO& mpo,bool isS){
       int Dl=k==0?1:D;
       int Dr=k==3?1:D;
       bool flipsign=0; // whether the sigZ has a minus sign in front on this site
-      if(isS) flipsign=(k==0||k==2);
+      if(isS) flipsign=(k==1||k==3);
       else flipsign=(k==0||k==1);
       complex_t factorZ=flipsign?-1.*factor:factor;
       mwArray C(Indices(Dl,Dr,nOp));
