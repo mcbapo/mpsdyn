@@ -451,24 +451,28 @@ void prepareMPOlocalSxy(MPO& mpo,bool isX){
 	Z.setElement(sigM.getElement(Indices(i1,i2)),Indices(2,i1,i2));
       }
     Z.reshape(Indices(nOp,d*d));
-    complex_t factor=isX?-.5*I_c:-.5*ONE_c; // in front of all terms 
-    int signFirstMinus=isX?-1:1; // in front of terms starting with sigM
-    int D=3;
+    int D=4;
     for(int k=0;k<4;k++){
       int Dl=k==0?1:D;
       int Dr=k==3?1:D;
       mwArray C(Indices(Dl,Dr,nOp));
-      if(k<2) // actually should be k<2
-	C.setElement(ONE_c,Indices(0,0,0));
-      if(k>1) // actually should be k>1
-	C.setElement(ONE_c,Indices(Dl-1,Dr-1,0));
-      if(k==0||k==2){
-      	C.setElement(factor,Indices(0,1,1)); // first in +-
-      	C.setElement(signFirstMinus*factor,Indices(0,2,2)); // first in -+
+      if(k==0||k==3){
+	if(isX){
+	  C.setElement(-.5*I_c,Indices(0,1,1)); // sigP
+	  C.setElement(.5*I_c,Indices(0,2,1)); // sigM
+	}
+	else{
+	  C.setElement(-.5*ONE_c,Indices(0,1,1)); // sigP
+	  C.setElement(-.5*ONE_c,Indices(0,2,2)); // sigM
+	}
+	if(k==0) C.setElement(ONE_c,Indices(0,0,0)); // Id
+	else C.setElement(ONE_c,Indices(Dl-1,Dr-1,0)); // Id in 3
       }
-      else{ // k==1||k==3
-      	C.setElement(ONE_c,Indices(1,Dr-1,2)); // second in +-
-      	C.setElement(ONE_c,Indices(2,Dr-1,1)); // second in -+
+      else{ // 2 or 4
+	C.setElement(ONE_c,Indices(1,Dr-1,2)); // sigP
+	C.setElement(ONE_c,Indices(2,Dr-1,1)); // sigM
+	if(k==2) C.setElement(ONE_c,Indices(0,0,0)); // Id
+	else C.setElement(ONE_c,Indices(Dl-1,Dr-1,0)); // Id
       }
       C.reshape(Indices(Dl*Dr,nOp));
       C.multiplyRight(Z);
@@ -476,6 +480,34 @@ void prepareMPOlocalSxy(MPO& mpo,bool isX){
 
       mpo.setOp(k,new Operator(C),true);
     }
+
+
+
+    // complex_t factor=isX?-.5*I_c:-.5*ONE_c; // in front of all terms 
+    // int signFirstMinus=isX?-1:1; // in front of terms starting with sigM
+    // int D=3;
+    // for(int k=0;k<4;k++){
+    //   int Dl=k==0?1:D;
+    //   int Dr=k==3?1:D;
+    //   mwArray C(Indices(Dl,Dr,nOp));
+    //   if(k<2) // actually should be k<2
+    // 	C.setElement(ONE_c,Indices(0,0,0));
+    //   if(k>1) // actually should be k>1
+    // 	C.setElement(ONE_c,Indices(Dl-1,Dr-1,0));
+    //   if(k==0||k==2){
+    //   	C.setElement(factor,Indices(0,1,1)); // first in +-
+    //   	C.setElement(signFirstMinus*factor,Indices(0,2,2)); // first in -+
+    //   }
+    //   else{ // k==1||k==3
+    //   	C.setElement(ONE_c,Indices(1,Dr-1,2)); // second in +-
+    //   	C.setElement(ONE_c,Indices(2,Dr-1,1)); // second in -+
+    //   }
+    //   C.reshape(Indices(Dl*Dr,nOp));
+    //   C.multiplyRight(Z);
+    //   C.reshape(Indices(Dl,Dr,d,d));C.permute(Indices(3,1,4,2));
+
+    //   mpo.setOp(k,new Operator(C),true);
+    // }
 }
 
 void prepareMPOlocalSTz(MPO& mpo,bool isS){
