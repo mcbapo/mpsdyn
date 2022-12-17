@@ -172,6 +172,7 @@ int main(int argc,const char* argv[]){
   MPO corrXX(4*L);
   ham.getSpinCorrelatorMPO(corrXX,1);
   cout<<"Constructed spin corr XX MPO"<<endl;
+  //  cout<<"---> "<<corrXX<<endl;
   MPO corrYY(4*L);
   ham.getSpinCorrelatorMPO(corrYY,2);
   cout<<"Constructed spin corr YY MPO"<<endl;
@@ -181,6 +182,7 @@ int main(int argc,const char* argv[]){
   MPO corrTz(4*L);
   ham.getOrbitalSpinCorrelatorMPO(corrTz);
   cout<<"Constructed orbital spin corr ZZ MPO"<<endl;
+  //  cout<<"---> "<<corrTz<<endl;
 
   int maxLab=4+2;
   // Local MPOs (over four sites, maxLab of them)
@@ -190,7 +192,7 @@ int main(int argc,const char* argv[]){
     prepareMPOlocalOp(mpos[k],k+1);
   // A long MPO basicaly identity, where the previous ones are substituted as needed
   MPO auxMPO(4*L);
-  Operator idOp(identityMatrix(d));
+  Operator idOp(reshape(identityMatrix(d),Indices(d,1,d,1)));
   for(int k=0;k<4*L;k++)
     auxMPO.setOp(k,&idOp,false);
   
@@ -286,10 +288,10 @@ int main(int argc,const char* argv[]){
 	    " for output (append="<<app<<")"<<endl;
 	  exit(1);
 	}
-	*out<<"% two-point correlators. Key for Op: 1=Sx Sx, 2=Sy Sy, 3=Sz Sz, 4= Tz Tz, 5=Ng Ng, 6=Ne Ne"<<endl;
-	*out<<"%L\tD\t Op\t i\t j\t <Op>_ij\t";
+	*out<<"% two-point correlators. Key for Op: 0=Sx Sx, 1=Sy Sy, 2=Sz Sz, 3= Tz Tz, 4=Ng Ng, 5=Ne Ne"<<endl;
+	*out<<"%L\tD\t Op\t i\t j\t <Op>_ij\t <Op>_i\t<Op>_j\t<Op_i^2>\t<Op_j^2>";
 	*out<<endl;
-	appS=1; // already initialized
+	//appS=1; // already initialized
 	out->close();delete out;
       }
       out=new ofstream(outfnameSite.data(),ios::app);
@@ -314,23 +316,31 @@ int main(int argc,const char* argv[]){
 	    auxMPO.setOp(posN2+j,&(mpos[lab].getOp(j)),false);
 	  }
 	  // compute ev
+	  //cout<<"About to compute ev of two-body op "<<auxMPO<<" in "<<gs<<endl;
 	  complex_t valLab=contractor.contract(gs,auxMPO,gs);
 	  // remove op 2
 	  for(int j=0;j<4;j++){
 	    auxMPO.setOp(posN2+j,&idOp,false);
 	  }
 	  complex_t valSingle1=contractor.contract(gs,auxMPO,gs);
+	  // for the variance; notice it contracts <O^+ O>, but since O is Hermitian, it is ok
+	  //cout<<"About to compute the square of "<<auxMPO<<" in "<<gs<<endl;
+	  complex_t valSingle1Squared=contractor.contract2(auxMPO,gs);
 	  for(int j=0;j<4;j++){ // remove op posN1, put posN2
 	    auxMPO.setOp(posN1+j,&idOp,false);
 	    auxMPO.setOp(posN2+j,&(mpos[lab].getOp(j)),false);
 	  }
 	  complex_t valSingle2=contractor.contract(gs,auxMPO,gs);
+	  //cout<<"About to compute the square of "<<auxMPO<<endl;
+	  complex_t valSingle2Squared=contractor.contract2(auxMPO,gs);
 	  // remove op 2
 	  for(int j=0;j<4;j++){
 	    auxMPO.setOp(posN2+j,&idOp,false);
 	  }
 	  // Write to file
-	  *out<<L<<"\t"<<D<<"\t"<<lab<<"\t"<<n<<"\t"<<n+1<<"\t"<<real(valLab)<<"\t"<<real(valSingle1)<<"\t"<<real(valSingle2)<<endl;
+	  *out<<L<<"\t"<<D<<"\t"<<lab<<"\t"<<n<<"\t"<<n+1<<"\t"<<real(valLab)<<"\t"<<real(valSingle1)<<"\t"<<real(valSingle2)
+	      <<"\t"<<real(valSingle1Squared)<<"\t"<<real(valSingle2Squared)
+	      <<endl;
 	}
       }
       out->close();delete out;	 
@@ -456,10 +466,10 @@ void prepareMPOlocalSxy(MPO& mpo,bool isX){
       int Dl=k==0?1:D;
       int Dr=k==3?1:D;
       mwArray C(Indices(Dl,Dr,nOp));
-      if(k==0||k==3){
+      if(k==0||k==2){
 	if(isX){
 	  C.setElement(-.5*I_c,Indices(0,1,1)); // sigP
-	  C.setElement(.5*I_c,Indices(0,2,1)); // sigM
+	  C.setElement(.5*I_c,Indices(0,2,2)); // sigM
 	}
 	else{
 	  C.setElement(-.5*ONE_c,Indices(0,1,1)); // sigP
@@ -468,10 +478,10 @@ void prepareMPOlocalSxy(MPO& mpo,bool isX){
 	if(k==0) C.setElement(ONE_c,Indices(0,0,0)); // Id
 	else C.setElement(ONE_c,Indices(Dl-1,Dr-1,0)); // Id in 3
       }
-      else{ // 2 or 4
-	C.setElement(ONE_c,Indices(1,Dr-1,2)); // sigP
-	C.setElement(ONE_c,Indices(2,Dr-1,1)); // sigM
-	if(k==2) C.setElement(ONE_c,Indices(0,0,0)); // Id
+      else{ // 1 or 3
+	C.setElement(ONE_c,Indices(1,Dr-1,2)); // sigM
+	C.setElement(ONE_c,Indices(2,Dr-1,1)); // sigP
+	if(k==1) C.setElement(ONE_c,Indices(0,0,0)); // Id
 	else C.setElement(ONE_c,Indices(Dl-1,Dr-1,0)); // Id
       }
       C.reshape(Indices(Dl*Dr,nOp));
@@ -480,34 +490,6 @@ void prepareMPOlocalSxy(MPO& mpo,bool isX){
 
       mpo.setOp(k,new Operator(C),true);
     }
-
-
-
-    // complex_t factor=isX?-.5*I_c:-.5*ONE_c; // in front of all terms 
-    // int signFirstMinus=isX?-1:1; // in front of terms starting with sigM
-    // int D=3;
-    // for(int k=0;k<4;k++){
-    //   int Dl=k==0?1:D;
-    //   int Dr=k==3?1:D;
-    //   mwArray C(Indices(Dl,Dr,nOp));
-    //   if(k<2) // actually should be k<2
-    // 	C.setElement(ONE_c,Indices(0,0,0));
-    //   if(k>1) // actually should be k>1
-    // 	C.setElement(ONE_c,Indices(Dl-1,Dr-1,0));
-    //   if(k==0||k==2){
-    //   	C.setElement(factor,Indices(0,1,1)); // first in +-
-    //   	C.setElement(signFirstMinus*factor,Indices(0,2,2)); // first in -+
-    //   }
-    //   else{ // k==1||k==3
-    //   	C.setElement(ONE_c,Indices(1,Dr-1,2)); // second in +-
-    //   	C.setElement(ONE_c,Indices(2,Dr-1,1)); // second in -+
-    //   }
-    //   C.reshape(Indices(Dl*Dr,nOp));
-    //   C.multiplyRight(Z);
-    //   C.reshape(Indices(Dl,Dr,d,d));C.permute(Indices(3,1,4,2));
-
-    //   mpo.setOp(k,new Operator(C),true);
-    // }
 }
 
 void prepareMPOlocalSTz(MPO& mpo,bool isS){
