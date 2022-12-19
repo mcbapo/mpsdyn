@@ -258,7 +258,7 @@ int main(int argc,const char* argv[]){
 	  exit(1);
 	}
 	*out<<"%L\tD\t<H>\t<H^2>\t<N>\t<N^2>\t<N(g)>\t<N(g)^2>\t<N(e)>\t<N(e)^2>\t<Sz>\t<Sz^2>\t<double g>\t<double e>\t";
-	*out<<"<XX>\t<YY>\t<ZZ>\t<TzTz>\t<Sx^2>\t<Sy^2>\t";
+	*out<<"<XX>\t<YY>\t<ZZ>\t<TzTz>\t<Sx>\t<Sx^2>\t<Sy>\t<Sy^2>\t";
 	*out<<"params[ts,Us,V,Vex,mus]";
 	*out<<endl;
 	app=1; // already initialized
@@ -282,8 +282,8 @@ int main(int argc,const char* argv[]){
       *out<<real(valSSy)<<"\t";
       *out<<real(valSSz)<<"\t";
       *out<<real(valTz)<<"\t";
-      *out<<real(valSx2)<<"\t";
-      *out<<real(valSy2)<<"\t";
+      *out<<real(valSx)<<"\t"<<real(valSx2)<<"\t";
+      *out<<real(valSy)<<"\t"<<real(valSy2)<<"\t";
       *out<<tg0<<"\t"<<tg1<<"\t"<<te0<<"\t"<<te1<<"\t";
       *out<<Ug<<"\t"<<Ue<<"\t"<<V<<"\t"<<Vex<<"\t";
       *out<<mu_g0<<"\t"<<mu_g1<<"\t"<<mu_e0<<"\t"<<mu_e1<<"\t";
