@@ -72,7 +72,11 @@ protected:
   void getFermionNrMPO(MPO& mpo) const; 
   // Return an MPO for the number of fermions in one orbital (default g)
   void getFermionNrOrbitalMPO(MPO& mpo,bool orbital0=true) const; 
-  // Return an MPO for the spin operator Sz 
+  // Return an MPO for the spin operator 2*Sz. Notice that the
+  // returned MPO is twice the spin operator, kept like this for
+  // consistency with earlier programs. When using it to compute Sz^2
+  // as part of the total angular momentum, the factor needs to be
+  // taken into account.
   void getTotalSzMPO(MPO& mpo) const; 
   // Idem for Sx (resp Sy) totla spin operators
   void getTotalSxMPO(MPO& mpo) const; 

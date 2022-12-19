@@ -236,8 +236,8 @@ int main(int argc,const char* argv[]){
       cout<<"\tNtot "<<valNf<<" variance:"<<real(valNf2-valNf*valNf)<<endl;
       cout<<"\tNg "<<valNfg<<" variance:"<<real(valNfg2-valNfg*valNfg)<<endl;
       cout<<"\tNe "<<valNfe<<" variance:"<<real(valNfe2-valNfe*valNfe)<<endl;
-      cout<<"\tSz "<<valSz<<" variance:"<<real(valSz2-valSz*valSz)<<endl;
-      cout<<"\tS^2 "<<valSz2+valSx2+valSy2<<endl;
+      cout<<"\tSz "<<.5*valSz<<" variance:"<<.25*real(valSz2-valSz*valSz)<<endl;
+      cout<<"\tS^2 "<<.25*valSz2+valSx2+valSy2<<endl;
       
       complex_t valDg=contractor.contract(gs,doubleG,gs);
       complex_t valDe=contractor.contract(gs,doubleE,gs);
@@ -258,7 +258,7 @@ int main(int argc,const char* argv[]){
 	  exit(1);
 	}
 	*out<<"%L\tD\t<H>\t<H^2>\t<N>\t<N^2>\t<N(g)>\t<N(g)^2>\t<N(e)>\t<N(e)^2>\t<Sz>\t<Sz^2>\t<double g>\t<double e>\t";
-	*out<<"<XX>\t<YY>\t<ZZ>\t<TzTz>\t<Sx^2>\t<Sy^2>";
+	*out<<"<XX>\t<YY>\t<ZZ>\t<TzTz>\t<Sx^2>\t<Sy^2>\t";
 	*out<<"params[ts,Us,V,Vex,mus]";
 	*out<<endl;
 	app=1; // already initialized
@@ -276,7 +276,7 @@ int main(int argc,const char* argv[]){
       *out<<real(valNf)<<"\t"<<real(valNf2)<<"\t";
       *out<<real(valNfg)<<"\t"<<real(valNfg2)<<"\t";
       *out<<real(valNfe)<<"\t"<<real(valNfe2)<<"\t";
-      *out<<real(valSz)<<"\t"<<real(valSz2)<<"\t";
+      *out<<.5*real(valSz)<<"\t"<<.25*real(valSz2)<<"\t";
       *out<<real(valDg)<<"\t"<<real(valDe)<<"\t";
       *out<<real(valSSx)<<"\t";
       *out<<real(valSSy)<<"\t";
