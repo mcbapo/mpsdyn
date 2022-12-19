@@ -403,40 +403,98 @@ void TwoOrbitalFermiHubbardHamiltonian::getDoubleOccupancyOrbitalMPO(MPO& mpo,bo
 
 
 void TwoOrbitalFermiHubbardHamiltonian::getTotalSzMPO(MPO& mpo) const {
-   complex_t dataz[]={ONE_c,ZERO_c,ZERO_c,-ONE_c};
-   mwArray sigZ(Indices(d,d),dataz);//sigmaz
-   mwArray sig0=identityMatrix(d);
-   mwArray proj0=.5*(sigZ+sig0);
-   mwArray Zf(Indices(2,d,d));
-   for(int d1=0;d1<d;d1++){
-     for(int d2=0;d2<d;d2++){
-       Zf.setElement(sig0.getElement(Indices(d1,d2)),Indices(0,d1,d2));
-       Zf.setElement(proj0.getElement(Indices(d1,d2)),Indices(1,d1,d2));
-     }
-   }
-   Zf.reshape(Indices(2,d*d));
+  complex_t dataz[]={ONE_c,ZERO_c,ZERO_c,-ONE_c};
+  mwArray sigZ(Indices(d,d),dataz);//sigmaz
+  mwArray sig0=identityMatrix(d);
+  mwArray proj0=.5*(sigZ+sig0);
+  mwArray Zf(Indices(2,d,d));
+  for(int d1=0;d1<d;d1++){
+    for(int d2=0;d2<d;d2++){
+      Zf.setElement(sig0.getElement(Indices(d1,d2)),Indices(0,d1,d2));
+      Zf.setElement(proj0.getElement(Indices(d1,d2)),Indices(1,d1,d2));
+    }
+  }
+  Zf.reshape(Indices(2,d*d));
+  
+  mpo.initLength(4*L);
+  for(int k=0;k<4*L;k++){
+    int Dl=(k==0)?1:2;
+    int Dr=(k==4*L-1)?1:2;
+    mwArray C(Indices(Dl,Dr,2));
+    if(k<4*L-1)
+      C.setElement(ONE_c,Indices(0,0,0)); // except last one
+    if(k>0)
+      C.setElement(ONE_c,Indices(Dl-1,Dr-1,0)); // except first one
+    // in which sites I include the local n operator depends on spin
+    // what is the orbitalvalue of s corresponding to this k=4*n+2*alpha+s
+    int j=k%4; // alpha*2+s
+    //   int alpha=(j-j%2)/2;
+    int s=j%2;int signS=(s==0)?1:-1;
+    C.setElement(signS*ONE_c,Indices(0,Dr-1,1));
+    C.reshape(Indices(Dl*Dr,2));C.multiplyRight(Zf);
+    C.reshape(Indices(Dl,Dr,d,d));
+    C.permute(Indices(3,1,4,2));
+    mpo.setOp(k,new Operator(C),true);
+  }
+}
 
-   mpo.initLength(4*L);
-   for(int k=0;k<4*L;k++){
-     int Dl=(k==0)?1:2;
-     int Dr=(k==4*L-1)?1:2;
-     mwArray C(Indices(Dl,Dr,2));
-     if(k<4*L-1)
-       C.setElement(ONE_c,Indices(0,0,0)); // except last one
-     if(k>0)
-       C.setElement(ONE_c,Indices(Dl-1,Dr-1,0)); // except first one
-     // in which sites I include the local n operator depends on spin
-     // what is the orbitalvalue of s corresponding to this k=4*n+2*alpha+s
-     int j=k%4; // alpha*2+s
-     //   int alpha=(j-j%2)/2;
-     int s=j%2;int signS=(s==0)?1:-1;
-     C.setElement(signS*ONE_c,Indices(0,Dr-1,1));
-     C.reshape(Indices(Dl*Dr,2));C.multiplyRight(Zf);
+void TwoOrbitalFermiHubbardHamiltonian::getTotalSxMPO(MPO& mpo) const {
+  getTotalSxyMPO(mpo,true);
+}
+void TwoOrbitalFermiHubbardHamiltonian::getTotalSyMPO(MPO& mpo) const {
+  getTotalSxyMPO(mpo,false);
+}
+void TwoOrbitalFermiHubbardHamiltonian::getTotalSxyMPO(MPO& mpo,bool isX) const {
+  complex_t dataP[]={ZERO_c,ZERO_c,ONE_c,ZERO_c}; // sigP
+  mwArray sigP(Indices(d,d),dataP);//sigmaPlus
+  mwArray sigM(sigP);sigM.Hconjugate(); // sigmaMinus
+  mwArray sig0=identityMatrix(d);
+  mwArray Zf(Indices(3,d,d));
+  for(int d1=0;d1<d;d1++){
+    for(int d2=0;d2<d;d2++){
+      Zf.setElement(sig0.getElement(Indices(d1,d2)),Indices(0,d1,d2));
+      Zf.setElement(sigP.getElement(Indices(d1,d2)),Indices(1,d1,d2));
+      Zf.setElement(sigM.getElement(Indices(d1,d2)),Indices(2,d1,d2));
+    }
+  }
+  Zf.reshape(Indices(3,d*d));
+
+  int D=4;
+  mpo.initLength(4*L);
+  for(int k=0;k<4*L;k++){
+    int Dl=(k==0)?1:D;
+    int Dr=(k==4*L-1)?1:D;
+    mwArray C(Indices(Dl,Dr,3));
+    if(k<4*L-1)
+      C.setElement(ONE_c,Indices(0,0,0)); // except last one
+    if(k>0)
+      C.setElement(ONE_c,Indices(Dl-1,Dr-1,0)); // except first one
+    // what is the orbital and value of s corresponding to this k=4*n+2*alpha+s
+     int j=k%4; // alpha*2+s //0,1,2,3
+     //int alpha=(j-j%2)/2;
+     //int s=j%2;int signS=(s==0)?1:-1;
+
+     if(j==0||j==2){ // first in the pair
+       if(isX){
+	 C.setElement(-.5*I_c,Indices(0,1,1)); //sigP 
+	 C.setElement(.5*I_c,Indices(0,2,2));  //sigM
+       }
+       else{ // Sy version
+	 C.setElement(-.5*ONE_c,Indices(0,1,1)); //sigP 
+	 C.setElement(-.5*ONE_c,Indices(0,2,2));  //sigM
+       }
+     }
+     else{
+       C.setElement(ONE_c,Indices(1,Dr-1,2)); //sigP-sigM 
+       C.setElement(ONE_c,Indices(2,Dr-1,1)); //sigM-sigP 
+     }
+     C.reshape(Indices(Dl*Dr,3));C.multiplyRight(Zf);
      C.reshape(Indices(Dl,Dr,d,d));
      C.permute(Indices(3,1,4,2));
      mpo.setOp(k,new Operator(C),true);
    }
 }
+
 
 
 void TwoOrbitalFermiHubbardHamiltonian::getSpinCorrelatorMPO(MPO& mpo,int type) const {

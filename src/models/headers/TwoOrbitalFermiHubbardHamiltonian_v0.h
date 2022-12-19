@@ -74,7 +74,10 @@ protected:
   void getFermionNrOrbitalMPO(MPO& mpo,bool orbital0=true) const; 
   // Return an MPO for the spin operator Sz 
   void getTotalSzMPO(MPO& mpo) const; 
-
+  // Idem for Sx (resp Sy) totla spin operators
+  void getTotalSxMPO(MPO& mpo) const; 
+  void getTotalSyMPO(MPO& mpo) const; 
+  
   /** Prepare an MPO with the double occupancy of g (if orbital0==1) or e orbital */
   void getDoubleOccupancyOrbitalMPO(MPO& mpo,bool orbital0) const;
 
@@ -116,8 +119,11 @@ protected:
 
   /** Particular correlator in x or y direction */
   void getSpinCorrelatorMPOXY(MPO& mpo,int type) const;
+
+  /** Common structure to create the MPO for total spin x,y operators*/
+  void getTotalSxyMPO(MPO& mpo,bool isX) const; 
   
-  /** Common computation for recovering the even and odd parts of the exp */
+  //  /** Common computation for recovering the even and odd parts of the exp */
   //  void getExponentialMPO(MPO& expHo,complex_t delta,bool even) const;
 
 
