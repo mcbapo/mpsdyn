@@ -218,58 +218,90 @@ void FoldedOperator::contractleftfop(mwArray& result,const mwArray& termL,
     exit(212);
   }
 #endif
-  if((dp2>Dlp||d2>Dl)){
-    //First contract Aket with operL
-    mwArray tmpres=reshape(ket.getA(),Indices(ddl,ddr,Dlp,Drp));
-    tmpres.permute(Indices(2,3,4,1));
-    tmpres.reshape(Indices(ddr*Dlp*Drp,ddl));
-    mwArray aux=permute(*operL,Indices(3,1,2,4));aux.reshape(Indices(ddl,dul*al1l*al2l));
-    tmpres=tmpres*aux;
-    //Then with operR
-    tmpres.reshape(Indices(ddr,Dlp,Drp,dul,al1l,al2l));
-    tmpres.permute(Indices(2,3,4,5,6,1));
-    tmpres.reshape(Indices(-1,ddr));
-    aux=permute(*operR,Indices(3,1,2,4));aux.reshape(Indices(ddr,-1));
-    tmpres=tmpres*aux;
-    tmpres.reshape(Indices(Dlp,Drp,dul,al1l,al2l,dur,al1r,al2r));
-    tmpres.permute(Indices(1,2,4,5,7,8,3,6));
-    tmpres.reshape(Indices(-1,dul*dur));
-    //and with Abra
-    aux=conjugate(bra.getA());aux.reshape(Indices(dul,dur,Dl,Dr));aux.reshape(Indices(dul*dur,-1));
-    result=tmpres*aux;
-    //Finally contract everything with termL
-    result.reshape(Indices(Dlp,Drp,al1l,al2l,al1r,al2r,Dl,Dr));
-    result.permute(Indices(2,4,6,8,1,3,5,7));
-    result.reshape(Indices(-1,Dlp*al1l*al1r*Dl));
-    aux=permute(termL,Indices(3,2,1));aux.reshape(Indices(betab*al1l*al1r*betak,1));
-    result=result*aux;
-    result.reshape(Indices(Drp,al2l,al2r,Dr));
-    result.permute(Indices(4,2,3,1));
-    result.reshape(Indices(Dr,al2l*al2r,Drp));   
-  }
-  else{
-    // First step: contract Aket with tmpL
-    mwArray tmpres=permute(ket.getA(),Indices(2,1,3));tmpres.reshape(Indices(Dlp,dp2*Drp));
-    tmpres=reshape(termL,Indices(betab*alpha2,betak))*tmpres;
-    // Now contract Abra
-    mwArray aux=conjugate(bra.getA());aux.permute(Indices(3,1,2));
-    aux.reshape(Indices(Dr*d2,Dl));
-    tmpres.reshape(Indices(betab,alpha2*dp2*Drp));
-    tmpres=aux*tmpres;
-    // Now contract operR
-    tmpres.reshape(Indices(Dr,dul,dur,al1l,al1r,ddl,ddr,Drp));
-    tmpres.permute(Indices(1,8,2,4,6,3,5,7));
-    tmpres.reshape(Indices(Dr*Drp*dul*al1l*ddl,dur*al1r*ddr));
-    tmpres=tmpres*reshape(*operR,Indices(dur*al1r*ddr,al2r));
-    // Now operL
-    tmpres.reshape(Indices(Dr*Drp,dul*al1l*ddl,al2r));
-    tmpres.permute(Indices(1,3,2));
-    tmpres.reshape(Indices(Dr*Drp*al2r,dul*al1l*ddl));
-    result=tmpres*reshape(*operL,Indices(dul*al1l*ddl,al2l));
-    result.reshape(Indices(Dr,Drp,al2r,al2l));
-    result.permute(Indices(1,4,3,2));
+  // Notice this old version was very suboptimal in the order of contraction
+  // if((dp2>Dlp||d2>Dl)){
+  //   //First contract Aket with operL
+  //   result=reshape(ket.getA(),Indices(ddl,ddr,Dlp,Drp));
+  //   result.permute(Indices(2,3,4,1));
+  //   result.reshape(Indices(ddr*Dlp*Drp,ddl));
+  //   mwArray aux=permute(*operL,Indices(3,1,2,4));aux.reshape(Indices(ddl,dul*al1l*al2l));
+  //   result.multiplyRight(aux);
+  //   //Then with operR
+  //   result.reshape(Indices(ddr,Dlp,Drp,dul,al1l,al2l));
+  //   result.permute(Indices(2,3,4,5,6,1));
+  //   result.reshape(Indices(-1,ddr));
+  //   aux=permute(*operR,Indices(3,1,2,4));aux.reshape(Indices(ddr,-1));
+  //   result.multiplyRight(aux);
+  //   result.reshape(Indices(Dlp,Drp,dul,al1l,al2l,dur,al1r,al2r));
+  //   result.permute(Indices(1,2,4,5,7,8,3,6));
+  //   result.reshape(Indices(-1,dul*dur));
+  //   //and with Abra
+  //   aux=conjugate(bra.getA());aux.reshape(Indices(dul,dur,Dl,Dr));aux.reshape(Indices(dul*dur,-1));
+  //   result.multiplyRight(aux);
+  //   //Finally contract everything with termL
+  //   result.reshape(Indices(Dlp,Drp,al1l,al2l,al1r,al2r,Dl,Dr));
+  //   result.permute(Indices(2,4,6,8,1,3,5,7));
+  //   result.reshape(Indices(-1,Dlp*al1l*al1r*Dl));
+  //   aux=permute(termL,Indices(3,2,1));aux.reshape(Indices(betab*al1l*al1r*betak,1));
+  //   result.multiplyRight(aux);
+  //   result.reshape(Indices(Drp,al2l,al2r,Dr));
+  //   result.permute(Indices(4,2,3,1));
+  //   result.reshape(Indices(Dr,al2l*al2r,Drp));   
+  // }
+  // else if(0){
+  //   // First step: contract Aket with tmpL
+  //   result=permute(ket.getA(),Indices(2,1,3));result.reshape(Indices(Dlp,dp2*Drp));
+  //   result.multiplyLeft(reshape(termL,Indices(betab*alpha2,betak)));
+  //   // Now contract Abra
+  //   mwArray aux=conjugate(bra.getA());aux.permute(Indices(3,1,2));
+  //   aux.reshape(Indices(Dr*d2,Dl));
+  //   result.reshape(Indices(betab,alpha2*dp2*Drp));
+  //   result.multiplyLeft(aux);
+  //   // Now contract operR
+  //   result.reshape(Indices(Dr,dul,dur,al1l,al1r,ddl,ddr,Drp));
+  //   result.permute(Indices(1,8,2,4,6,3,5,7));
+  //   result.reshape(Indices(Dr*Drp*dul*al1l*ddl,dur*al1r*ddr));
+  //   result.multiplyRight(reshape(*operR,Indices(dur*al1r*ddr,al2r)));
+  //   // Now operL
+  //   result.reshape(Indices(Dr*Drp,dul*al1l*ddl,al2r));
+  //   result.permute(Indices(1,3,2));
+  //   result.reshape(Indices(Dr*Drp*al2r,dul*al1l*ddl));
+  //   result.multiplyRight(reshape(*operL,Indices(dul*al1l*ddl,al2l)));
+  //   result.reshape(Indices(Dr,Drp,al2r,al2l));
+  //   result.permute(Indices(1,4,3,2));
+  //   result.reshape(Indices(Dr,al2l*al2r,Drp));
+  // }
+    // First ket with tmpL, then opers then bra
+    result=ket.getA();result.reshape(Indices(ddl,ddr,Dlp,Drp));
+    result.permute(Indices(3,1,2,4)); // Dlp, ddl ddr Drp
+    result.reshape(Indices(Dlp,ddl*ddr*Drp));
+    result.multiplyLeft(reshape(termL,Indices(betab*alpha2,betak))); // betab*alpha2,ddl ddr Drp
+    // now operL
+    result.reshape(Indices(betab,al1l,al1r,ddl,ddr,Drp));
+    result.permute(Indices(2,4,3,5,1,6));
+    result.reshape(Indices(al1l*ddl,al1r*ddr*betab*Drp));
+    mwArray aux(*operL);
+    aux.permute(Indices(1,4,2,3)); //dul,al2l,al1l,ddl
+    aux.reshape(Indices(dul*al2l,al1l*ddl));
+    result.multiplyLeft(aux); // dul*al2l, al1r*ddr*betab*Drp
+    result.reshape(Indices(dul*al2l,al1r*ddr,betab*Drp));
+    result.permute(Indices(2,1,3));
+    result.reshape(Indices(al1r*ddr,dul*al2l*betab*Drp));
+    aux=*operR;
+    aux.permute(Indices(1,4,2,3)); //dur,al2r,al1r,ddr
+    aux.reshape(Indices(dur*al2r,al1r*ddr));
+    result.multiplyLeft(aux); // dur*al2r, dul*al2l*betab*Drp
+    result.reshape(Indices(dur,al2r,dul,al2l,betab,Drp));
+    result.permute(Indices(3,1,5,4,2,6)); // dul,dur,betab,al2l,al2r,Drp
+    result.reshape(Indices(dul*dur*betab,al2l*al2r*Drp));
+
+    // bra
+    aux=bra.getA(); // dul*dur,Dl,Dr
+    aux.conjugate();
+    aux.reshape(Indices(dul*dur*Dl,Dr));
+    result.multiplyLeft(permute(aux,Indices(2,1))); // Dr, al2l*al2r*Drp
     result.reshape(Indices(Dr,al2l*al2r,Drp));
-  }
+
   if(dagger){
     delete operR,operL;
   }
@@ -310,60 +342,92 @@ void FoldedOperator::contractrightfop(mwArray& result,const mwArray& termR,
     exit(212);
   }
 #endif
+  // Old version: not optimal order of contractions
+  // if((dp2>Drp||d2>Dr)){
+  //   //First step, contract Aket with operL
+  //   mwArray tmpres=ket.getA();
+  //   tmpres.reshape(Indices(d2l,d2r,Dlp,Drp));tmpres.permute(Indices(2,3,4,1));
+  //   tmpres.reshape(Indices(d2r*Dlp*Drp,d2l));
+  //   mwArray aux=*operL;aux.permute(Indices(3,1,2,4));aux.reshape(Indices(d2l,d1l*al1l*al2l));
+  //   tmpres.multiplyRight(aux);			  
+  //   //Then with operR
+  //   tmpres.reshape(Indices(d2r,Dlp,Drp,d1l,al1l,al2l));
+  //   tmpres.permute(Indices(2,3,4,5,6,1));
+  //   tmpres.reshape(Indices(-1,d2r));
+  //   tmpres=tmpres*reshape(permute(*operR,Indices(3,1,2,4)),Indices(d2r,-1));
+  //   tmpres.reshape(Indices(Dlp,Drp,d1l,al1l,al2l,d1r,al1r,al2r));
+  //   tmpres.permute(Indices(1,2,4,5,7,8,3,6));
+  //   tmpres.reshape(Indices(-1,d1l*d1r));
+  //   //Then Contract everything with Abra
+  //   aux=bra.getA();aux.conjugate();aux.reshape(Indices(d1l,d1r,Dl,Dr));aux.reshape(Indices(d1l*d1r,-1));
+  //   result=tmpres*aux;
+  //   //Finally contract with termR
+  //   result.reshape(Indices(Dlp,Drp,al1l,al2l,al1r,al2r,Dl,Dr));
+  //   result.permute(Indices(1,3,5,7,2,4,6,8));
+  //   result.reshape(Indices(-1,Drp*al2l*al2r*Dr));
+  //   aux=termR;aux.permute(Indices(3,2,1));aux.reshape(Indices(betab*al2l*al2r*betak,1));
+  //   result = result*aux;
+  //   result.reshape(Indices(Dlp,al1l,al1r,Dl));
+  //   result.permute(Indices(4,2,3,1));
+  //   result.reshape(Indices(Dl,al1l*al1r,Dlp));
+  // }
+  // else {
+  //   // First step, contract Aket with tmpR
+  //   result=termR;result.reshape(Indices(betab*alpha2,betak));
+  //   mwArray aux=ket.getA();aux.permute(Indices(3,1,2));aux.reshape(Indices(Drp,dp2*Dlp));
+  //   result.multiplyRight(aux); //betab*alpha2, dp2*Dlp
+  //   // Then Abra
+  //   result.reshape(Indices(betab,alpha2*dp2*Dlp));
+  //   aux=bra.getA();aux.conjugate();aux.reshape(Indices(d2*Dl,Dr));
+  //   result.multiplyLeft(aux); //d2*Dl,alpha2*dp2*Dlp
+  //   // Now operL
+  //   result.reshape(Indices(d1l,d1r,Dl,al2l,al2r,d2l,d2r,Dlp));
+  //   result.permute(Indices(1,4,6,2,5,7,3,8)); //d1l,al2l,d2l,d1r,al2r,d2r,Dl,Dlp
+  //   result.reshape(Indices(d1l*al2l*d2l,d1r*al2r*d2r*Dl*Dlp));
+  //   aux=*operL;aux.permute(Indices(2,1,4,3));aux.reshape(Indices(al1l,d1l*al2l*d2l));
+  //   result.multiplyLeft(aux); // al1l, d1r*al2r*d2r*Dl*Dlp
+  //   // And operR
+  //   result.reshape(Indices(al1l,d1r*al2r*d2r,Dl*Dlp));
+  //   result.permute(Indices(2,1,3));
+  //   result.reshape(Indices(d1r*al2r*d2r,al1l*Dl*Dlp));
+  //   aux=*operR;aux.permute(Indices(2,1,4,3));aux.reshape(Indices(al1r,d1r*al2r*d2r));
+  //   result.multiplyLeft(aux);
+  //   result.reshape(Indices(al1r,al1l,Dl,Dlp));
+  //   result.permute(Indices(3,2,1,4));
+  //   result.reshape(Indices(Dl,al1l*al1r,Dlp));
+  // }
 
-  if((dp2>Drp||d2>Dr)){
-    //First step, contract Aket with operL
-    mwArray tmpres=ket.getA();
-    tmpres.reshape(Indices(d2l,d2r,Dlp,Drp));tmpres.permute(Indices(2,3,4,1));
-    tmpres.reshape(Indices(d2r*Dlp*Drp,d2l));
-    mwArray aux=*operL;aux.permute(Indices(3,1,2,4));aux.reshape(Indices(d2l,d1l*al1l*al2l));
-    tmpres=tmpres*aux;			  
-    //Then with operR
-    tmpres.reshape(Indices(d2r,Dlp,Drp,d1l,al1l,al2l));
-    tmpres.permute(Indices(2,3,4,5,6,1));
-    tmpres.reshape(Indices(-1,d2r));
-    tmpres=tmpres*reshape(permute(*operR,Indices(3,1,2,4)),Indices(d2r,-1));
-    tmpres.reshape(Indices(Dlp,Drp,d1l,al1l,al2l,d1r,al1r,al2r));
-    tmpres.permute(Indices(1,2,4,5,7,8,3,6));
-    tmpres.reshape(Indices(-1,d1l*d1r));
-    //Then Contract everything with Abra
-    aux=bra.getA();aux.conjugate();aux.reshape(Indices(d1l,d1r,Dl,Dr));aux.reshape(Indices(d1l*d1r,-1));
-    result=tmpres*aux;
-    //Finally contract with termR
-    result.reshape(Indices(Dlp,Drp,al1l,al2l,al1r,al2r,Dl,Dr));
-    result.permute(Indices(1,3,5,7,2,4,6,8));
-    result.reshape(Indices(-1,Drp*al2l*al2r*Dr));
-    aux=termR;aux.permute(Indices(3,2,1));aux.reshape(Indices(betab*al2l*al2r*betak,1));
-    result = result*aux;
-    result.reshape(Indices(Dlp,al1l,al1r,Dl));
-    result.permute(Indices(4,2,3,1));
-    result.reshape(Indices(Dl,al1l*al1r,Dlp));
-  }
-  else{
-    // First step, contract Aket with tmpR
-    mwArray tmpres=termR;tmpres.reshape(Indices(betab*alpha2,betak));
-    mwArray aux=ket.getA();aux.permute(Indices(3,1,2));aux.reshape(Indices(Drp,dp2*Dlp));
-    tmpres=tmpres*aux;
-    // Then Abra
-    tmpres.reshape(Indices(betab,alpha2*dp2*Dlp));
-    aux=bra.getA();aux.conjugate();aux.reshape(Indices(d2*Dl,Dr));
-    tmpres=aux*tmpres;
-    // Now operL
-    tmpres.reshape(Indices(d1l,d1r,Dl,al2l,al2r,d2l,d2r,Dlp));
-    tmpres.permute(Indices(1,4,6,2,5,7,3,8));
-    tmpres.reshape(Indices(d1l*al2l*d2l,d1r*al2r*d2r*Dl*Dlp));
-    aux=*operL;aux.permute(Indices(2,1,4,3));aux.reshape(Indices(al1l,d1l*al2l*d2l));
-    tmpres=aux*tmpres;
-    // And operR
-    tmpres.reshape(Indices(al1l,d1r*al2r*d2r,Dl*Dlp));
-    tmpres.permute(Indices(2,1,3));
-    tmpres.reshape(Indices(d1r*al2r*d2r,al1l*Dl*Dlp));
-    aux=*operR;aux.permute(Indices(2,1,4,3));aux.reshape(Indices(al1r,d1r*al2r*d2r));
-    result=aux*tmpres;
-    result.reshape(Indices(al1r,al1l,Dl,Dlp));
-    result.permute(Indices(3,2,1,4));
-    result.reshape(Indices(Dl,al1l*al1r,Dlp));
-  }
+  // It would probably be better to contract bra with tmpR, then each oper, then ket
+    result=bra.getA(); // d1l*d1r,Dl,Dr
+    result.reshape(Indices(d1l*d1r*Dl,Dr));
+    result.conjugate();
+    result.multiplyRight(reshape(termR,Indices(Dr,al2l*al2r*Drp))); // d1l*d1r*Dl,al2l*al2r*Drp
+    //operL and operR
+    result.reshape(Indices(d1l,d1r,Dl,al2l,al2r,Drp));
+    result.permute(Indices(1,4,2,5,3,6)); // d1l*al2l,d1r*al2r,Dl,Drp
+    result.reshape(Indices(d1l*al2l,d1r*al2r*Dl*Drp));
+    mwArray aux(*operL);
+    aux.permute(Indices(2,3,1,4)); // al1l,d2l,d1l,al2l
+    aux.reshape(Indices(al1l*d2l,d1l*al2l));
+    result.multiplyLeft(aux); // al1l*d2l, d1r*al2r*Dl*Drp
+    result.reshape(Indices(al1l*d2l,d1r*al2r,Dl*Drp));
+    result.permute(Indices(2,1,3));
+    result.reshape(Indices(d1r*al2r,al1l*d2l*Dl*Drp));
+    aux=*operR;
+    aux.permute(Indices(2,3,1,4)); // al1r,d2r,d1r,al2r
+    aux.reshape(Indices(al1r*d2r,d1r*al2r));
+    result.multiplyLeft(aux); //al1r*d2r,al1l*d2l*Dl*Drp
+    // ket
+    result.reshape(Indices(al1r,d2r,al1l,d2l,Dl,Drp));
+    result.permute(Indices(4,2,6,5,3,1));
+    result.reshape(Indices(d2l*d2r*Drp,Dl*al1l*al1r));
+    aux=ket.getA();
+    aux.permute(Indices(2,1,3));
+    aux.reshape(Indices(Dlp,d2l*d2r*Drp));
+    result.multiplyLeft(aux);
+    result.reshape(Indices(Dlp,Dl,al1l*al1r));
+    result.permute(Indices(2,3,1));
+      
   if(dagger) delete operR,operL;
 }
 
