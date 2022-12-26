@@ -402,7 +402,7 @@ void TwoOrbitalFermiHubbardHamiltonian::getDoubleOccupancyOrbitalMPO(MPO& mpo,bo
 }
 
 
-void TwoOrbitalFermiHubbardHamiltonian::getTotalSzMPO(MPO& mpo) const {
+void TwoOrbitalFermiHubbardHamiltonian::getTotalSzMPO(MPO& mpo,int orbs) const {
   complex_t dataz[]={ONE_c,ZERO_c,ZERO_c,-ONE_c};
   mwArray sigZ(Indices(d,d),dataz);//sigmaz
   mwArray sig0=identityMatrix(d);
@@ -430,7 +430,8 @@ void TwoOrbitalFermiHubbardHamiltonian::getTotalSzMPO(MPO& mpo) const {
     int j=k%4; // alpha*2+s
     //   int alpha=(j-j%2)/2;
     int s=j%2;int signS=(s==0)?1:-1;
-    C.setElement(signS*ONE_c,Indices(0,Dr-1,1));
+    if((orbs==0)||(orbs==1&&j<=1)||(orbs==2&&j>1))
+      C.setElement(signS*ONE_c,Indices(0,Dr-1,1));
     C.reshape(Indices(Dl*Dr,2));C.multiplyRight(Zf);
     C.reshape(Indices(Dl,Dr,d,d));
     C.permute(Indices(3,1,4,2));
@@ -438,13 +439,44 @@ void TwoOrbitalFermiHubbardHamiltonian::getTotalSzMPO(MPO& mpo) const {
   }
 }
 
-void TwoOrbitalFermiHubbardHamiltonian::getTotalSxMPO(MPO& mpo) const {
-  getTotalSxyMPO(mpo,true);
+void TwoOrbitalFermiHubbardHamiltonian::getTotalSxOrbitalMPO(MPO& mpo,bool orbital0) const {
+  int which=orbital0==1?1:2;
+  getTotalSxyMPO(mpo,1,which);
+} 
+void TwoOrbitalFermiHubbardHamiltonian::getTotalSyOrbitalMPO(MPO& mpo,bool orbital0) const {
+  int which=orbital0==1?1:2;
+  getTotalSxyMPO(mpo,2,which);
+} 
+void TwoOrbitalFermiHubbardHamiltonian::getTotalSplusOrbitalMPO(MPO& mpo,bool orbital0) const {
+  int which=orbital0==1?1:2;
+  getTotalSxyMPO(mpo,3,which);
+} 
+void TwoOrbitalFermiHubbardHamiltonian::getTotalSminusOrbitalMPO(MPO& mpo,bool orbital0) const {
+  int which=orbital0==1?1:2;
+  getTotalSxyMPO(mpo,4,which);
+}
+void TwoOrbitalFermiHubbardHamiltonian::getTotalSzOrbitalMPO(MPO& mpo,bool orbital0) const {
+  int which=orbital0==1?1:2;
+  getTotalSzMPO(mpo,which);
+} 
+
+
+void TwoOrbitalFermiHubbardHamiltonian::getTotalSzMPO(MPO& mpo) const {
+  getTotalSzMPO(mpo,0);
+}
+  void TwoOrbitalFermiHubbardHamiltonian::getTotalSxMPO(MPO& mpo) const {
+  getTotalSxyMPO(mpo,1,0);
 }
 void TwoOrbitalFermiHubbardHamiltonian::getTotalSyMPO(MPO& mpo) const {
-  getTotalSxyMPO(mpo,false);
+  getTotalSxyMPO(mpo,2,0);
 }
-void TwoOrbitalFermiHubbardHamiltonian::getTotalSxyMPO(MPO& mpo,bool isX) const {
+void TwoOrbitalFermiHubbardHamiltonian::getTotalSplusMPO(MPO& mpo) const {
+  getTotalSxyMPO(mpo,3,0);
+}
+void TwoOrbitalFermiHubbardHamiltonian::getTotalSminusMPO(MPO& mpo) const {
+  getTotalSxyMPO(mpo,4,0);
+}
+void TwoOrbitalFermiHubbardHamiltonian::getTotalSxyMPO(MPO& mpo,int type,int orbs) const {
   complex_t dataP[]={ZERO_c,ZERO_c,ONE_c,ZERO_c}; // sigP
   mwArray sigP(Indices(d,d),dataP);//sigmaPlus
   mwArray sigM(sigP);sigM.Hconjugate(); // sigmaMinus
@@ -474,17 +506,31 @@ void TwoOrbitalFermiHubbardHamiltonian::getTotalSxyMPO(MPO& mpo,bool isX) const 
      //int alpha=(j-j%2)/2;
      //int s=j%2;int signS=(s==0)?1:-1;
 
-     if(j==0||j==2){ // first in the pair
-       if(isX){
+     if((orbs==0&&(j==0||j==2))
+	||(orbs==1&&j==0)
+	||(orbs==2&&j==2)){ // first in the pair
+       switch(type){
+       case 1: // Sx
 	 C.setElement(-.5*I_c,Indices(0,1,1)); //sigP 
 	 C.setElement(.5*I_c,Indices(0,2,2));  //sigM
-       }
-       else{ // Sy version
+	 break;
+       case 2: // Sy
 	 C.setElement(-.5*ONE_c,Indices(0,1,1)); //sigP 
-	 C.setElement(-.5*ONE_c,Indices(0,2,2));  //sigM
+	 C.setElement(-.5*ONE_c,Indices(0,2,2));  //sigM      
+	 break;
+       case 3: // S+
+	 C.setElement(-I_c,Indices(0,1,1)); //sigP 
+	 break;       
+       case 4: // S-
+	 C.setElement(I_c,Indices(0,2,2)); //sigM 
+	 break;
+       default:
+	 cout<<"ERROR: Soemthing wrong within TwoOrbitalFermiHubbardHamiltonian::getTotalSxyMPO "<<endl;
+	 exit(1);
+	 break;
        }
      }
-     else{
+     else{ // 1 or 3 (for orbs!=0, the unused component is killed by the zero in the term before
        C.setElement(ONE_c,Indices(1,Dr-1,2)); //sigP-sigM 
        C.setElement(ONE_c,Indices(2,Dr-1,1)); //sigM-sigP 
      }
@@ -587,36 +633,32 @@ void TwoOrbitalFermiHubbardHamiltonian::getSpinCorrelatorMPOXY(MPO& mpo,int type
       C.setElement(ONE_c,Indices(Dl-1,Dr-1,0)); // except first one
     int j=k%4; // alpha*2+s
     int n=(k-j)/4; //n
-    //int signS=(j%2==0?)1:-1;
-    int signTyp=(type==1)?-1:+1;
-    if(n<L-1){ // first one
+    // first in the (local) pair carries the factor, different for X and Y
+    complex_t factorP=type==1?-.5*I_c:-.5*ONE_c;
+    complex_t factorM=type==1?.5*I_c:-.5*ONE_c;
+    if(n<L-1){ // first op (X or Y)
       if(j==0||j==2){
-	C.setElement(ONE_c,Indices(0,1,1)); // sigP
-	C.setElement(signTyp*ONE_c,Indices(0,2,2)); // sigM
+	  C.setElement(factorP,Indices(0,1,1)); // sigP
+	  C.setElement(factorM,Indices(0,2,2)); // sigM
       }
-      else{ // j=1 and 3
-	C.setElement(ONE_c,Indices(1,3+n%2,2)); // sigM
-	C.setElement(ONE_c,Indices(2,3+n%2,1)); // sigP
-
+      else{ // j=1 and 3 carry the second sigma op (never on last site=> no problem with right dim
+	int indR=j==1?3:6; 
+	C.setElement(ONE_c,Indices(1,indR,2)); // sigM 
+	C.setElement(ONE_c,Indices(2,indR,1)); // sigP
       }
+      if(j==2) 	C.setElement(ONE_c,Indices(3,3,0)); // this part of X(Y) is finished 
+      if(j==3) 	C.setElement(ONE_c,Indices(3,6,0)); // next site needs to put second X(Y)
     }
-    if(n>0){ // second one
+    if(n>0){ // second op (X or Y)
       if(j==0||j==2){
-	C.setElement(signTyp*ONE_c,Indices(3+n%2,5,1)); // sigP
-	C.setElement(ONE_c,Indices(3+n%2,6,2)); // sigM
+	C.setElement(factorP,Indices(6,4,1)); // sigP
+	C.setElement(factorM,Indices(6,5,2)); // sigM
       }
-      else{ // j=1 and 3
-	C.setElement(ONE_c,Indices(5,Dr-1,2)); // sigM
-	C.setElement(ONE_c,Indices(6,Dr-1,1)); // sigP
+      else{ // j=1 and 3 carry the second sigma op and then finish the MPO
+	C.setElement(ONE_c,Indices(4,Dr-1,2)); // sigM
+	C.setElement(ONE_c,Indices(5,Dr-1,1)); // sigP
       }
-    }
-    if(k>0&&k<4*L-1){ // could improve
-      if(j==0||j==1){
-	C.setElement(ONE_c,Indices(4-n%2,4-n%2,0)); // even lets 4 through, odd lets 3
-      }
-      else{ // j=2,3
-	C.setElement(ONE_c,Indices(3+n%2,3+n%2,0)); // even lets 3 through, odd lets 4
-      }
+      if(j==0||j==1) C.setElement(ONE_c,Indices(6,6,0)); // let the op happen in second pair of js
     }
     // HERE!!!!
 
@@ -686,3 +728,69 @@ void TwoOrbitalFermiHubbardHamiltonian::getOrbitalSpinCorrelatorMPO(MPO& mpo) co
 
 
 
+
+// void TwoOrbitalFermiHubbardHamiltonian::getSpinCorrelatorMPOXY(MPO& mpo,int type) const {
+//   mwArray sig0=identityMatrix(d);//identity
+//   complex_t dataP[]={ZERO_c,ZERO_c,ONE_c,ZERO_c};
+//   mwArray sigP(Indices(d,d),dataP);//sigmaPlus
+//   mwArray sigM=Hconjugate(sigP); //sigmaMinus
+//   mwArray Zf(Indices(3,d,d));
+//   for(int d1=0;d1<d;d1++){
+//     for(int d2=0;d2<d;d2++){
+//       Zf.setElement(sig0.getElement(Indices(d1,d2)),Indices(0,d1,d2));
+//       Zf.setElement(sigP.getElement(Indices(d1,d2)),Indices(1,d1,d2));
+//       Zf.setElement(sigM.getElement(Indices(d1,d2)),Indices(2,d1,d2));
+//     }
+//   }
+//   Zf.reshape(Indices(3,d*d));
+//   mpo.initLength(4*L);
+//   int D=8; 
+//   for(int k=0;k<4*L;k++){
+//     int Dl=(k==0)?1:D;
+//     int Dr=(k==4*L-1)?1:D;
+//     mwArray C(Indices(Dl,Dr,3));
+//     if(k<4*L-1)
+//       C.setElement(ONE_c,Indices(0,0,0)); // except last one
+//     if(k>0)
+//       C.setElement(ONE_c,Indices(Dl-1,Dr-1,0)); // except first one
+//     int j=k%4; // alpha*2+s
+//     int n=(k-j)/4; //n
+//     //int signS=(j%2==0?)1:-1;
+//     int signTyp=(type==1)?-1:+1;
+//     if(n<L-1){ // first one
+//       if(j==0||j==2){
+// 	C.setElement(ONE_c,Indices(0,1,1)); // sigP
+// 	C.setElement(signTyp*ONE_c,Indices(0,2,2)); // sigM
+//       }
+//       else{ // j=1 and 3
+// 	C.setElement(ONE_c,Indices(1,3+n%2,2)); // sigM
+// 	C.setElement(ONE_c,Indices(2,3+n%2,1)); // sigP
+
+//       }
+//     }
+//     if(n>0){ // second one
+//       if(j==0||j==2){
+// 	C.setElement(signTyp*ONE_c,Indices(3+n%2,5,1)); // sigP
+// 	C.setElement(ONE_c,Indices(3+n%2,6,2)); // sigM
+//       }
+//       else{ // j=1 and 3
+// 	C.setElement(ONE_c,Indices(5,Dr-1,2)); // sigM
+// 	C.setElement(ONE_c,Indices(6,Dr-1,1)); // sigP
+//       }
+//     }
+//     if(k>0&&k<4*L-1){ // could improve
+//       if(j==0||j==1){
+// 	C.setElement(ONE_c,Indices(4-n%2,4-n%2,0)); // even lets 4 through, odd lets 3
+//       }
+//       else{ // j=2,3
+// 	C.setElement(ONE_c,Indices(3+n%2,3+n%2,0)); // even lets 3 through, odd lets 4
+//       }
+//     }
+//     // HERE!!!!
+
+//     C.reshape(Indices(Dl*Dr,3));C.multiplyRight(Zf);
+//     C.reshape(Indices(Dl,Dr,d,d));
+//     C.permute(Indices(3,1,4,2));
+//     mpo.setOp(k,new Operator(C),true);
+//   }
+// }

@@ -78,9 +78,21 @@ protected:
   // as part of the total angular momentum, the factor needs to be
   // taken into account.
   void getTotalSzMPO(MPO& mpo) const; 
-  // Idem for Sx (resp Sy) totla spin operators
+  // Idem for Sx (resp Sy) total spin operators
   void getTotalSxMPO(MPO& mpo) const; 
   void getTotalSyMPO(MPO& mpo) const; 
+
+  // Same for ladder operators
+  void getTotalSplusMPO(MPO& mpo) const; 
+  void getTotalSminusMPO(MPO& mpo) const; 
+
+  // We can also prepare specific spin operators for e ad g species
+  void getTotalSxOrbitalMPO(MPO& mpo,bool orbital0=true) const; 
+  void getTotalSyOrbitalMPO(MPO& mpo,bool orbital0=true) const; 
+  void getTotalSzOrbitalMPO(MPO& mpo,bool orbital0=true) const;
+  void getTotalSplusOrbitalMPO(MPO& mpo,bool orbital0=true) const; 
+  void getTotalSminusOrbitalMPO(MPO& mpo,bool orbital0=true) const; 
+
   
   /** Prepare an MPO with the double occupancy of g (if orbital0==1) or e orbital */
   void getDoubleOccupancyOrbitalMPO(MPO& mpo,bool orbital0) const;
@@ -124,9 +136,16 @@ protected:
   /** Particular correlator in x or y direction */
   void getSpinCorrelatorMPOXY(MPO& mpo,int type) const;
 
-  /** Common structure to create the MPO for total spin x,y operators*/
-  void getTotalSxyMPO(MPO& mpo,bool isX) const; 
-  
+  /** Common structure to create the MPO for total spin x,y or plus
+      minus operators. Type indicates which one (1=x,2=y,3=S+,4=S-)
+      and for either both orbitals (orbs=0)
+      or one of them (1=g, 2=e)
+  */
+  void getTotalSxyMPO(MPO& mpo,int type,int orbs) const; 
+
+  // Same for Sz allowing orbital distinction
+  void getTotalSzMPO(MPO& mpo,int orbs) const; 
+
   //  /** Common computation for recovering the even and odd parts of the exp */
   //  void getExponentialMPO(MPO& expHo,complex_t delta,bool even) const;
 
