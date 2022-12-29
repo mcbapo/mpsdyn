@@ -443,7 +443,7 @@ int main(int argc,const char* argv[]){
     //    string basempsfileNext=getMPSfilenameConstraints(L,penNg,Ng,penNe,Ne,penSz,nextSz,penNtot,Ntot,t,U,V,Vex,mu_g,mu_e,1); // basename of MPS files
     //prepareNewJob(jobsdir,basempsfileNext,nextSz,nextpenNtot,nextpenNg,nextpenNe,nextpenSz,argv[0],argv[1],props);
 
-    if(abs(valS2-Stot*(Stot+1))<.1*Stot*(Stot+1)){
+    //    if(abs(valS2-Stot*(Stot+1))<.2*Stot*(Stot+1)){
       if(incrD<=0||maxD<=0||D==minD){
 	cout<<"Launching for another Sz"<<endl;
 	string basempsfileNext=getMPSfilenameConstraints(L,penNg,Ng,penNe,Ne,penSz,Sz+incrSz,penNtot,Ntot,t,U,V,Vex,mu_g,mu_e,1); // basename of MPS files
@@ -453,11 +453,11 @@ int main(int argc,const char* argv[]){
 	cout<<"Preparing (also) a larger D run"<<endl;
 	prepareNewJobNextD(jobsdir,basempsfile,D+incrD,penNtot,penNg,penNe,penSz,argv[0],argv[1],props);	
       }
-    }
-    else{
-      cout<<"ERROR: Since the total found S2 ("<<valS2<<") differs from the desired one ("<<Stot*(Stot+1)<<"), I stop the jobs here!"<<endl;
-      exit(2);
-    }
+      //   }
+      //else{
+      //cout<<"ERROR: Since the total found S2 ("<<valS2<<") differs from the desired one ("<<Stot*(Stot+1)<<"), I stop the jobs here!"<<endl;
+      //exit(2);
+      //}
 
   }
 	  
