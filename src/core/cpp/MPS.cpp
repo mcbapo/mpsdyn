@@ -1357,6 +1357,18 @@ void extendMPO(const MPO& simpleMPO,MPO& doubleMPO,int dimA){
   }
 }
 
+void extendMPO(const MPO& simpleMPO,MPO& doubleMPO){
+  int L=simpleMPO.getLength();
+  doubleMPO.initLength(L); // just in case
+  const vector<int> dims=simpleMPO.getDimensions();
+  for(int k=0;k<L;k++){
+    int dimA=dims[k];
+    mwArray identPhys=identityMatrix(dimA);
+    identPhys.reshape(Indices(dimA,1,dimA,1)); 
+    doubleMPO.setOp(k,new DoubleOperator(simpleMPO.getOp(k).getFullData(),identPhys),true);
+  }
+}
+
 void extendTransposeMPO(const MPO& simpleMPO,MPO& doubleMPO,int dimA){
   int L=simpleMPO.getLength();
   doubleMPO.initLength(L); // just in case
@@ -1367,6 +1379,17 @@ void extendTransposeMPO(const MPO& simpleMPO,MPO& doubleMPO,int dimA){
   }
 }
 
+void extendTransposeMPO(const MPO& simpleMPO,MPO& doubleMPO){
+  int L=simpleMPO.getLength();
+  doubleMPO.initLength(L); // just in case
+  const vector<int> dims=simpleMPO.getDimensions();
+  for(int k=0;k<L;k++){
+    int dimA=dims[k];
+    mwArray identPhys=identityMatrix(dimA);
+    identPhys.reshape(Indices(dimA,1,dimA,1)); 
+    doubleMPO.setOp(k,new DoubleOperator(identPhys,permute(simpleMPO.getOp(k).getFullData(),Indices(3,2,1,4))),true);
+  }
+}
 
 void diagonalMPOfromMPS(const MPS& mps,MPO& mpo,bool conj){
   int L=mps.getLength();

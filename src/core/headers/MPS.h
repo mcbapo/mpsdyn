@@ -349,9 +349,13 @@ void doubleMPO(const MPO& simpleMPO,MPO& doubleMPO,bool conjugate=false);
     but is typically the same as for the physical) only the identity
     acts.*/
 void extendMPO(const MPO& simpleMPO,MPO& doubleMPO,int dimA);
+// If dimA is not given explicitly, the (output) physical dimension is uased at each site
+void extendMPO(const MPO& simpleMPO,MPO& doubleMPO);
 /** Analogous to the one above, but puts the transposed MPO onto the
     ancillary indices*/
 void extendTransposeMPO(const MPO& simpleMPO,MPO& doubleMPO,int dimA);
+// If dimA is not given explicitly, the (output) physical dimension is used at each site
+void extendTransposeMPO(const MPO& simpleMPO,MPO& doubleMPO);
 
 /** Froma a MPS, write a MPO corresponding to an operator with the MPS
     components on the diagonal. This is done by unfolding the physical
