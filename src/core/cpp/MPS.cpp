@@ -879,6 +879,7 @@ void MPS::applyExactly(const MPO& ops,bool dagger,
     cout<<"Error unknown direction for applyExactly MPO!"<<endl;
     exit(2);
   }
+  normfact=normfact*abs(tmp.getElement(0));
 }
 
 
