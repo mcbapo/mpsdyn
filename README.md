@@ -8,6 +8,8 @@ There are two folders:
 The first thing you need to do is to install the primme static library libprimme.a (https://github.com/primme/primme) in src/libs
 
 It also requires a BLAS and LAPACK installation, which you probably have.
+For early tests and some old programs, also the arpack library is used (this is to be removed at some point). 
+The path to these libraries should be added to the variable LINKDIRS in Makefile.arch under the suitable option (corresponding to the architecture).
 
 Right now, the code runs, as it is provided, in a Linux cluster (Scientific Linux) and some Mac computers, but one may need to touch the Makefile.arch (in src/bin) for a particular architecture. There
 
