@@ -1,4 +1,4 @@
-#include "ThermofieldHamiltonian.h"
+#include "ThermofieldHamiltonianSpinBoson.h"
 #include "Indices.h"
 
 using namespace std;
@@ -6,7 +6,7 @@ using namespace shrt;
 
 //#define TRUNCESP 1
 
-ThermofieldHamiltonian::ThermofieldHamiltonian(int L_,vector<int> dims_,
+ThermofieldHamiltonianSpinBoson::ThermofieldHamiltonianSpinBoson(int L_,vector<int> dims_,
 					       const vector<double>& A1n_,
 					       const vector<double>& A2n_,
 					       const vector<double>& B1n_,
@@ -14,14 +14,12 @@ ThermofieldHamiltonian::ThermofieldHamiltonian(int L_,vector<int> dims_,
 					       mwArray Hfree_,mwArray OL_):
   L(L_),hamil(2*L_+1),dims(dims_),B2n(B2n_),B1n(B1n_),
   A2n(A2n_),A1n(A1n_),Hfree(Hfree_),OL(OL_){
-   // cout<<"Creating TFHamiltonian with arguments:"<<endl;
-   // cout<<"dims="<<dims_<<endl;
-   // cout<<"A1n="<<A1n<<endl;
-   // cout<<"A2n="<<A2n<<endl;
-   // cout<<"B1n="<<B1n<<endl;
-   // cout<<"B2n="<<B2n<<endl;
-   // cout<<"Hfree="<<Hfree<<endl;
-   // cout<<"OL="<<OL<<endl;
+  // cout<<"Creating TFHamiltonian with arguments:"<<endl;
+  // cout<<"dims="<<dims_<<endl;
+  // cout<<"A1n="<<A1n<<endl;
+  // cout<<"A2n="<<A2n<<endl;
+  // cout<<"B1n="<<B1n<<endl;
+  // cout<<"B2n="<<B2n<<endl;
   // Introduce the signs
   for(int k=0;k<L;k++){
     if(k>0)
@@ -32,22 +30,22 @@ ThermofieldHamiltonian::ThermofieldHamiltonian(int L_,vector<int> dims_,
   initHMPO();
 }
 
-ThermofieldHamiltonian::ThermofieldHamiltonian(int L_,vector<int> dims_,
+ThermofieldHamiltonianSpinBoson::ThermofieldHamiltonianSpinBoson(int L_,vector<int> dims_,
 					       const vector<double>& A1n_,
 					       const vector<double>& A2n_,
 					       const vector<double>& B1n_,
 					       const vector<double>& B2n_):L(L_),hamil(2*L_+1),dims(dims_),B2n(B2n_),B1n(B1n_),
 									   A2n(A2n_),A1n(A1n_){};
 
-ThermofieldHamiltonian::~ThermofieldHamiltonian(){};
+ThermofieldHamiltonianSpinBoson::~ThermofieldHamiltonianSpinBoson(){};
 
-Indices ThermofieldHamiltonian::getTwoBodyTermPositions(int k,bool left) const{
+Indices ThermofieldHamiltonianSpinBoson::getTwoBodyTermPositions(int k,bool left) const{
   int pos1=left?L-k-1:L+k+1; // real pos in the chain
   int pos2=left?pos1-1:pos1+1;
   return Indices(pos1,pos2);
 }
 
-void ThermofieldHamiltonian::computeTwoBodyTermBath(mwArray& result,int k,
+void ThermofieldHamiltonianSpinBoson::computeTwoBodyTermBath(mwArray& result,int k,
 						    bool left) const{
   if(k>=L-1){
     cout<<"Error:cannot compute two body bosonic term on the "
@@ -71,8 +69,8 @@ void ThermofieldHamiltonian::computeTwoBodyTermBath(mwArray& result,int k,
   double gammaL=left?gamma2:gamma1;
   double gammaR=left?gamma1:gamma2;
   // cout<<"computeTwoBodyTermBath(k="<<k<<(left?",L)":",R)")<<" pos1="<<pos1
-  //      <<" pos2="<<pos2<<", coeff NL="<<gammaL<<", coeff NR="<<gammaR
-  //      <<", coeff inter="<<alpha<<endl;
+  //     <<" pos2="<<pos2<<", coeff NL="<<gammaL<<", coeff NR="<<gammaR
+  //     <<", coeff inter="<<alpha<<endl;
 
   mwArray aCreatL(Indices(dimL,dimL));
   for(int d=0;d<dimL-1;d++){
@@ -116,14 +114,9 @@ void ThermofieldHamiltonian::computeTwoBodyTermBath(mwArray& result,int k,
   diag.reshape(Indices(dimL*dimR,dimL*dimR));
   result=result+Hconjugate(result);
   result=alpha*result+diag;
-  // cout<<"Boson term nr "<<k<<" (pos "<<min(pos1,pos2)<<")"<<endl;
-  // // debugging
-  // ofstream* debOut=new ofstream("debugQF.m",ios::app);
-  // if(left) putForMatlab(*debOut,result,"term"); else putForMatlab(*debOut,result,"termR");
-  // debOut->close();delete debOut;
 }
 
-void ThermofieldHamiltonian::getTwoBodyTermBathExponential(mwArray& Ol,
+void ThermofieldHamiltonianSpinBoson::getTwoBodyTermBathExponential(mwArray& Ol,
 							     mwArray& Or,
 							     complex_t delta,
 							     int k,
@@ -137,7 +130,7 @@ void ThermofieldHamiltonian::getTwoBodyTermBathExponential(mwArray& Ol,
   int dimL=dims[min(pos1,pos2)];
   int dimR=dims[max(pos1,pos2)];
   computeTwoBodyTermBath(H12,k,left);
-   // cout<<"ThermofieldHamiltonian::getTwoBodyTermBathExponential for "
+   // cout<<"ThermofieldHamiltonianSpinBoson::getTwoBodyTermBathExponential for "
    //     <<(left?"left":"right")<<" mode "<<k<<" corresponds to positions "
    //     <<pos1<<" and "<<pos2<<", with dimensions "<<dimL<<" and "<<dimR<<endl;
    // cout<<"The 2-body Hamiltonian is "<<H12<<endl;
@@ -151,8 +144,8 @@ void ThermofieldHamiltonian::getTwoBodyTermBathExponential(mwArray& Ol,
   split2term(Ol,Or,expH,dimL,dimR,nr);
 }
 
-void ThermofieldHamiltonian::split2term(mwArray& Ol,mwArray& Or,mwArray& expH,int dimL,int dimR,int& nr) const {
-  //  cout<<"ThermofieldHamiltonian::split2term expH="<<expH<<", dimL="<<dimL<<", dimR="<<dimR<<endl;
+void ThermofieldHamiltonianSpinBoson::split2term(mwArray& Ol,mwArray& Or,mwArray& expH,int dimL,int dimR,int& nr) const {
+  //  cout<<"ThermofieldHamiltonianSpinBoson::split2term expH="<<expH<<", dimL="<<dimL<<", dimR="<<dimR<<endl;
   expH.reshape(Indices(dimL,dimR,dimL,dimR));
   expH.permute(Indices(1,3,2,4));
   expH.reshape(Indices(dimL*dimL,dimR*dimR));
@@ -174,11 +167,12 @@ void ThermofieldHamiltonian::split2term(mwArray& Ol,mwArray& Or,mwArray& expH,in
   Or.permute(Indices(2,1,3,4));  
 }
 
-void ThermofieldHamiltonian::getCouplingExponential(mwArray& Opl,
+void ThermofieldHamiltonianSpinBoson::getCouplingExponential(mwArray& Opl,
 						    mwArray& Ospin,mwArray& Opr,
 						    complex_t delta) const{
-  //  cout<<"ThermofieldHamiltonian::getCouplingExponential"<<endl;
-  // All Hamiltonian term involving the system and its neighbouring bosons, and the exponential, split in 3-site MPO
+  //  cout<<"ThermofieldHamiltonianSpinBoson::getCouplingExponential"<<endl;
+  // Construct the non-trivial operators for each of them (OL for the
+  // spin, exp(deltaC)-1 for each of the bosons
   int dimL=dims[L-1];
   int dimR=dims[L+1];
   int d=dims[L];
@@ -188,79 +182,91 @@ void ThermofieldHamiltonian::getCouplingExponential(mwArray& Opl,
   for(int id=0;id<dimL-1;id++){
    bosonL.setElement(sqrt(id+1),0.,Indices(id+1,id));
   }
-  bosonL.Hconjugate(); // the destruct. is the one with OL
-  
+  bosonL=bosonL+Hconjugate(bosonL);
   mwArray bosonR(Indices(dimR,dimR));
   for(int id=0;id<dimR-1;id++){
     bosonR.setElement(sqrt(id+1),0.,Indices(id+1,id));
+  } // TODO!! CHECK!!!
+  bosonR=bosonR+Hconjugate(bosonR);
+  mwArray Ltest=OL*OL-OL;
+  if(Ltest.isNull(1E-10)){// If L^2==L, this should work
+    //cout<<"L^2=L"<<endl;
+    mwArray expL;
+    wrapper::expm(bosonL,expL,B1n[0]*delta);
+    mwArray IdL=identityMatrix(dimL);
+    expL=expL-IdL;
+    mwArray expR;
+    wrapper::expm(bosonR,expR,B2n[0]*delta);
+    mwArray IdR=identityMatrix(dimR);
+    expR=expR-IdR;
+    mwArray IdSp=identityMatrix(d);
+    mwArray L2=OL*OL;
+    int Dop=2;
+    // Now I set the operators by hand
+    Opl=mwArray(Indices(dimL,1,dimL,Dop));
+    Ospin=mwArray(Indices(d,Dop,d,Dop));
+    Opr=mwArray(Indices(dimR,Dop,dimR,1));
+    for(int k=0;k<dimL;k++)
+      for(int j=0;j<dimL;j++){
+	Opl.setElement(IdL.getElement(Indices(k,j)),Indices(k,0,j,0));
+	Opl.setElement(expL.getElement(Indices(k,j)),Indices(k,0,j,1));
+      }
+    for(int k=0;k<dimR;k++)
+      for(int j=0;j<dimR;j++){
+	Opr.setElement(IdR.getElement(Indices(k,j)),Indices(k,0,j,0));
+	Opr.setElement(expR.getElement(Indices(k,j)),Indices(k,1,j,0));
+      }
+    for(int k=0;k<d;k++)
+      for(int j=0;j<d;j++){
+	Ospin.setElement(IdSp.getElement(Indices(k,j)),Indices(k,0,j,0));
+	Ospin.setElement(OL.getElement(Indices(k,j)),Indices(k,0,j,1));
+	Ospin.setElement(OL.getElement(Indices(k,j)),Indices(k,1,j,0));
+	Ospin.setElement(L2.getElement(Indices(k,j)),Indices(k,1,j,1));
+      }
   }
-  bosonR.Hconjugate(); // the destruct. is the one with OL
-  
-  // term is prop to OL* boson + h.c. on each side
-  mwArray termL,termR;
-  constructOperatorProduct(termL,bosonL,OL);termL=termL+Hconjugate(termL);
-  constructOperatorProduct(termR,OL,bosonR);termR=termR+Hconjugate(termR);
-  mwArray H13;
-  constructOperatorProduct(H13,identityMatrix(dimL),B2n[0]*termR);
-  mwArray tmp;
-  constructOperatorProduct(tmp,B1n[0]*termL,identityMatrix(dimR));
-  H13=H13+tmp;
-  constructOperatorProduct(termL,identityMatrix(dimL),Hfree);
-  constructOperatorProduct(tmp,termL,identityMatrix(dimR));
-  H13=H13+tmp;
-  // ofstream* debOut=new ofstream("debugQF.m",ios::app);
-  // *debOut<<"dtExp="<<delta<<endl;
-  // putForMatlab(*debOut,H13,"H13");
-  // debOut->close();delete debOut;
-  wrapper::expm(H13,tmp,delta);
-    // Now the SVD on two cuts!
-  int nl,nr;
-  split3term(Opl,Ospin,Opr,tmp,dimL,d,dimR,nl,nr);
-  // debOut=new ofstream("debugQF.m",ios::app);
-  // putForMatlab(*debOut,Opl,"Opl");
-  // putForMatlab(*debOut,Ospin,"Ospin");
-  // putForMatlab(*debOut,Opr,"Opr");
-  // debOut->close();delete debOut;
+  else{ // general case!
+    //cout<<"L^2!=L"<<endl;
+    mwArray H12(bosonL),expL;
+    int Dl,Dr;
+    // First, construct the tensor product of boson and spin operator
+    // for the left side
+    H12.reshape(Indices(dimL*dimL,1));
+    H12.multiplyRight(reshape(OL,Indices(1,d*d)));
+    H12.reshape(Indices(dimL,dimL,d,d));
+    H12.permute(Indices(1,3,2,4));
+    H12.reshape(Indices(dimL*d,dimL*d));
+    wrapper::expm(H12,expL,B1n[0]*delta);
+    //cout<<"First exponential (L)="<<expL<<", dimL="<<dimL<<endl;
+    // Now do the SVD to get the MPo form
+    split2term(Opl,Ospin,expL,dimL,d,Dl);
+    //cout<<"After splitting Opl="<<Opl<<endl;
+
+    mwArray _Ol;
+    // Same for right side
+    H12=bosonR;
+    H12.reshape(Indices(1,dimR*dimR));
+    H12.multiplyLeft(reshape(OL,Indices(d*d,1)));
+    H12.reshape(Indices(d,d,dimR,dimR));
+    H12.permute(Indices(1,3,2,4));
+    H12.reshape(Indices(d*dimR,d*dimR));
+    wrapper::expm(H12,expL,B2n[0]*delta);
+    split2term(_Ol,Opr,expL,d,dimR,Dr);
+    Ospin.reshape(Indices(d*Dl,d));
+    _Ol.reshape(Indices(d,d*Dr));
+    Ospin.multiplyRight(_Ol);
+    Ospin.reshape(Indices(d,Dl,d,Dr));
+    //    cout<<"ERROR!! NOT YET FINISHED!!!"<<endl;
+    //    exit(2);
   }
-
-
-void ThermofieldHamiltonian::split3term(mwArray& Ol,mwArray& Oc,mwArray& Or,mwArray& expH,
-					int dimL,int dimC,int dimR,int& nl,int& nr) const {
-  // cout<<"split3term of expH "<<expH.getDimensions()<<", dimL="<<dimL<<", dimC="<<dimC
-  //     <<", dimR="<<dimR<<endl;
-  // First the left cut with split2term
-  mwArray tmp;
-  split2term(Ol,tmp,expH,dimL,dimC*dimR,nl);
-  // Now tm is d2*d,Dl,d2*d
-  tmp.reshape(Indices(dimC,dimR,nl,dimC,dimR));
-  tmp.permute(Indices(1,3,4,2,5));
-  tmp.reshape(Indices(dimC*nl*dimC,dimR*dimR));
-  // And compute the SVD
-  mwArray S; // place for the singular values
-  nr=0;
-  double tol=0.;
-  wrapper::svd(tmp,tol,nr,Oc,S,Or);
-  // cout<<"After SVD"<<endl;
-  // redistribute the singular values
-  S=sqrt(S);
-  // TODO: check no NaN???
-  Oc.multiplyRight(S);
-  Or.multiplyLeft(S);
-  // Now reshape adequately
-  Oc.reshape(Indices(dimC,nl,dimC,nr));
-  Or.reshape(Indices(nr,dimR,dimR,1));
-  Or.permute(Indices(2,1,3,4));  
 }
 
-
-
-void ThermofieldHamiltonian::getFreeSpinExponential(mwArray& Op,
+void ThermofieldHamiltonianSpinBoson::getFreeSpinExponential(mwArray& Op,
 						    complex_t delta) const{
   //  int d=dims[L];
   wrapper::expm(Hfree,Op,delta);
 }
 
-void ThermofieldHamiltonian::setSingleModeTerm(MPO& expHe,int pos,int dim,complex_t delta,bool left) const{
+void ThermofieldHamiltonianSpinBoson::setSingleModeTerm(MPO& expHe,int pos,int dim,complex_t delta,bool left) const{
   mwArray op1(Indices(dim,dim));
   for(int d=0;d<dim-1;d++){
     op1.setElement(sqrt(d+1),0.,Indices(d+1,d));
@@ -273,13 +279,12 @@ void ThermofieldHamiltonian::setSingleModeTerm(MPO& expHe,int pos,int dim,comple
   expHe.setOp(pos,new Operator(op2),true);
 }
 
-void ThermofieldHamiltonian::getExponentialMPOeven(MPO& expHe,complex_t delta) const{
-  //  cout<<"ThermofieldHamiltonian::getExponentialMPOeven"<<endl;
+void ThermofieldHamiltonianSpinBoson::getExponentialMPOeven(MPO& expHe,complex_t delta){
+  //  cout<<"ThermofieldHamiltonianSpinBoson::getExponentialMPOeven"<<endl;
   expHe.initLength(2*L+1);
-  int d=dims[L];
-  mwArray tmpOp=identityMatrix(d); // in this implementation, the free system Hamiltonian is including with the coupling
-  //  getFreeSpinExponential(tmpOp,delta); 
-  //int d=tmpOp.getDimension(0);
+  mwArray tmpOp;
+  getFreeSpinExponential(tmpOp,delta);
+  int d=tmpOp.getDimension(0);
   tmpOp.reshape(Indices(d,1,d,1));
   expHe.setOp(L,new Operator(tmpOp),true);
   //  cout<<"Set operator at "<<L<<" to "<<tmpOp.getDimensions()<<endl;
@@ -353,11 +358,11 @@ void ThermofieldHamiltonian::getExponentialMPOeven(MPO& expHe,complex_t delta) c
   }
 }
 
-void ThermofieldHamiltonian::getExponentialMPOodd(MPO& expHo,complex_t delta) const{
+void ThermofieldHamiltonianSpinBoson::getExponentialMPOodd(MPO& expHo,complex_t delta){
   expHo.initLength(2*L+1);
   // The term in the center, from the couplings of the spin and
   // zero-modes
-  //  cout<<"ThermofieldHamiltonian::getExponentialMPOodd"<<endl;
+  //  cout<<"ThermofieldHamiltonianSpinBoson::getExponentialMPOodd"<<endl;
   mwArray Ol,Ospin,Or;
   getCouplingExponential(Ol,Ospin,Or,delta);
   expHo.setOp(L-1,new Operator(Ol),true);
@@ -404,10 +409,10 @@ void ThermofieldHamiltonian::getExponentialMPOodd(MPO& expHo,complex_t delta) co
   }
 }
 
-void  ThermofieldHamiltonian::initHMPO(){
-  cout<<"ThermofieldHamiltonian::initHMPO() Not yet implemented"<<endl;
+void  ThermofieldHamiltonianSpinBoson::initHMPO(){
+  cout<<"ThermofieldHamiltonianSpinBoson::initHMPO() Not yet implemented"<<endl;
 }
 
-void  ThermofieldHamiltonian::initZ(){
-  cout<<"ThermofieldHamiltonian::initZ() Not yet implemented"<<endl;
+void  ThermofieldHamiltonianSpinBoson::initZ(){
+  cout<<"ThermofieldHamiltonianSpinBoson::initZ() Not yet implemented"<<endl;
 }

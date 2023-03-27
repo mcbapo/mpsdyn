@@ -7,7 +7,7 @@
 #include "Contractor.h"
 #include "Properties.h"
 
-#include "ThermofieldHamiltonian.h"
+#include "ThermofieldHamiltonianSpinBoson.h"
 
 using namespace std;
 using namespace shrt;
@@ -148,7 +148,7 @@ int main(int argc,const char* argv[]){
   }
 
   // And initialize the Hamiltonian
-  ThermofieldHamiltonian thH(L,dims,A1n,A2n,B1n,B2n,Hspin,OL);
+  ThermofieldHamiltonianSpinBoson thH(L,dims,A1n,A2n,B1n,B2n,Hspin,OL);
   cout<<"Created the Hamiltonian"<<endl;
 
 

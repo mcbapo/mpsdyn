@@ -1,20 +1,23 @@
-#ifndef THERMOFIELDHAMIL_H
-#define THERMOFIELDHAMIL_H
+#ifndef THERMOFIELDHAMILSB_H
+#define THERMOFIELDHAMILSB_H
 
 #include <vector>
 #include "Hamiltonian.h"
 
-/** 
+/** This early implementation of ThemofieldHamiltonian was specific for 
+    the spin boson model and assumed a Hermitian coupling term spin-bath.
+    It is now superseded by an implementation that assumes 
+    something plus its Hermitian conjugate.
+
+    TODO: Clean up by removing duplicated code and simply inheriting
+    from the current ThermofieldHamiltonian
+
     A Hamiltonian containing only nearest-neighbor terms, for the
-    particular case of the thermofield simulations. 
-    The system (in the middle of the chain) can have arbitrary dimension. 
-    To create the object, suitable tensors have to be provided, with 
-    the free Hamiltonian (\f$H_{\mathrm{spin}}\f$), and also the interaction term (namely the operator 
-    \f$L\f$, see below)
-    The model has a system site of dimension d in the center of the chain, and L bosonic modes 
+    particular case of the thermofield simulations. This means we have
+    a spin site in the center of the chain, and L bosonic modes 
     coupled to it on each side.
     We assume couplings of the form
-    \f[b_{2,0} L^{\dagger} c_0^{\dagger}+L c_0\right)\f]
+    \f[b_{2,0} L\left(c_0^{\dagger}+c_0\right)\f]
     for the coupling between the spin and the first bosonic mode on the
     right (similar for the left, with \f$b_{1,0}\f$
     and modes \f$d_0,\,d_0^{\dagger}\f$) and
@@ -29,11 +32,11 @@
     allow different maximum occupation number for the bosons.
 */
 
-class ThermofieldHamiltonian:
+class ThermofieldHamiltonianSpinBoson:
 public Hamiltonian{
  protected:
 	int L;
-	std::vector<int> dims; // Physical dimensions (N+1 for bosons, d
+	std::vector<int> dims; // Physical dimensions (N+1 for bosons, 2
 			    // for spin)
 	//double g; // Coupling constant
 	std::vector<double> B2n; // Coefficients of the right couplings (B2)
@@ -51,7 +54,7 @@ public Hamiltonian{
 
 public:
 /** Create with all the required fields as arguments.  */
-	ThermofieldHamiltonian(int L,std::vector<int> dims,
+	ThermofieldHamiltonianSpinBoson(int L,std::vector<int> dims,
 			       const std::vector<double>& a1n,
 			       const std::vector<double>& a2n,
 			       const std::vector<double>& b1n,
@@ -59,7 +62,7 @@ public:
 			       mwArray Hfree,mwArray OL);
 	/** TODO: Create from file */
 	//	ThermofieldHamiltonian(const char* filename);
-	~ThermofieldHamiltonian();
+	~ThermofieldHamiltonianSpinBoson();
 	
 	/** Return the length */
 	virtual int getLength() const {cout<<"ThermofieldHamiltonian::getLength()"<<endl;return 2*L+1;}
@@ -82,8 +85,8 @@ public:
 	    Hamiltonian of the central spin. The odd term includes the
 	    bosonic pairs 12,34... AND both coupling terms between spin and
 	    zero-modes, which we assume commute.*/
-	virtual void getExponentialMPOeven(MPO& expHe,complex_t delta) const;
-	virtual void getExponentialMPOodd(MPO& expHo,complex_t delta) const;
+	virtual void getExponentialMPOeven(MPO& expHe,complex_t delta);
+	virtual void getExponentialMPOodd(MPO& expHo,complex_t delta);
 	
  protected:
 	
@@ -92,7 +95,7 @@ public:
 	
  protected:
 	/** Constructor for daughter class */
-	ThermofieldHamiltonian(int L_,std::vector<int> dims,const vector<double>& A1n_,
+	ThermofieldHamiltonianSpinBoson(int L_,std::vector<int> dims,const vector<double>& A1n_,
 			       const vector<double>& A2n_,const vector<double>& B1n_,
 			       const vector<double>& B2n_);
 
@@ -108,9 +111,8 @@ public:
 	virtual void computeTwoBodyTermBath(mwArray& result,int k,bool left=false) const;
 	
 	/** */
-	void split2term(mwArray& Ol,mwArray& Or,mwArray& expH,int dimL,int dimR,int& nr) const;
-	/** */
-	void split3term(mwArray& Ol,mwArray& Oc,mwArray& Or,mwArray& expH,int dimL,int dimC,int dimR,int& nl,int& nr) const;
+	void split2term(mwArray& Ol,mwArray& Or,mwArray& expH,int dimL,int dimR,int& nr) 
+	  const;
 	/** Prepare the even-odd decomposition of the evolution operator:
 	    returns the two terms to be inserted in the MPO for the 
 	    exp(delta H12) (delta a complex number).
@@ -130,4 +132,4 @@ public:
 				       complex_t delta,bool left) const;
 };
 
-#endif // THERMOFIELDHAMIL_H
+#endif // THERMOFIELDHAMILSB_H
