@@ -5,8 +5,9 @@ There are two folders:
     src (containing all the code) 
     doc, with some (automatically generated via doxygen) documentation. To start browsing, open doc/html/index.html, you can browse the structure of the code, classes, etc.
 
-The first thing you need to do is to install the primme static library libprimme.a (https://github.com/primme/primme) in src/libs
-
+The first thing you need to do is to install the primme static library libprimme.a (https://github.com/primme/primme) in src/libs. 
+    Depending on your architecture, it should be in src/libs/linux or src/libs/macos 
+    
 It also requires a BLAS and LAPACK installation, which you probably have.
 For early tests and some old programs, also the arpack library is used (this is to be removed at some point). 
 The path to these libraries should be added to the variable LINKDIRS in Makefile.arch under the suitable option (corresponding to the architecture).
