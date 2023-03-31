@@ -7,12 +7,14 @@ There are two folders:
 
 The first thing you need to do is to install the primme static library libprimme.a (https://github.com/primme/primme) in src/libs. 
     Depending on your architecture, it should be in src/libs/linux or src/libs/macos 
+
+    If primme is not available, the code can run using arpack, but this has had some issues in the past and is less efficient.
     
 It also requires a BLAS and LAPACK installation, which you probably have.
 For early tests and some old programs, also the arpack library is used (this is to be removed at some point). 
-The path to these libraries should be added to the variable LINKDIRS in Makefile.arch under the suitable option (corresponding to the architecture).
+The path to these libraries should be added to the variable LINKDIRS in Makefile.arch under the suitable option (corresponding to the architecture). If possible, using MKL libraries is recommended. 
 
-Right now, the code runs, as it is provided, in a Linux cluster (Scientific Linux) and some Mac computers, but one may need to touch the Makefile.arch (in src/bin) for a particular architecture. There
+Right now, the code runs, as it is provided, in a Linux cluster (Scientific Linux) and some Mac computers, but one may need to touch the Makefile.arch (in src/bin) for a particular architecture. 
 
 Once this is done, in src/bin, one should copy the file Makefile.newuser to Makefile.user.[your_user_name] (in src/bin/  changing the last part of the name to your actual username). Then you can compile and run some tests (Please, start by compiling "make test1" and running "./test1" to test basic tensor functions. If it runs without failing, the tensor library, and interface to primme etc are working)
 
