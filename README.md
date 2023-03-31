@@ -16,7 +16,7 @@ The path to these libraries should be added to the variable LINKDIRS in Makefile
 
 Right now, the code runs, as it is provided, in a Linux cluster (Scientific Linux) and some Mac computers, but one may need to touch the Makefile.arch (in src/bin) for a particular architecture. 
 
-Once this is done, in src/bin, one should copy the file Makefile.newuser to Makefile.user.[your_user_name] (in src/bin/  changing the last part of the name to your actual username). Then you can compile and run some tests (Please, start by compiling "make test1" and running "./test1" to test basic tensor functions. If it runs without failing, the tensor library, and interface to primme etc are working)
+Once this is done, in src/bin, one should copy the file Makefile.newuser to Makefile.user.[your_user_name] (in src/bin/  changing the last part of the name to your actual username). Then you can compile and run some tests (Please, start by compiling "`make test1`" and running "`./test1`" to test basic tensor functions. If it runs without failing, the tensor library, and interface to primme etc are working)
 
 The interesting programs are in src/programs/  and different subdirectories
 
@@ -27,14 +27,15 @@ make ising
 compiles the program programs/ising/testIsing.cpp
 This computes the GS of the Ising model, variationally  and with imaginary time evolution. It requires a list of parameters:
 
-./ising L J g h D M delta outputFile append
+    `./ising L J g h D M delta outputFile append`
 
-L(system size) 
-J g h (Hamiltonian parameters) 
-D (bond dimension) 
-M (number of time steps for imag. t evol.) 
-delta (time step) 
-outputFile (name, including relative path, of output file) 
-append (0/1 whether the file is to be recreated or appended to)
+- `L`(system size) 
+- `J g h` (Hamiltonian parameters) 
+- `D` (bond dimension) 
+- `M` (number of time steps for imag. t evol.) 
+- `delta` (time step) 
+- `outputFile` (name, including relative path, of output file) 
+- `append` (0/1 whether the file is to be recreated or appended to)
+
 
 To run other programs, you will need to provide a configuration file with a set of properties (required ones are specified in the .cpp file in programs ). As an example, there is some in folder config/
