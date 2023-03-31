@@ -27,7 +27,7 @@ make ising
 compiles the program programs/ising/testIsing.cpp
 This computes the GS of the Ising model, variationally  and with imaginary time evolution. It requires a list of parameters:
 
-    `./ising L J g h D M delta outputFile append`
+    ./ising L J g h D M delta outputFile append
 
 - `L`(system size) 
 - `J g h` (Hamiltonian parameters) 
