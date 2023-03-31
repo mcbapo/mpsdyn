@@ -8,7 +8,7 @@ There are two folders:
 The first thing you need to do is to install the primme static library libprimme.a (https://github.com/primme/primme) in src/libs. 
     Depending on your architecture, it should be in src/libs/linux or src/libs/macos 
 
-    If primme is not available, the code can run using arpack, but this has had some issues in the past and is less efficient.
+If primme is not available, the code can run using arpack, but this has had some issues in the past and is less efficient.
     
 It also requires a BLAS and LAPACK installation, which you probably have.
 For early tests and some old programs, also the arpack library is used (this is to be removed at some point). 
