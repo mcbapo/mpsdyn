@@ -27,18 +27,19 @@ public Multiplier,public MPO{
   // Construct empty, with just the length
   MPOMultiplier(int length);
   MPOMultiplier(int length,const Operator** oplist);
+  MPOMultiplier(const MPO& mpo);
   virtual ~MPOMultiplier();
-  void product(const mwArray& input,mwArray& result);
+  virtual void product(const mwArray& input,mwArray& result);
   // Returns the effective dimension of the vector on which this Multiplier 
   // can act.
   int getSize() const;
   /** This will fail if the size is too larg, as it would construct a
       large matrix */
-  void getFullTensor(mwArray& result){expandOper(*this,result);}
-  void setOp(int pos,const Operator* op,bool myop=0);
-  void setRotatedOp(int pos,const mwArray& op,const shrt::Indices& neworder,
+  virtual void getFullTensor(mwArray& result);
+  virtual void setOp(int pos,const Operator* op,bool myop=0);
+  virtual void setRotatedOp(int pos,const mwArray& op,const shrt::Indices& neworder,
 		    bool conjugate=0);
- private:
+ protected:
   void initDims();
   bool allSet() const;
 };

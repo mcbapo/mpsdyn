@@ -258,15 +258,25 @@ int main(int argc,const char* argv[]){
     mwArray psiF2(Indices(2,1,1));
     if(epsilon!=0.){
       double x=Delta/epsilon;
-      psiF1.setElement((1-sqrt(1+x*x))*ONE_c,Indices(0,0,0)); // comp 0
-      psiF1.setElement(x*ONE_c,Indices(1,0,0)); // comp 1
-      
-      psiF2.setElement((1+sqrt(1+x*x))*ONE_c,Indices(0,0,0)); // comp 0
-      psiF2.setElement(x*ONE_c,Indices(1,0,0)); // comp 1
-      double norm=x*x+pow(1-sqrt(1+x*x),2);
-      psiF1=(1./sqrt(norm))*psiF1;
-      norm=x*x+pow(1+sqrt(1+x*x),2);
-      psiF2=(1./sqrt(norm))*psiF2;
+      if(x==0){
+	psiF1.setElement(ZERO_c,Indices(0,0,0)); // comp 0
+	psiF1.setElement(ONE_c,Indices(1,0,0)); // comp 1
+	
+	psiF2.setElement(ONE_c,Indices(0,0,0)); // comp 0
+	psiF2.setElement(ZERO_c,Indices(1,0,0)); // comp 1
+
+      }
+      else{
+	psiF1.setElement((1-sqrt(1+x*x))*ONE_c,Indices(0,0,0)); // comp 0
+	psiF1.setElement(x*ONE_c,Indices(1,0,0)); // comp 1
+	
+	psiF2.setElement((1+sqrt(1+x*x))*ONE_c,Indices(0,0,0)); // comp 0
+	psiF2.setElement(x*ONE_c,Indices(1,0,0)); // comp 1
+	double norm=x*x+pow(1-sqrt(1+x*x),2);
+	psiF1=(1./sqrt(norm))*psiF1;
+	norm=x*x+pow(1+sqrt(1+x*x),2);
+	psiF2=(1./sqrt(norm))*psiF2;
+      }
     }
     else{ // special case epsilon=0
       cout<<"Special case: epsilon=0, thus eigenstates of F are x+-"<<endl;

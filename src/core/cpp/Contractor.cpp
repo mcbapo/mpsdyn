@@ -1116,41 +1116,63 @@ mwArray Contractor::getEffectiveOperatorMultiSite(const MPS& ket,const MPO& ops,
   mwArray M; // the effective operator
   // I reuse the work done for the TensorMultiplier
   TensorMultiplier aux=getEffectiveOperatorMultiplierMultiSite(ket,ops,k,pos);
+  // Just use the full tensor from TensorMultiplier
+  aux.getFullTensor(M);
+  return M;
   // A trick: I create an operator with the contraction of all intermediate ones, 
   // to finish this contraction
-  Operator auxOp(aux.getMiddleTerm());
-  auxOp.contractN(M,aux.getLeftTerm(),aux.getRightTerm());
-  return M;
+  // Operator auxOp(aux.getMiddleTerm());
+  // auxOp.contractN(M,aux.getLeftTerm(),aux.getRightTerm());
+  // return M;
 }
 
 TensorMultiplier Contractor::getEffectiveOperatorMultiplierSingleSite(const MPS& ket,const MPO& ops,int pos){
   return getEffectiveOperatorMultiplierMultiSite(ket,ops,1,pos);
-  // int nrsites=ops.getLength();  
-  // if(pos<0||pos>=nrsites){
-  //   cout<<"Position "<<pos<<" out of range in Contractor::getEffectiveOperatorSingleSite "<<endl;
-  //   exit(1);
-  // }
-  // // Make a copy of the MPS to ensure the proper gauge conditions (TODO!!!! CHECK!!!)
-  // MPS auxMPS(ket);
-  // //  double origNorm=contract(auxMPS,auxMPS); // keep the original normalization, just in case?
-  // if(!auxMPS.isGaugeR()) auxMPS.gaugeCond('R',1);
-  // // Now left part is normalized => contract right part until pos
-  // for(int k=nrsites-1;k>=pos+1;k--){
-  //   auxMPS.gaugeCond(k,'L',true);
-  // }
-  // // Now N matrix is identity
-  // //##################### HERE!!!!
-  // bool gauge=true;
-  // bool ketN=false; 
-  // TmpManager tmpMgr(nrsites,gauge);
-  // // left and right terms
-  // calculateL(pos,tmpMgr,ops,auxMPS,auxMPS,gauge,ketN);
-  // calculateR(pos,tmpMgr,ops,auxMPS,auxMPS,gauge,ketN);
-  // mwArray tmpOp=ops.getOp(pos).getFullData();
-  // return TensorMultiplier(tmpMgr.operL[pos],tmpOp,tmpMgr.operR[pos]);
 }
 
+void Contractor::getEffectiveOperatorMPOMultiplier(const MPS& ket,const MPO& ops,int block,int pos,MPOMultiplier& mpoMulti){
+  //cout<<"Contractor::getEffectiveOperatorMPOMultiplier from mps("<<ket.getLength()<<") and mpo("<<ops.getLength()<<") sites "
+  //   <<pos<<" to "<<pos+block-1<<endl;
+  int nrsites=ops.getLength();  
+  if(pos<0||pos+block-1>=nrsites){
+    cout<<"Position "<<pos<<" out of range in Contractor::getEffectiveOperatorSingleSite "<<endl;
+    exit(1);
+  }
+  mpoMulti.initLength(block+2);
+
+  // Make a copy of the MPS to ensure the proper gauge conditions (TODO!!!! I don't think I need this)
+  MPS auxMPS(ket);
+  //  double origNorm=contract(auxMPS,auxMPS); // keep the original normalization, just in case?
+  if(!auxMPS.isGaugeR()) auxMPS.gaugeCond('R',1);
+  // Now left part is normalized => contract right part until pos+k-1, to ensure we work on o.n. basis
+  for(int ik=nrsites-1;ik>=pos+block;ik--){
+    auxMPS.gaugeCond(ik,'L',true);
+  }
+  // Now N matrix is identity
+  //##################### HERE!!!!
+  bool gauge=true;
+  bool ketN=false; 
+  TmpManager tmpMgr(nrsites,gauge);
+
+  // left and right terms
+  calculateL(pos,tmpMgr,ops,auxMPS,auxMPS,gauge,ketN);
+  calculateR(pos+block-1,tmpMgr,ops,auxMPS,auxMPS,gauge,ketN);
+  mwArray& opL=tmpMgr.operL[pos];
+  Indices dimsL=opL.getDimensions(); // bra,xi,ket
+  mwArray& opR=tmpMgr.operR[pos+block-1];
+  Indices dimsR=opR.getDimensions(); // bra,xi,ket
+  mpoMulti.setOp(0,new Operator(permute(reshape(opL,Indices(dimsL,1)),Indices(1,4,3,2))),true);
+  mpoMulti.setOp(block+1,new Operator(reshape(opR,Indices(dimsR,1))),true);
+  for(int k=0;k<block;k++){
+    //    cout<<"Contractor::getEffectiveOperatorMPOMultiplier setting op "<<k+1<<endl;
+    mpoMulti.setOp(k+1,&ops.getOp(pos+k),false);
+  }
+  //cout<<"Constructed the MPOMultiplier "<<mpoMulti<<endl;
+}
+
+
 TensorMultiplier Contractor::getEffectiveOperatorMultiplierMultiSite(const MPS& ket,const MPO& ops,int k,int pos){
+  cout<<"Contractor::getEffectiveOperatorMultiplierMultiSite from mps("<<ket.getLength()<<") and mpo("<<ops.getLength()<<") sites "<<pos<<" to "<<pos+k-1<<endl;
   int nrsites=ops.getLength();  
   if(pos<0||pos+k-1>=nrsites){
     cout<<"Position "<<pos<<" out of range in Contractor::getEffectiveOperatorSingleSite "<<endl;
@@ -1188,6 +1210,7 @@ TensorMultiplier Contractor::getEffectiveOperatorMultiplierMultiSite(const MPS& 
   //   tmpOp.permute(Indices(1,4,2,3,5,6));
   //   tmpOp.reshape(Indices(dimsOld[0]*dimsNew[0],dimsOld[1],dimsOld[2]*dimsNew[2],dimsNew[3]));
   // }
+  cout<<"Will construct a multiplier out of tmpOp:"<<tmpOp.getDimensions()<<", left "<<tmpMgr.operL[pos].getDimensions()<<"and right "<<tmpMgr.operR[pos+k-1].getDimensions()<<endl;
   return TensorMultiplier(tmpMgr.operL[pos],tmpOp,tmpMgr.operR[pos+k-1]);
 }
 
@@ -4241,7 +4264,9 @@ void  Contractor::orthogonalizeSum(MPS& init,int D,
 }
 
 void Contractor::blockOperatorMultiSite(mwArray& blockOp,const MPO& ops,int k,int pos){
+  cout<<"Contractor::blockOperatorMultiSite from sites "<<pos<<" to "<<k+pos-1<<endl;
   blockOp=ops.getOp(pos).getFullData();
+  //  cout<<"blockOp:"<<blockOp.getDimensions()<<endl;
   for(int l=1;l<k;l++){
     mwArray nextOp=ops.getOp(pos+l).getFullData();
     // contract together the previous one and the local term
@@ -4254,6 +4279,7 @@ void Contractor::blockOperatorMultiSite(mwArray& blockOp,const MPO& ops,int k,in
     blockOp.reshape(Indices(dimsOld[0],dimsOld[1],dimsOld[2],dimsNew[0],dimsNew[2],dimsNew[3]));
     blockOp.permute(Indices(1,4,2,3,5,6));
     blockOp.reshape(Indices(dimsOld[0]*dimsNew[0],dimsOld[1],dimsOld[2]*dimsNew[2],dimsNew[3]));
+    //cout<<"After reshaping:"<<blockOp.getDimensions()<<endl;
   }
 }
 

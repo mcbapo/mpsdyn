@@ -1059,7 +1059,8 @@ mwArray& mwArray::operator=(const mwArray& orig){
     else{ // can only assign same nr of elements
       if(nrcomponents!=orig.getNrComponents()){
 	cout<<"Error: shallow mwArray can only be assigned to "
-	    <<"the same number of components"<<endl;
+	    <<"the same number of components. Here("<<this<<") trying to assign "<<nrcomponents<<" from orig "
+	    <<orig.getNrComponents()<<endl;
 	exit(212);
       }
       memcpy((void*)components,(void*)orig.components,sizeof(double)*2*nrcomponents);
@@ -1726,6 +1727,7 @@ void mwArray::setPointer(const shrt::Indices& dims_,double* ptr){
   rank=dims.size();
   nrcomponents=1;
   for(int k=0;k<rank;k++) nrcomponents*=dims[k];
+  //  cout<<"Now setting this mwArray("<<this<<") to shallow!!!!"<<endl;
   mine=false;
 }
 

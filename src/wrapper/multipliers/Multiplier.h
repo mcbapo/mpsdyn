@@ -33,11 +33,12 @@ class Multiplier{
       product function has to be different. This method acts as wrapper
       to be able to use PRIMME instead of eigs. */
   virtual void product_primme(void* x,void* y){
+    int n=getSize();
     mwArray vector;
     mwArray result;
-    int n=getSize();
     vector.setPointer(shrt::Indices(n,1),(double*)x);
     result.setPointer(shrt::Indices(n,1),(double*)y);
+    // TODO: Notice that this is not the most efficient, as now results is a shallow copy, and the contents cannot be modified (only reshapes allowed), which means that a copy is required  
     //std::cout<<"About to call product on "<<vector<<" and "
     //     <<result<<std::endl;
     product(vector,result);

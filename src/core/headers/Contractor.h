@@ -18,6 +18,7 @@
 #include "TmpManager.h"
 #include "TmpManagerExc.h"
 #include "TensorMultiplier.h"
+#include "MPOMultiplier.h"
 
 #include <cmath>
 #include <vector>
@@ -408,7 +409,10 @@ If tmpfile is given, every greqSv rounds the temporary result is saved
       adjacent sites starting on position pos */
   TensorMultiplier getEffectiveOperatorMultiplierMultiSite(const MPS& ket,const MPO& ops,int k,int pos);
 
-  /** Variational miniization of the variance of the given MPO,
+  /** A more general version of the former one(s), in which the Multiplier is drectly a MPO, so it can accommodate more sites. */
+  void getEffectiveOperatorMPOMultiplier(const MPS& ket,const MPO& ops,int block,int pos,MPOMultiplier& mpoMulti);
+  
+  /** Variational minimization of the variance of the given MPO,
       with a non-quadratic cost function. */
   void minimizeVariance(MPS& init,const int D,const MPO& ops,const double E0,
 			double penH,double* var,
