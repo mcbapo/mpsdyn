@@ -44,6 +44,7 @@ class MPO{
   bool myown;
   bool* myops; // which ones
 
+  friend class MPOMultiplier;
  public:
   /** Default constructor */
   MPO();
@@ -147,7 +148,7 @@ class MPO{
 
  private:
   /** Creates a copy. Not to be used */
- MPO(const MPO& opr):length(0),Ops(NULL),myown(1),myops(NULL){};
+  MPO(const MPO& opr):length(0),Ops(NULL),myown(1),myops(NULL){};
 
   /** Just the repeated code that marks a given operator as own */
   void markAsOwn(int pos);

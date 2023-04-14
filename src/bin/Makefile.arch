@@ -20,12 +20,14 @@ $(warning "Hostname es $(HOSTNAME); not in the cluster")
 ifeq ($(UNAME),Linux)
 ########################## Linux system (not cluster)
 $(warning "Compiling in Linux system")
-LINKDIRS+= -L. -L/usr/lib64 -L/usr/local/lib
+LINKDIRS+= -L. -L/usr/lib64 -L/usr/local/lib -L../libs/linux
 ifeq ($(WITHMKL),)
 #################################### No MKL used
 # Locally, if not using mkl, link with blas and lapack
 $(warning "NOT linking with MKL as WITHMKL=$(WITHMKL) ")
+$(warning "USING DEFAULT LINUX OPTIONS. Makefile.arch WILL PROBABLY NEED TO BE UPDATED!!!")
 LIBS=-larpack -llapack -lblas -lstdc++ -lrt 
+LIBS:= -lprimme $(LIBS)
 else
 #################################### Local MKL used
 #export MKLROOT=/opt/intel/composerxe-2011.2.137/mkl
@@ -34,7 +36,7 @@ export CXXLABELS:=$(CXXLABELS) -m64
 export DEFINES += -DMKL_VER
 LIBS=-L$(MKLROOT)/lib/intel64  -Wl,--start-group -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -Wl,--end-group -lpthread
 LIBS:=-larpack $(LIBS) -lstdc++
-LIBS:= -lzprimme $(LIBS) 
+LIBS:= -lprimme $(LIBS) 
 endif
 else
 ########################## Non-Linux system 

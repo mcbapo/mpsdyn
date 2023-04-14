@@ -83,7 +83,7 @@ void TensorMultiplier::product(const mwArray& input,mwArray& result){
   aux.reshape(Indices(du*betab,al2*betakr));
   //  result=aux*AR;
   aux.multiplyRight(AR);
-  result=aux;
+  result=aux; //TODO: Make more efficient avoiding this copy
   result.reshape(Indices(-1,1));
 #ifdef TESTINGTIMES
   counter++;

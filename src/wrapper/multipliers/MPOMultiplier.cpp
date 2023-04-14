@@ -1,6 +1,9 @@
 
 #include "MPOMultiplier.h"
 #include "Indices.h"
+#include <cmath>
+
+int MAXDIM=pow(2,14);
 
 using namespace std;
 using namespace shrt;
@@ -30,6 +33,11 @@ MPOMultiplier::MPOMultiplier(int length,const Operator** oplist):
   initDims();
 }
 
+MPOMultiplier::MPOMultiplier(const MPO& mpo):MPO(1,mpo.Ops),opset(length,true){  
+  initDims();
+}
+
+
 void MPOMultiplier::setOp(int pos,const Operator* op,bool myop){
   MPO::setOp(pos,op,myop);
   if(init){
@@ -43,6 +51,14 @@ void MPOMultiplier::setOp(int pos,const Operator* op,bool myop){
   }
 }
 
+void MPOMultiplier::getFullTensor(mwArray& result){
+  if(totalDim>MAXDIM){
+    cout<<"ERROR: MPOMultiplier would return a too big matrix (dim"<<totalDim<<"). Aborting."<<endl;
+    cout<<"To allow for larger matrices, change the value of MAXDIM in MPOMultiplier.cpp"<<endl;
+    exit(1);
+  }
+  expandOper(*this,result);
+}
 
 void MPOMultiplier::setRotatedOp(int pos,const mwArray& op,
 				 const shrt::Indices& neworder,
@@ -72,7 +88,7 @@ int MPOMultiplier::getSize() const{
 
 void MPOMultiplier::product(const mwArray& input,mwArray& result){
   if(!init){
-    cout<<"Error: MPOMultiplier::product() can only be called when "
+    cout<<"Error: MPOMultiplier("<<this<<")::product() can only be called when "
 	<<"all operators have been set"<<endl;
     exit(1);
   }
@@ -81,7 +97,9 @@ void MPOMultiplier::product(const mwArray& input,mwArray& result){
   struct timeval start,final;
   gettimeofday(&start,NULL);
 #endif
-  result=input;
+  //cout<<"Call to MPOMultiplier::product("<<&input<<","<<input.getDimensions()<<"), result:"<<&result<<","<<result.getDimensions()<<endl;
+  //result=input;
+  mwArray aux0(input);
   int dimL=1; //"open" right bond left from previous multiplication
   int finalDim=1;
   for(int k=0;k<getLength();k++){
@@ -89,16 +107,18 @@ void MPOMultiplier::product(const mwArray& input,mwArray& result){
     Indices dims=getOp(k).getDimensions();
     int dd=dims[0];int du=dims[2];
     int Dl=dims[1];int Dr=dims[3];
-    result.reshape(Indices(dimL*dd,-1));
-    mwArray aux=getOpData(k);
+    aux0.reshape(Indices(dimL*dd,-1));
+    mwArray aux(getOpData(k));
+    //cout<<"MPOMultiplier("<<this<<") prod (before k="<<k<<"): "<<result.getDimensions()<<", op:"<<aux.getDimensions()<<endl;
     aux.permute(Indices(1,4,2,3));
     aux.reshape(Indices(du*Dr,Dl*dd));
-    result.multiplyLeft(aux);
-    result.reshape(Indices(du,-1));
-    result.transpose();
+    aux0.multiplyLeft(aux);
+    aux0.reshape(Indices(du,-1));
+    aux0.transpose();
     dimL=Dr;
     finalDim*=du;
   }
+  result=aux0;
   result.reshape(Indices(finalDim,1));
 #ifdef TESTINGTIMES
   counter++;
