@@ -12,10 +12,13 @@
 $\{|0\rangle,|1\rangle,\ldots|N_{max}\rangle\} $
 \pagebreak
 
-\[ \hat N=\sum_i \hat n_i= \sum_i b_i^{\dagger} b_i \]
+\[ 
+\hat N=\sum_i \hat n_i= \sum_i b_i^{\dagger} b_i
+\]
 \pagebreak
 
-\[ exp\left(i\pi\sum_{i\leq k \leq j} (\hat{n}_k-\bar{n})\right). \]
+\[
+exp\left(i\pi\sum_{i\leq k \leq j} (\hat{n}_k-\bar{n})\right).  \]
 \pagebreak
 
 $\bar{n}$
@@ -30,10 +33,13 @@ $*errN=\| ops result - ket \|^2$
 \[\||\Psi \rangle -| \Phi_0\rangle \|^2+\sum_i \lambda_i \langle \Psi | v_i \rangle \langle v_i |\Psi \rangle \]
 \pagebreak
 
-\[ min \frac{\langle \Psi| H|\Psi \rangle}{\langle \Psi| \Psi \rangle}. \]
+\[
+    min \frac{\langle \Psi| H|\Psi \rangle}{\langle \Psi| \Psi \rangle}.
+    \]
 \pagebreak
 
-$\sum_i (-1)^{i} S_{i}^{\alpha}$
+$\sum_i (-1)^{i}
+S_{i}^{\alpha}$
 \pagebreak
 
 $\sum_i S_i^{\alpha} S_{i+1}^{\alpha}$
@@ -90,16 +96,21 @@ $A_i$
 $B_{i+1}$
 \pagebreak
 
-\[ H=- \sum_i t_i (b_i^{\dagger} b_{i+1} + h.c.) + \sum_i \frac{U_i}{2} n_i (n_i-1) \sum_i V_i n_i +\lambda_N \left(\sum_i n_i-N_{\mathrm{target}}\right)^2 \]
+\[
+H=- \sum_i t_i (b_i^{\dagger} b_{i+1} + h.c.) + 
+\sum_i \frac{U_i}{2} n_i (n_i-1) 
+\sum_i V_i n_i
++\lambda_N \left(\sum_i n_i-N_{\mathrm{target}}\right)^2
+\]
 \pagebreak
 
-\[ h_{pos,pos+1}=-t_{pos} (b_{pos}^{\dagger} b_{pos+1} + h.c.) + \frac{U_{pos}}{2} n_{pos} (n_{pos}-1) + \frac{U_{pos+1}}{2} n_{pos+1} (n_{pos+1}-1) \frac{V_{pos}-\mu_{pos}}{2} n_{pos} + \frac{V_{pos+1}-\mu_{pos+1}}{2} n_{pos+1} \]
-\pagebreak
-
-\[ H=- \sum_i t_i (b_i^{\dagger} b_{i+1} + h.c.) + \sum_i \frac{U_i}{2} n_i (n_i-1) - \sum_i \mu_i n_i + \sum_i V_i n_i +\sum_i Vint n_i n_{i+1} \]
-\pagebreak
-
-$\mu $
+\[
+h_{pos,pos+1}=-t_{pos} (b_{pos}^{\dagger} b_{pos+1} + h.c.) + 
+\frac{U_{pos}}{2} n_{pos} (n_{pos}-1) + 
+\frac{U_{pos+1}}{2} n_{pos+1} (n_{pos+1}-1) 
+\frac{V_{pos}-\mu_{pos}}{2} n_{pos} + 
+\frac{V_{pos+1}-\mu_{pos+1}}{2} n_{pos+1} 
+\]
 \pagebreak
 
 $\sum_{\sigma,\sigma'}f_{n\sigma}^{\dagger} \sigma_{\sigma \sigma'}^{\alpha}f_{n\sigma}$
@@ -108,19 +119,41 @@ $\sum_{\sigma,\sigma'}f_{n\sigma}^{\dagger} \sigma_{\sigma \sigma'}^{\alpha}f_{n
 $\alpha=x,\,y,\z$
 \pagebreak
 
-\[ H=\sum_{i=1}^{L-1} \left ( J_x^{[i]} S_x^{[i]}S_x^{[i+1]} + J_y^{i} S_y^{[i]}S_y^{[i+1]} + J_z^{i} S_z^{[i]}S_z^{[i+1]} \right )+ \sum_{i=1}^{L} h_x^{i} S_x^{[i]} \sum_{i=1}^{L} h_y^{i} S_y^{[i]} \sum_{i=1}^{L} h_z^{i} S_z^{[i]} \]
+\[
+H=\sum_{i=1}^{L-1} \left ( J_x^{[i]} S_x^{[i]}S_x^{[i+1]} +
+J_y^{i} S_y^{[i]}S_y^{[i+1]} +
+J_z^{i} S_z^{[i]}S_z^{[i+1]} \right )+
+\sum_{i=1}^{L} h_x^{i} S_x^{[i]}
+\sum_{i=1}^{L} h_y^{i} S_y^{[i]}
+\sum_{i=1}^{L} h_z^{i} S_z^{[i]}
+\]
 \pagebreak
 
-\[ h_{pos,pos+1}=J_x({pos}) S_x^{pos} S_x^{pos+1} + J_y({pos}) S_y^{pos} S_y^{pos+1}+ J_z({pos}) S_z^{pos} S_z^{pos+1}+ \frac{h({pos})}{2} S_z^{pos} + \frac{h({pos+1})}{2} S_z^{pos+1} \]
+\[
+h_{pos,pos+1}=J_x({pos}) S_x^{pos} S_x^{pos+1} +
+J_y({pos}) S_y^{pos} S_y^{pos+1}+
+J_z({pos}) S_z^{pos} S_z^{pos+1}+
+\frac{h({pos})}{2} S_z^{pos} +
+\frac{h({pos+1})}{2} S_z^{pos+1}
+\]
 \pagebreak
 
 $h(0),\ h(L-1)$
 \pagebreak
 
-\[ H=\sum_{i=1}^{L-1} \left ( J_x S_x^{[i]}S_x^{[i+1]} + J_y S_y^{[i]}S_y^{[i+1]} + J_z S_z^{[i]}S_z^{[i+1]} \right )+ \sum_{i=1}^{L} h_x S_x^{[i]} \sum_{i=1}^{L} h_y S_y^{[i]} \sum_{i=1}^{L} h_z S_z^{[i]} \]
+\[
+H=\sum_{i=1}^{L-1} \left ( J_x S_x^{[i]}S_x^{[i+1]} +
+J_y S_y^{[i]}S_y^{[i+1]} +
+J_z S_z^{[i]}S_z^{[i+1]} \right )+
+\sum_{i=1}^{L} h_x S_x^{[i]}
+\sum_{i=1}^{L} h_y S_y^{[i]}
+\sum_{i=1}^{L} h_z S_z^{[i]}
+\]
 \pagebreak
 
-\[ H= \sum_i[J(t) sigmaz_i sigmaz_(i+1) + g(t) sigmax_i+ h(t) sigmaz_i] + K \]
+\[
+H=  \sum_i[J(t) sigmaz_i sigmaz_(i+1) + g(t) sigmax_i+ h(t) sigmaz_i] + K
+\]
 \pagebreak
 
 \[exp[\epsilon \sum \sigma_z\otimes\sigma_z]\]
@@ -141,7 +174,10 @@ $-\delta$
 $\delta$
 \pagebreak
 
-\[ H=TODOTODO \]
+\[
+H=TODOTODO
+
+\]
 \pagebreak
 
 \[I_{\mathrm{even}}=\sum_{x=0,2,4,\ldots} \langle \vec{S}\cdot \vec{F}_x\rangle\]
@@ -150,22 +186,32 @@ $\delta$
 $\vec{F}$
 \pagebreak
 
-\[ H=\frac{1}{4 N}\left(\sum_i \sigma_x^{[i]}\right)^2 + \frac{h}{2} \sum_i \sigma_z^{[i]} \]
+\[
+H=\frac{1}{4 N}\left(\sum_i \sigma_x^{[i]}\right)^2 + \frac{h}{2} \sum_i \sigma_z^{[i]} 
+\]
 \pagebreak
 
-\[ \frac{\sqrt{x}}{L}\sum_n (-1)^n \[ \sigma_n^{+} \sigma_{n+1}^{-} +\sigma_{n+1}^{+} \sigma_n^{-}\] \]
+\[
+\frac{\sqrt{x}}{L}\sum_n (-1)^n \[ \sigma_n^{+} \sigma_{n+1}^{-} +\sigma_{n+1}^{+} \sigma_n^{-}\]
+\]
 \pagebreak
 
-\[ \ell_0-\frac{1}{4}+\frac{1}{2L}\sum_{n=1}^{L-1} (-1)^n (L-n) \sigma_z^{[n]} \]
+\[
+\ell_0-\frac{1}{4}+\frac{1}{2L}\sum_{n=1}^{L-1} (-1)^n (L-n) \sigma_z^{[n]}
+\]
 \pagebreak
 
-\[ \frac{\sqrt{x}}{L}\sum_n (-1)^n \frac{1+\sigma_z^{[n]}}{2} \]
+\[
+\frac{\sqrt{x}}{L}\sum_n (-1)^n \frac{1+\sigma_z^{[n]}}{2}
+\]
 \pagebreak
 
-\[-i x \sum_n [\sigma_n^- \sigma_{n+1}^z \sigma_{n+2}^+ - h.c.].\]
+\[-i x \sum_n [\sigma_n^- \sigma_{n+1}^z
+\sigma_{n+2}^+ - h.c.].\]
 \pagebreak
 
-\[P=\int dx \Psi^{\dagger}(x)(i \partial_x+g A_1(x))\Psi(x))\]
+\[P=\int dx
+\Psi^{\dagger}(x)(i \partial_x+g A_1(x))\Psi(x))\]
 \pagebreak
 
 $2/(a g^2)$
@@ -174,7 +220,8 @@ $2/(a g^2)$
 $x$
 \pagebreak
 
-\[x \sum_n [(1+\sigma_n^z) +\sigma_{n}^-\sigma_{n+1}^z \sigma_{n+2}^+ + \sigma_{n}^+\sigma_{n+1}^z \sigma_{n+2}^- ].\]
+\[x \sum_n [(1+\sigma_n^z) +\sigma_{n}^-\sigma_{n+1}^z \sigma_{n+2}^+ +
+\sigma_{n}^+\sigma_{n+1}^z \sigma_{n+2}^- ].\]
 \pagebreak
 
 $\frac{(i\partial)^2}{g^2}$
@@ -186,7 +233,8 @@ $\frac{(i\partial)^2}{g^2}$
 \[\sum \sigma^+_k (1+\sigma^z)_{k+1} \sigma^-_{k+2} \]
 \pagebreak
 
-\[\sum sin\frac{k_0 \pi m}{N+1} \hat{O}_m \]
+\[\sum sin\frac{k_0 \pi
+m}{N+1} \hat{O}_m \]
 \pagebreak
 
 $H_x$
@@ -198,7 +246,10 @@ $H_L$
 $1+\delta H_L$
 \pagebreak
 
-\[ h_{i,i+1}= \frac{x}{2} (\sigma_{x}^{[i]} \sigma_{x}^{[i+1]} + \sigma_{y}^{[i]} \sigma_{y}^{[i+1]} )\]
+\[ h_{i,i+1}= 
+\frac{x}{2}
+(\sigma_{x}^{[i]} \sigma_{x}^{[i+1]} + \sigma_{y}^{[i]}
+\sigma_{y}^{[i+1]} )\]
 \pagebreak
 
 \[<S_z>\neq Stot\]
@@ -216,10 +267,20 @@ $S_R$
 $S_x$
 \pagebreak
 
-\begin{eqnarray*} H=&\sum_{i=0}^{L-2} \left ( -S_x^{[i]}S_x^{[i+1]}-S_y^{[i]}S_y^{[i+1]} + \left(g^2+\tilde{g}^2[1+(-1)^i]\right) S_z^{[i]}S_z^{[i+1]} \right)\\ &+ \sum_{i=0}^{L-1} \left( (-1)^i ma +\tilde{g}^2 +g^2(1-\frac{1}{2}[\delta_{i\ 0}+\delta_{i\ N-1}])+\mu \right) S_z^{[i]}\\ &+\lambda \left ( \sum_{i=0}^{L-1} S_z^{[i]}-S_{\mathrm{tot}}\right)^2 \end{eqnarray*}
+\begin{eqnarray*} 
+H=&\sum_{i=0}^{L-2} \left ( -S_x^{[i]}S_x^{[i+1]}-S_y^{[i]}S_y^{[i+1]} + \left(g^2+\tilde{g}^2[1+(-1)^i]\right) S_z^{[i]}S_z^{[i+1]} \right)\\
+&+ \sum_{i=0}^{L-1} \left( (-1)^i ma +\tilde{g}^2 +g^2(1-\frac{1}{2}[\delta_{i\ 0}+\delta_{i\ N-1}])+\mu \right) S_z^{[i]}\\
+&+\lambda \left ( \sum_{i=0}^{L-1} S_z^{[i]}-S_{\mathrm{tot}}\right)^2
+\end{eqnarray*}
 \pagebreak
 
-\[ h_{pos,pos+1}=- S_x^{pos} S_x^{pos+1} + - S_y^{pos} S_y^{pos+1}+ \left(g^2+\tilde{g}^2[1+(-1)^i]\right) S_z^{pos} S_z^{pos+1}+ \frac{h({pos})}{2} S_z^{pos} + \frac{h({pos+1})}{2} S_z^{pos+1} \]
+\[
+h_{pos,pos+1}=- S_x^{pos} S_x^{pos+1} +
+- S_y^{pos} S_y^{pos+1}+
+\left(g^2+\tilde{g}^2[1+(-1)^i]\right) S_z^{pos} S_z^{pos+1}+
+\frac{h({pos})}{2} S_z^{pos} +
+\frac{h({pos+1})}{2} S_z^{pos+1}
+\]
 \pagebreak
 
 $\lambda \neq 0$
@@ -345,7 +406,8 @@ $L_0,L0+2,\ldots 10$
 $\rho=\rho_{1/2}^{\dagger} \rho_{1/2)$
 \pagebreak
 
-$\rho_{1/2}=\left ( \frac{Id}{\sqrt{d}}\right )^{\otimes L-L_0} \otimes |\phi_0\rangle \langle \phi_0| $
+$\rho_{1/2}=\left ( \frac{Id}{\sqrt{d}}\right )^{\otimes L-L_0}
+\otimes |\phi_0\rangle \langle \phi_0| $
 \pagebreak
 
 $\rho$
@@ -357,7 +419,8 @@ $rho(t)=\rho_{1/2}(t)^{\dagger} \rho_{1/2}(t)$
 $\rho_{1/2}(t)=U(t) \rho_{1/2} U(t)^{\dagger}$
 \pagebreak
 
-$\rho_{1/2}= |\phi_0\rangle \langle \phi_0| \otimes \left ( \frac{Id}{\sqrt{d}}\right )^{\otimes L-L_0}$
+$\rho_{1/2}= |\phi_0\rangle \langle \phi_0| \otimes
+\left ( \frac{Id}{\sqrt{d}}\right )^{\otimes L-L_0}$
 \pagebreak
 
 $e^{-\tau L+L}$
@@ -450,15 +513,6 @@ $s$
 $c$
 \pagebreak
 
-\[H_{\mathrm{QF}}=\frac{1}{2}\omega_{\mathrm{q}} \sigma_{\mathrm{q}}^z + \frac{1}{2}\epsilon \sigma_{\mathrm{f}}^z +\frac{1}{2}\Delta \sigma_{\mathrm{f}}^x+ \frac{1}{2}v \sigma_{\mathrm{q}}^z\otimes \sigma_{\mathrm{f}}^z \]
-\pagebreak
-
-\[ \sigma_{\mathrm{f}}^{+} b_0+ \mathrm{h.c.} \]
-\pagebreak
-
-$b_0$
-\pagebreak
-
 $ma$
 \pagebreak
 
@@ -498,7 +552,9 @@ $ \Theta$
 $ \L$
 \pagebreak
 
-\[ \sum_n f(n) C_{\alpha_1 \ldots \alpha_k} \sigma_{\alpha_1} \ldots \sigma_{\alpha_k} \]
+\[
+\sum_n f(n) C_{\alpha_1 \ldots \alpha_k} \sigma_{\alpha_1} \ldots \sigma_{\alpha_k}
+\]
 \pagebreak
 
 $k$
@@ -507,19 +563,30 @@ $k$
 $f(n)$
 \pagebreak
 
-$C_{\alpha_1 \ldots \alpha_k}$
+$C_{\alpha_1
+\ldots \alpha_k}$
 \pagebreak
 
-\[ \sum_n f(n) \sigma_{\alpha_1} \ldots \sigma_{\alpha_k} \]
+\[
+\sum_n f(n) \sigma_{\alpha_1} \ldots \sigma_{\alpha_k}
+\]
 \pagebreak
 
-\[ \frac{d\rho}{d t}=i[\rho,H]+\sum_{\alpha}\gamma_{\alpha}\left( L_{\alpha} \rho L_{\alpha}^{\dagger}-\frac{1}{2} \rho L_{\alpha}^{\dagger} L_{\alpha} -\rho L_{\alpha}^{\dagger} L_{\alpha} \rho\right), \]
+\[
+ \frac{d\rho}{d t}=i[\rho,H]+\sum_{\alpha}\gamma_{\alpha}\left( L_{\alpha}
+ \rho L_{\alpha}^{\dagger}-\frac{1}{2} \rho L_{\alpha}^{\dagger} L_{\alpha}
+ -\rho L_{\alpha}^{\dagger} L_{\alpha} \rho\right),
+ \]
 \pagebreak
 
-\[ H=g\sum_i \sigma_x^{[i]}, \]
+\[
+H=g\sum_i \sigma_x^{[i]},
+\]
 \pagebreak
 
-\[ L_{\alpha}={\sigma^{-}}^{[i]}+\epsilon {\sigma^{-}}^{[i+1]} \]
+\[
+L_{\alpha}={\sigma^{-}}^{[i]}+\epsilon {\sigma^{-}}^{[i+1]}
+\]
 \pagebreak
 
 $\alpha=1,\ldots N-1$
@@ -531,25 +598,41 @@ $\epsilon$
 $N$
 \pagebreak
 
-\[ \frac{d\rho}{d t}=i[\rho,H]+\gamma \left( L \rho L^{\dagger}-\frac{1}{2} \rho L^{\dagger} L -\rho L^{\dagger} L \rho\right), \]
+\[
+ \frac{d\rho}{d t}=i[\rho,H]+\gamma \left( L
+ \rho L^{\dagger}-\frac{1}{2} \rho L^{\dagger} L
+ -\rho L^{\dagger} L \rho\right),
+ \]
 \pagebreak
 
-\[ L=\sum_i {\sigma^{-}}^{[i]} \]
+\[
+L=\sum_i {\sigma^{-}}^{[i]}
+\]
 \pagebreak
 
-\[ H(s)=-\sum_{i=1}^{L-1} \left [ e^{-s} \sqrt{c(1-c)} \left ( n^{[i-1]} \sigma_x^{[i]} + \sigma_x^{[i-1]} n^{[i]}\right ) -2(1-2c) n^{[i-1]} n^{[i]} \right ] -2 c \sum_{i=1}^L n^{[i]}+c n^{[1]} +c n^{[L]} \]
+\[ H(s)=-\sum_{i=1}^{L-1} \left [ e^{-s} \sqrt{c(1-c)} \left ( n^{[i-1]}  
+\sigma_x^{[i]} + \sigma_x^{[i-1]} n^{[i]}\right ) -2(1-2c)
+n^{[i-1]}  n^{[i]}  \right ] -2 c \sum_{i=1}^L n^{[i]}+c n^{[1]}    
++c n^{[L]}  \]
 \pagebreak
 
-\[ h_{pos,pos+1}=n^{pos}(e^{-s} \sigma_x^{pos+1}-1) \]
+\[
+h_{pos,pos+1}=n^{pos}(e^{-s} \sigma_x^{pos+1}-1)
+\]
 \pagebreak
 
-$\sigma_n,\, \tau_n$
+$\sigma_n,\,
+\tau_n$
 \pagebreak
 
 $\sigma_z^{[n]} \tau_z^{[n]}$
 \pagebreak
 
-\[ H=\sum_{i=1}^{L-1} \frac{1}{4}\left ( \vec{\sigma}^{[i]}\vec{\sigma}^{[i+1]} + J \vec{\tau}^{[i]}\vec{\tau}^{[i+1]} \right ) + \sum_{i=1}^{L} B \frac{1}{4} \sigma_z^{[i]}\tau_z^{[i]} \]
+\[
+H=\sum_{i=1}^{L-1} \frac{1}{4}\left ( \vec{\sigma}^{[i]}\vec{\sigma}^{[i+1]} +
+J \vec{\tau}^{[i]}\vec{\tau}^{[i+1]} \right ) +    
+\sum_{i=1}^{L} B \frac{1}{4} \sigma_z^{[i]}\tau_z^{[i]} 
+\]
 \pagebreak
 
 $\frac{1}{4}$
@@ -564,37 +647,61 @@ $\tau$
 $tau$
 \pagebreak
 
-\[ \frac{d\rho}{d t}=i[\rho,H]+\sum_{\alpha}\left( L_{\alpha} \rho L_{\alpha}^{\dagger}-\frac{1}{2} \rho L_{\alpha}^{\dagger} L_{\alpha} -\rho L_{\alpha}^{\dagger} L_{\alpha} \rho\right), \]
+\[
+ \frac{d\rho}{d t}=i[\rho,H]+\sum_{\alpha}\left( L_{\alpha}
+ \rho L_{\alpha}^{\dagger}-\frac{1}{2} \rho L_{\alpha}^{\dagger} L_{\alpha}
+ -\rho L_{\alpha}^{\dagger} L_{\alpha} \rho\right),
+ \]
 \pagebreak
 
-\[ H=\frac{V}{4}\sum_{i=0}^{N-2} {\sigma_{z}}^{[i]}{\sigma_{z}}^{[i+1]} +\frac{\Omega}{2}\sum_{i=0}^{N-1} {\sigma_{x}}^{[i]}-\frac{V-\Delta}{2}\sum_{i=0}^{N-1} {\sigma_{z}}^{[i]} +\frac{V}{4}{\sigma_{z}}^{[0]}+\frac{V}{4}{\sigma_{z}}^{[N-1]} \]
+\[
+H=\frac{V}{4}\sum_{i=0}^{N-2} {\sigma_{z}}^{[i]}{\sigma_{z}}^{[i+1]}
++\frac{\Omega}{2}\sum_{i=0}^{N-1} {\sigma_{x}}^{[i]}-\frac{V-\Delta}{2}\sum_{i=0}^{N-1} {\sigma_{z}}^{[i]}
++\frac{V}{4}{\sigma_{z}}^{[0]}+\frac{V}{4}{\sigma_{z}}^{[N-1]}
+\]
 \pagebreak
 
-\[ L_{i}=\sqrt{\gamma}{\sigma^{+}}^{[i]} \]
+\[
+L_{i}=\sqrt{\gamma}{\sigma^{+}}^{[i]}
+\]
 \pagebreak
 
 $s\to\infty$
 \pagebreak
 
-\[ H(s)=-\sum_{i=1}^{L-1} n^{[i]} \sigma_x^{[i+1]} \]
+\[
+H(s)=-\sum_{i=1}^{L-1} n^{[i]} \sigma_x^{[i+1]}
+\]
 \pagebreak
 
 $\sigma_x^{[1]}$
 \pagebreak
 
-\[ \frac{d\rho}{d t}=i[\rho,H]+\sum_{\alpha}\gamma_{\alpha}\left( L_{\alpha} \rho L_{\alpha}^{\dagger}-\frac{1}{2} \rho L_{\alpha} L_{\alpha}^{\dagger} -\rho L_{\alpha} L_{\alpha}^{\dagger} \rho\right) \]
+\[
+\frac{d\rho}{d t}=i[\rho,H]+\sum_{\alpha}\gamma_{\alpha}\left( L_{\alpha}
+\rho L_{\alpha}^{\dagger}-\frac{1}{2} \rho L_{\alpha} L_{\alpha}^{\dagger}
+-\rho L_{\alpha} L_{\alpha}^{\dagger} \rho\right)
+\]
 \pagebreak
 
 $L_{\alpha}$
 \pagebreak
 
-\[ H=\frac{1+\gamma}{2}\sum {\sigma_{x}}^{[i]}{\sigma_{x}}^{[i+1]} +\frac{1-\gamma}{2}\sum {\sigma_{y}}^{[i]}{\sigma_{y}}^{[i+1]} + h\sum_i \sigma_z^{[i]}, \]
+\[
+H=\frac{1+\gamma}{2}\sum {\sigma_{x}}^{[i]}{\sigma_{x}}^{[i+1]}
++\frac{1-\gamma}{2}\sum {\sigma_{y}}^{[i]}{\sigma_{y}}^{[i+1]}
++ h\sum_i \sigma_z^{[i]},
+\]
 \pagebreak
 
-\[ L_{1,2}=\sqrt{\Gamma_{1,2}^{L}}{\sigma^{\mp}}^{[1]} \]
+\[
+L_{1,2}=\sqrt{\Gamma_{1,2}^{L}}{\sigma^{\mp}}^{[1]}
+\]
 \pagebreak
 
-\[ L_{3,4}=\sqrt{\Gamma_{3,4}^{L}}{\sigma^{\mp}}^{[N]}. \]
+\[
+L_{3,4}=\sqrt{\Gamma_{3,4}^{L}}{\sigma^{\mp}}^{[N]}.
+\]
 \pagebreak
 
 $\Gamma_{1,2}^L$
@@ -603,7 +710,9 @@ $\Gamma_{1,2}^L$
 $\Gamma_{3,4}^R$
 \pagebreak
 
-\[ H=-J (\sum_{i=1}^{L-2} P^{[i]} \sigma_x^{[i+1]} P^{[i+2]} + \sigma_x^{[1]} P^{[2]} + P^{[L-1]} \sigma_x^{[L]} ), \]
+\[
+H=-J (\sum_{i=1}^{L-2} P^{[i]} \sigma_x^{[i+1]} P^{[i+2]} + \sigma_x^{[1]} P^{[2]} + P^{[L-1]} \sigma_x^{[L]} ), 
+\]
 \pagebreak
 
 $P=(1+\sigma_z)/2$
@@ -612,13 +721,16 @@ $P=(1+\sigma_z)/2$
 $|0\rangle$
 \pagebreak
 
-\[ H=-\sum_{i=1}^{L} P^{[i]} \sigma_x^{[i+1]} P^{[i+2]}. \]
+\[
+H=-\sum_{i=1}^{L} P^{[i]} \sigma_x^{[i+1]} P^{[i+2]}.
+\]
 \pagebreak
 
 \[b_{1,0} L\left(d_0^{\dagger}+d_0\right)\]
 \pagebreak
 
-\[b_{1 i} \left(d_{i+1}^{\dagger}d_i+d_{i}^{\dagger}d_{i+1}\right)\]
+\[b_{1 i}
+\left(d_{i+1}^{\dagger}d_i+d_{i}^{\dagger}d_{i+1}\right)\]
 \pagebreak
 
 $H_{\mathrm{spin}}$
@@ -627,19 +739,31 @@ $H_{\mathrm{spin}}$
 $l_Z$
 \pagebreak
 
-\[ H=\sum_{i=1}^{L-1} \frac{1}{2 \Delta^2} \left ( c_{i,\sigma}^{\dagger} c_{i+1,\sigma} + c_{i+1,\sigma}^{\dagger} c_{i,\sigma} \right ) - \sum_{i=1}^{L} \frac{Z}{\sqrt{((l_Z-i) \Delta )^2}+(a \Delta)^2} n_i+ \sum_{i=1}^{L-1}\sum_{j>i} \frac{n_i n_j}{\sqrt{(i \Delta -j \Delta )^2}+(a \Delta)^2} +\sum_{i=1}^{L} \mu n_i +\eta \left( \sum_{i=1}^{L} n_i -N_e\right)^2 +\eta_S \vec{S}^2 \]
+\[
+H=\sum_{i=1}^{L-1} \frac{1}{2 \Delta^2} \left ( c_{i,\sigma}^{\dagger} c_{i+1,\sigma} +
+c_{i+1,\sigma}^{\dagger} c_{i,\sigma} \right ) -
+\sum_{i=1}^{L} \frac{Z}{\sqrt{((l_Z-i) \Delta )^2}+(a \Delta)^2} n_i+
+\sum_{i=1}^{L-1}\sum_{j>i} \frac{n_i n_j}{\sqrt{(i \Delta -j \Delta )^2}+(a \Delta)^2}
++\sum_{i=1}^{L} \mu n_i
++\eta \left( \sum_{i=1}^{L} n_i -N_e\right)^2
++\eta_S \vec{S}^2
+\]
 \pagebreak
 
 $\vec{S}^2$
 \pagebreak
 
-\[ H(s)=-\sum_{i=1}^{L-1} n^{[i]} \left ( e^{-s} \sqrt{c(1-c)} \sigma_x^{[i+1]}-c-(1-2c)n^{[i+1]}\right ) \]
+\[
+H(s)=-\sum_{i=1}^{L-1} n^{[i]} \left ( e^{-s} \sqrt{c(1-c)} \sigma_x^{[i+1]}-c-(1-2c)n^{[i+1]}\right )
+\]
 \pagebreak
 
-$ e^{-s} \sqrt{c(1-c)} \sigma_x^{[i+1]}-c-(1-2c)n^{[i+1]})$
+$ e^{-s} \sqrt{c(1-c)}
+\sigma_x^{[i+1]}-c-(1-2c)n^{[i+1]})$
 \pagebreak
 
-\[b_{2,0}\left ( L^{\dagger} b_0+\mathrm{h.c.}\right)\]
+\[b_{2,0}\left ( L^{\dagger}
+b_0+\mathrm{h.c.}\right)\]
 \pagebreak
 
 \[L=d_{\uparrow}+d_{\downarrow}\]
@@ -648,22 +772,24 @@ $ e^{-s} \sqrt{c(1-c)} \sigma_x^{[i+1]}-c-(1-2c)n^{[i+1]})$
 $d_{\sigma}$
 \pagebreak
 
-\[b_{1,0}\left ( L^{\dagger}c_0^{\dagger} + \mathrm{h.c.} \right)\]
+\[b_{1,0}\left (
+L^{\dagger}c_0^{\dagger} + \mathrm{h.c.}  \right)\]
 \pagebreak
 
-\[b_{1 i} \left(b_{i+1}^{\dagger}b_i+b_{i}^{\dagger}b_{i+1}\right)\]
+\[b_{1 i}
+\left(b_{i+1}^{\dagger}b_i+b_{i}^{\dagger}b_{i+1}\right)\]
 \pagebreak
 
-\[- b_{2 i} \left(c_{i+1}^{\dagger}c_i+c_{i}^{\dagger}c_{i+1}\right)\]
+\[-
+b_{2 i}
+\left(c_{i+1}^{\dagger}c_i+c_{i}^{\dagger}c_{i+1}\right)\]
 \pagebreak
 
-$H_{\mathrm{S}}=\frac{U}{2}n_{\uparrow}n_{\downarrow}+V\sum_{\sigma} n_{\sigma}$
+$H_{\mathrm{S}}=\frac{U}{2}n_{\uparrow}n_{\downarrow}+V\sum_{\sigma}
+n_{\sigma}$
 \pagebreak
 
-$L$
-\pagebreak
-
-\[b_{2,0} L^{\dagger} c_0^{\dagger}+L c_0\right)\]
+\[b_{2,0} L\left(c_0^{\dagger}+c_0\right)\]
 \pagebreak
 
 $b_{1,0}$
@@ -672,7 +798,8 @@ $b_{1,0}$
 $d_0,\,d_0^{\dagger}$
 \pagebreak
 
-\[b_{2,0} L\left(c_0^{\dagger}+c_0\right)\]
+\[- b_{2 i}
+\left(c_{i+1}^{\dagger}c_i+c_{i}^{\dagger}c_{i+1}\right)\]
 \pagebreak
 
 $ L(n) = a_n^\dagger a_n $
@@ -687,7 +814,7 @@ $ [\theta(n),L(m)]=i\delta_{n,m} $
 \[ H = M\sum_n (-1)^n\psi_n^\dagger\psi_n + \frac{\varepsilon}{\sqrt{l(l+1)}}\sum_n \left(\psi_n^\dagger L_{+,n}\psi_{n+1}+h.c.\right)+\frac{g^2}{8}\sum_n L_{z,n}^2\]
 \pagebreak
 
-\[L_+ = a^\dagger b,\quad L_- = b^\dagger a,\quad L_z = \frac{1}{2}(N_a - N_b),\quad l=\frac{1}{2}(N_a+N_b) = \frac{N_0}{2}. \]
+\[L_+ = a^\dagger b,\quad L_- = b^\dagger a,\quad L_z = \frac{1}{2}(N_a - N_b),\quad l=\frac{1}{2}(N_a+N_b) = \frac{N_0}{2}.  \]
 \pagebreak
 
 $ a$
@@ -699,7 +826,7 @@ $ b $
 $ N_{0} $
 \pagebreak
 
-\[H = \frac{8\varepsilon}{g^2\sqrt{l(l+1)}}\sum_n\left[\sigma^+_n iL_{+,n}\sigma_{n+1}^- + \sigma^-_n (-iL_{-,n})\sigma_{n+1}^+\right] + \frac{4M}{g^2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n L_{z,n}^2 \]
+\[H = \frac{8\varepsilon}{g^2\sqrt{l(l+1)}}\sum_n\left[\sigma^+_n iL_{+,n}\sigma_{n+1}^- + \sigma^-_n (-iL_{-,n})\sigma_{n+1}^+\right] + \frac{4M}{g^2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n L_{z,n}^2  \]
 \pagebreak
 
 \[ \lambda \sum_n\left( L_{z,n} - L_{z,n-1} -\frac{1}{2}\left(\sigma^z_n +(-1)^n\right)^2\right)\]
@@ -723,7 +850,10 @@ $ \frac{\sqrt{x}}{N}\sum_{n=1}^N\left(-1\right)^n(1+\sigma_z(n)) $
 $ \sum_{n=1}^N\left(L(n)-L(n-1)-\frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]\right)^2 $
 \pagebreak
 
-\begin{eqnarray*} U_\mathrm{odd} &= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-_{n+1} + \sigma^-_n \frac{-iL_{-,n}}{\sqrt{l(l+1)}}\sigma^+_{n+1} \right] + \frac{\mu}{2}(-1)\left[\sigma^z_n+1\right] + \frac{\mu}{2}(+1)\left[\sigma^z_{n+1}+1\right] + L_{z,n}^2\quad\quad\quad\mbox{for n odd} \\ U_\mathrm{even} &= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-_{n+1} + \sigma^-_n \frac{-iL_{-,n}}{\sqrt{l(l+1)}}\sigma^+_{n+1} \right] + \frac{\mu}{2}(+1)\left[\sigma^z_n+1\right] + \frac{\mu}{2}(-1)\left[\sigma^z_{n+1}+1\right] + L_{z,n}^2\quad\quad\quad\mbox{for n odd} \\ \end{eqnarray*}
+\begin{eqnarray*}
+U_\mathrm{odd} &= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-_{n+1} +  \sigma^-_n \frac{-iL_{-,n}}{\sqrt{l(l+1)}}\sigma^+_{n+1} \right] + \frac{\mu}{2}(-1)\left[\sigma^z_n+1\right] + \frac{\mu}{2}(+1)\left[\sigma^z_{n+1}+1\right] + L_{z,n}^2\quad\quad\quad\mbox{for n odd} \\
+U_\mathrm{even} &= x\left[\sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-_{n+1} +  \sigma^-_n \frac{-iL_{-,n}}{\sqrt{l(l+1)}}\sigma^+_{n+1} \right] + \frac{\mu}{2}(+1)\left[\sigma^z_n+1\right] + \frac{\mu}{2}(-1)\left[\sigma^z_{n+1}+1\right] + L_{z,n}^2\quad\quad\quad\mbox{for n odd} \\
+\end{eqnarray*}
 \pagebreak
 
 $ \sigma^+_{n}\frac{iL_{+,n}}{\sqrt{l(l+1)}}\sigma^-_{n+1} $
@@ -735,7 +865,12 @@ $ \sigma^-_{n}\frac{iL_{-,n}}{\sqrt{l(l+1)}}\sigma^+_{n+1} $
 $ L(n)-L(n-1) = \frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]$
 \pagebreak
 
-\begin{eqnarray*} \mathrm{is\_updown} &= |\uparrow\rangle\otimes |0\rangle\otimes |\downarrow\rangle \\ \mathrm{is\_downup} &= |\downarrow\rangle\otimes |0\rangle\otimes |\uparrow\rangle \\ \mathrm{is\_upup} &= |\uparrow\rangle\otimes |0\rangle\otimes |\uparrow\rangle \\ \mathrm{is\_downdown} &= |\downarrow\rangle\otimes |0\rangle\otimes |\downarrow\rangle \end{eqnarray*}
+\begin{eqnarray*}
+\mathrm{is\_updown} &= |\uparrow\rangle\otimes |0\rangle\otimes |\downarrow\rangle \\
+\mathrm{is\_downup} &= |\downarrow\rangle\otimes |0\rangle\otimes |\uparrow\rangle \\
+\mathrm{is\_upup} &= |\uparrow\rangle\otimes |0\rangle\otimes |\uparrow\rangle \\
+\mathrm{is\_downdown} &= |\downarrow\rangle\otimes |0\rangle\otimes |\downarrow\rangle
+\end{eqnarray*}
 \pagebreak
 
 $ U(t)=\exp(-i\Delta t W)\approx 1 - i\Delta t H $
@@ -744,7 +879,7 @@ $ U(t)=\exp(-i\Delta t W)\approx 1 - i\Delta t H $
 \[ H = M\sum_n (-1)^n\psi_n^\dagger\psi_n + x\sum_n \left(\psi_n^\dagger L_{+,n}\psi_{n+1}+h.c.\right)+\frac{g^2}{8}\sum_n L_{z,n}^2\]
 \pagebreak
 
-\[H = x\sum_n\left[\sigma^+_n L_{+,n}\sigma_{n+1}^- + \sigma^-_n L_{-,n}\sigma_{n+1}^+\right] + \frac{4M}{g^2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n L_{z,n}^2 \]
+\[H = x\sum_n\left[\sigma^+_n L_{+,n}\sigma_{n+1}^- + \sigma^-_n L_{-,n}\sigma_{n+1}^+\right] + \frac{4M}{g^2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n L_{z,n}^2  \]
 \pagebreak
 
 \[ \lambda \sum_n\left( L_{z,n} - L_{z,n-1} -\frac{1}{2}\left(\sigma^z_n +(-1)^n\right)\right)^2\]
@@ -753,13 +888,20 @@ $ U(t)=\exp(-i\Delta t W)\approx 1 - i\Delta t H $
 $ L_{+,n},L_{-,n} $
 \pagebreak
 
-\begin{eqnarray*} H &=& H_b + H_f + H_E + H_M + H_\lambda \\ H_f &=& x\sum_n\left[\sigma_n^+\sigma_{n+1}^- + \sigma_n^-\sigma_{n+1}^+\right]\\ H_M &=& \frac{\mu}{2}\sum_n(-1)^n\left(\sigma_n^z+1\right)\\ H_E &=& \sum_n L_{z,n}^2 \\ H_b &=& c\sum_n\frac{L_{x,n}}{\sqrt{l(l+1)}}\\ H_\lambda &=& \lambda\sum_n\left[L_{z,n}-L_{z,n-1}-\frac{1}{2}\left(\sigma^z_n+(-1)^n\right)\right]^2. \end{eqnarray*}
+\begin{eqnarray*}
+  H &=& H_b + H_f + H_E + H_M + H_\lambda \\
+  H_f &=& x\sum_n\left[\sigma_n^+\sigma_{n+1}^- + \sigma_n^-\sigma_{n+1}^+\right]\\
+  H_M &=& \frac{\mu}{2}\sum_n(-1)^n\left(\sigma_n^z+1\right)\\
+  H_E &=& \sum_n L_{z,n}^2 \\ 
+  H_b &=& c\sum_n\frac{L_{x,n}}{\sqrt{l(l+1)}}\\
+  H_\lambda &=& \lambda\sum_n\left[L_{z,n}-L_{z,n-1}-\frac{1}{2}\left(\sigma^z_n+(-1)^n\right)\right]^2.
+  \end{eqnarray*}
 \pagebreak
 
 $ H $
 \pagebreak
 
-\[ H = x\sum_n\left[\sigma^+_n L_{+,n}\sigma_{n+1}^- + \sigma^-_n L_{-,n}\sigma_{n+1}^+\right] + \frac{\mu}{2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n \left[1-\cos\left(\frac{2\pi}{d}L_{z,n}\right)\right]\]
+\[ H =  x\sum_n\left[\sigma^+_n L_{+,n}\sigma_{n+1}^- + \sigma^-_n L_{-,n}\sigma_{n+1}^+\right] + \frac{\mu}{2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n \left[1-\cos\left(\frac{2\pi}{d}L_{z,n}\right)\right]\]
 \pagebreak
 
 $ S_z $
@@ -774,7 +916,12 @@ $ \sigma_z(n) $
 $ \sum_{n=1}^N\left(\exp\left(i\frac{2\pi}{N}(L(n)-L(n-1)-\frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]\right)-1\right)\cdot \left(\exp\left(i\frac{2\pi}{N}(L(n)-L(n-1)-\frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]\right)-1\right)^\dagger$
 \pagebreak
 
-\begin{eqnarray*} \mathrm{is\_updown} &= |\uparrow\rangle\otimes |0\rangle\otimes |\downarrow\rangle\dots \\ \mathrm{is\_downup} &= |\downarrow\rangle\otimes |0\rangle\otimes |\uparrow\rangle\dots \\ \mathrm{is\_upup} &= |\uparrow\rangle\otimes |0\rangle\otimes |\uparrow\rangle \dots\\ \mathrm{is\_downdown} &= |\downarrow\rangle\otimes |0\rangle\otimes |\downarrow\rangle\dots \end{eqnarray*}
+\begin{eqnarray*}
+\mathrm{is\_updown} &= |\uparrow\rangle\otimes |0\rangle\otimes |\downarrow\rangle\dots \\
+\mathrm{is\_downup} &= |\downarrow\rangle\otimes |0\rangle\otimes |\uparrow\rangle\dots \\
+\mathrm{is\_upup} &= |\uparrow\rangle\otimes |0\rangle\otimes |\uparrow\rangle \dots\\
+\mathrm{is\_downdown} &= |\downarrow\rangle\otimes |0\rangle\otimes |\downarrow\rangle\dots
+\end{eqnarray*}
 \pagebreak
 
 $ \sum_n $
@@ -798,10 +945,14 @@ $ k $
 $ \sum_n \exp(-I\cdot k\cdot n)\exp\left(-\frac{1}{2w^2}(n-n_0)^2\right) $
 \pagebreak
 
-\[ \hat{P}=\int dx \psi^\dagger(x)i\partial\psi(x) \]
+\[
+   \hat{P}=\int dx \psi^\dagger(x)i\partial\psi(x)
+\]
 \pagebreak
 
-\[ \hat{O}_p=-ix\sum_n\left[\sigma_n^-\sigma_{n+1}^z\sigma_{n+2}^+ - \mathrm{h.c.}\right] \]
+\[
+   \hat{O}_p=-ix\sum_n\left[\sigma_n^-\sigma_{n+1}^z\sigma_{n+2}^+ - \mathrm{h.c.}\right]
+\]
 \pagebreak
 
 $ x $
@@ -810,7 +961,7 @@ $ x $
 \[ H = M\sum_n (-1)^n\psi_n^\dagger\psi_n - \frac{i}{2a}\sum_n \left(\psi_n^\dagger L_{+,n}\psi_{n+1}+h.c.\right)+\frac{g^2}{2}\sum_n L_{z,n}^2 \]
 \pagebreak
 
-\[W = x\sum_n\left[\sigma^+_n L_{+,n}\sigma_{n+1}^- + \sigma^-_n L_{-,n}\sigma_{n+1}^+\right] + \frac{\mu}{2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n L_{z,n}^2 \]
+\[W = x\sum_n\left[\sigma^+_n L_{+,n}\sigma_{n+1}^- + \sigma^-_n L_{-,n}\sigma_{n+1}^+\right] + \frac{\mu}{2}\sum_n(-1)^n\left[ \sigma^z_{n+1}+1\right] + \sum_n L_{z,n}^2  \]
 \pagebreak
 
 \[P(\lambda)= \lambda \sum_n\left( L_{z,n} - L_{z,n-1} -\frac{1}{2}\left(\sigma^z_n +(-1)^n\right)\right)^2 \]
@@ -822,22 +973,35 @@ $ \sum_{n=1}^{N}\left(L(n)-L(n-1)-\frac{1}{2}\left[\sigma^z(n)+(-1)^n\right]\rig
 $ \lambda $
 \pagebreak
 
-\[ \Gamma^5 = \frac{\sqrt{x}}{N}\sum_{n=0}^{N-2}(-1)^n\left(\sigma_n^+L^+_n\sigma^-_{n+1} + \sigma_n^-L^-_n\sigma^+_{n+1} \right). \]
+\[
+\Gamma^5 = \frac{\sqrt{x}}{N}\sum_{n=0}^{N-2}(-1)^n\left(\sigma_n^+L^+_n\sigma^-_{n+1} + \sigma_n^-L^-_n\sigma^+_{n+1} \right).
+\]
 \pagebreak
 
 $ \sqrt{x}/N $
 \pagebreak
 
-\[ \Gamma^\alpha = \frac{1}{N}\sum_{n=0}^{N-2}\left(L_{z,n}+\alpha \right). \]
+\[
+\Gamma^\alpha = \frac{1}{N}\sum_{n=0}^{N-2}\left(L_{z,n}+\alpha \right).
+\]
 \pagebreak
 
 $ 1/N $
 \pagebreak
 
-\[ \ \frac{\sqrt{x}}{N}\sum_{n=0}^{N-1}(-1)^n\left(\frac{1+\sigma_n^z}{2}\right). \]
+\[
+\ \frac{\sqrt{x}}{N}\sum_{n=0}^{N-1}(-1)^n\left(\frac{1+\sigma_n^z}{2}\right).
+\]
 \pagebreak
 
-\[ Q_\mathrm{tot}= \sum_{n=1}^{N} \frac{1}{2}\left(\sigma^z_n +(-1)^n\right) \]
+\[
+  \hat{O}_p=-ix\sum_n\left[\sigma_n^-\sigma_{n+1}^z\sigma_{n+2}^+ - \mathrm{h.c.}\right]
+\]
+\pagebreak
+
+\[
+Q_\mathrm{tot}= \sum_{n=1}^{N} \frac{1}{2}\left(\sigma^z_n +(-1)^n\right) 
+\]
 \pagebreak
 
 $ f $
@@ -879,7 +1043,7 @@ $ \frac{\sqrt{x}}{N}(-1)^n\left(\frac{1+\sigma_z^{nN_f+f}}{2}\right) $
 \[ \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} Q_{nf} = \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} \frac{1+\sigma_z^{nN_f+f}}{2}-\frac{1}{2}\left(1-(-1)^n\right) = \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} \frac{1}{2}\left(-1\right)^n+\frac{1}{2}\sigma_z^{nN_f+f} \]
 \pagebreak
 
-\[ \sum_{n=0}^{N-1} Q_{nf} = \sum_{n=0}^{N-1} \frac{1+\sigma_z^{nN_f+f}}{2}-\frac{1}{2}\left(1-(-1)^n\right) = \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} \frac{1}{2}\left(-1\right)^n+\frac{1}{2}\sigma_z^{nN_f+f}. \]
+\[ \sum_{n=0}^{N-1}  Q_{nf} = \sum_{n=0}^{N-1} \frac{1+\sigma_z^{nN_f+f}}{2}-\frac{1}{2}\left(1-(-1)^n\right) = \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} \frac{1}{2}\left(-1\right)^n+\frac{1}{2}\sigma_z^{nN_f+f}. \]
 \pagebreak
 
 $ \sum_{n=0}^{N-1} \sum_{f=0}^{N_f-1} Q_{nf} $
@@ -894,7 +1058,14 @@ $ Q_{nf} = \frac{1}{2}\left(-1\right)^n+\frac{1}{2}\sigma_z^{nN_f+f} $
 $ N_\mathrm{sites}\cdot N_\mathrm{flavor} $
 \pagebreak
 
-\begin{eqnarray*} \mathrm{is\_strong\_coupling} =& \underbrace{|\downarrow\rangle \otimes \dots \otimes|\downarrow\rangle}_{n=0,\,N_f \mathrm{ times}} \otimes \underbrace{|\uparrow\rangle \otimes \dots |\uparrow\rangle}_{n=1,\,N_f \mathrm{ times}}\otimes \underbrace{|\downarrow\rangle \otimes \dots \otimes|\downarrow\rangle}_{n=2,\,N_f \mathrm{ times}} \dots \\ \mathrm{is\_anti\_strong\_coupling} =& \underbrace{|\uparrow\rangle \otimes \dots \otimes|\uparrow\rangle}_{n=0,\,N_f \mathrm{ times}} \otimes \underbrace{|\downarrow\rangle \otimes \dots |\downarrow\rangle}_{n=1,\,N_f \mathrm{ times}}\otimes \underbrace{|\uparrow\rangle \otimes \dots \otimes|\uparrow\rangle}_{n=2,\,N_f \mathrm{ times}} \dots \\ \mathrm{is\_updown} =& |\uparrow\rangle \otimes |\downarrow\rangle \otimes |\uparrow\rangle \otimes |\downarrow\rangle \dots \\ \mathrm{is\_downup} =& |\downarrow\rangle \otimes |\uparrow\rangle \otimes |\downarrow\rangle \otimes |\uparrow\rangle \dots \\ \mathrm{is\_up} =& |\uparrow\rangle|\otimes |\uparrow\rangle \otimes |\uparrow\rangle \dots \\ \mathrm{is\_down} =& |\downarrow\rangle|\otimes |\downarrow\rangle \otimes|\downarrow\rangle \dots \end{eqnarray*}
+\begin{eqnarray*}
+\mathrm{is\_strong\_coupling} =& \underbrace{|\downarrow\rangle \otimes \dots \otimes|\downarrow\rangle}_{n=0,\,N_f \mathrm{ times}} \otimes \underbrace{|\uparrow\rangle \otimes \dots |\uparrow\rangle}_{n=1,\,N_f \mathrm{ times}}\otimes \underbrace{|\downarrow\rangle \otimes \dots \otimes|\downarrow\rangle}_{n=2,\,N_f \mathrm{ times}} \dots \\ 
+\mathrm{is\_anti\_strong\_coupling} =& \underbrace{|\uparrow\rangle \otimes \dots \otimes|\uparrow\rangle}_{n=0,\,N_f \mathrm{ times}} \otimes \underbrace{|\downarrow\rangle \otimes \dots |\downarrow\rangle}_{n=1,\,N_f \mathrm{ times}}\otimes \underbrace{|\uparrow\rangle \otimes \dots \otimes|\uparrow\rangle}_{n=2,\,N_f \mathrm{ times}} \dots \\
+\mathrm{is\_updown} =& |\uparrow\rangle \otimes |\downarrow\rangle \otimes |\uparrow\rangle \otimes |\downarrow\rangle \dots \\ 
+\mathrm{is\_downup} =& |\downarrow\rangle \otimes |\uparrow\rangle \otimes |\downarrow\rangle \otimes |\uparrow\rangle \dots \\ 
+\mathrm{is\_up} =& |\uparrow\rangle|\otimes |\uparrow\rangle \otimes |\uparrow\rangle \dots \\
+\mathrm{is\_down} =& |\downarrow\rangle|\otimes |\downarrow\rangle \otimes|\downarrow\rangle \dots 
+\end{eqnarray*}
 \pagebreak
 
 $ \lfloor\frac{N}{2}\rfloor $
@@ -1014,10 +1185,16 @@ $ d\times d $
 \[ W =\frac{2}{ag^2} H = W_0+xV + \lambda P \]
 \pagebreak
 
-\begin{eqnarray*} W_0 &=& \sum_n L^2(n) + \frac{\mu}{2}\sum_n(-1)^n\sigma_3(n)+N\frac{\mu}{2}\\ V &=& \sum_n\left[\sigma^+(n)(1+i\theta(n))\sigma1^-(n+1) + \sigma^+(n+1)(1-i\theta(n))\sigma1^-(n)\right] \\ \end{eqnarray*}
+\begin{eqnarray*} 
+  W_0 &=& \sum_n L^2(n) + \frac{\mu}{2}\sum_n(-1)^n\sigma_3(n)+N\frac{\mu}{2}\\
+  V &=& \sum_n\left[\sigma^+(n)(1+i\theta(n))\sigma1^-(n+1) + \sigma^+(n+1)(1-i\theta(n))\sigma1^-(n)\right] \\
+ \end{eqnarray*}
 \pagebreak
 
-\begin{eqnarray*} \sigma^+(n) &=& \frac{1}{2}(\sigma_x + i\sigma_y) \\ \sigma^-(n) &=& \frac{1}{2}(\sigma_x - i\sigma_y) \end{eqnarray*}
+\begin{eqnarray*}
+   \sigma^+(n) &=& \frac{1}{2}(\sigma_x + i\sigma_y) \\ 
+   \sigma^-(n) &=& \frac{1}{2}(\sigma_x - i\sigma_y)
+  \end{eqnarray*}
 \pagebreak
 
 $ L(n)$
@@ -1026,7 +1203,10 @@ $ L(n)$
 $ a(n), a^\dagger(n) $
 \pagebreak
 
-\begin{eqnarray*} \theta(n) &=& e\left(a(n)+a^\dagger(n)\right)\\ L(n) &=& -\frac{i}{2e}\left(a(n) - a^\dagger(n)\right) \end{eqnarray*}
+\begin{eqnarray*}
+   \theta(n) &=& e\left(a(n)+a^\dagger(n)\right)\\
+   L(n) &=& -\frac{i}{2e}\left(a(n) - a^\dagger(n)\right)
+ \end{eqnarray*}
 \pagebreak
 
 $ P $
@@ -1044,10 +1224,16 @@ $ \mu, x, e $
 \[ W =\frac{2}{ag^2} H = W_0+xV \]
 \pagebreak
 
-\begin{eqnarray*} \sigma^+(n) &=& \frac{1}{2}(\sigma_x - i\sigma_2) \\ \sigma^-(n) &=& \frac{1}{2}(\sigma_x + i\sigma_2) \end{eqnarray*}
+\begin{eqnarray*}
+   \sigma^+(n) &=& \frac{1}{2}(\sigma_x - i\sigma_2) \\ 
+   \sigma^-(n) &=& \frac{1}{2}(\sigma_x + i\sigma_2)
+  \end{eqnarray*}
 \pagebreak
 
-\begin{eqnarray*} W_0 &=& \sum_n L^2(n) + \frac{\mu}{2}\sum_n(-1)^n\sigma_3(n)+N\frac{\mu}{2}\\ V &=& \sum_n\left[\sigma^+(n)\exp(i\theta(n))\sigma1^-(n+1) + \sigma^+(n+1)\exp(-i\theta(n))\sigma1^-(n)\right] \\ \end{eqnarray*}
+\begin{eqnarray*} 
+  W_0 &=& \sum_n L^2(n) + \frac{\mu}{2}\sum_n(-1)^n\sigma_3(n)+N\frac{\mu}{2}\\
+  V &=& \sum_n\left[\sigma^+(n)\exp(i\theta(n))\sigma1^-(n+1) + \sigma^+(n+1)\exp(-i\theta(n))\sigma1^-(n)\right] \\
+ \end{eqnarray*}
 \pagebreak
 
 $ a^\dagger(n)a(n) -\mathrm{offset}$
@@ -1056,7 +1242,10 @@ $ a^\dagger(n)a(n) -\mathrm{offset}$
 $ -d_\mathrm{max},\dots,0,\dots,d_\mathrm{max} $
 \pagebreak
 
-\begin{eqnarray*} \theta(n) &=& \frac{1}{N}\sum_{k,r,s}\frac{2\pi}{N}k\cdot\exp\left[-i\frac{2\pi}{N}k(s-r)\right]\varphi_s\langle\varphi_r,\cdot\rangle \\ L(n) &=& diag(-j,-j+1,\dots,j-1,j), \end{eqnarray*}
+\begin{eqnarray*}
+   \theta(n) &=& \frac{1}{N}\sum_{k,r,s}\frac{2\pi}{N}k\cdot\exp\left[-i\frac{2\pi}{N}k(s-r)\right]\varphi_s\langle\varphi_r,\cdot\rangle \\
+   L(n) &=& diag(-j,-j+1,\dots,j-1,j),
+ \end{eqnarray*}
 \pagebreak
 
 $ |\varphi_i\rangle $
@@ -1083,7 +1272,7 @@ $ G_z=\sum_nG^\dagger_z(n)G_z(n)$
 $ Op=O(1)\otimes O(2) \times \dots \otimes O(k) $
 \pagebreak
 
-\[ H = M\sum_n (-1)^n\psi_n^\dagger\psi_n + \varepsilon\sum_n \left(\psi_n^\dagger U_{n}\psi_{n+1}+h.c.\right)+\frac{g^2}{2}\sum_n L_{z,n}^2,\]
+\[ H = M\sum_n (-1)^n\psi_n^\dagger\psi_n +  \varepsilon\sum_n \left(\psi_n^\dagger U_{n}\psi_{n+1}+h.c.\right)+\frac{g^2}{2}\sum_n L_{z,n}^2,\]
 \pagebreak
 
 $ \psi_n $
@@ -1092,7 +1281,15 @@ $ \psi_n $
 $ \phi_{1,2}$
 \pagebreak
 
-\begin{eqnarray*} H = &\varepsilon &\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_{1}^-(n+1)\right.\\ &+& i\sigma^+_1(n)\sigma^z_2(n) U_{01,n}\sigma_{1}^z(n+1)\sigma_{2}^-(n+1)\\ &-&i \sigma^+_2(n) U_{10,n}\sigma_{1}^-(n+1)\\ &+& \sigma^+_2(n) U_{11,n}\sigma_{1}^z(n+1)\sigma_{2}^-(n+1)\\ &+& \left.h.c.\right]\\ &+&\frac{M}{2}\sum_n(-1)^n\left[ (\sigma^z_{1}(n)+1)+(\sigma^z_{2}(n)+1)\right] \\ &+&\frac{g^2}{2} \sum_n L_{z,n}^2. \end{eqnarray*}
+\begin{eqnarray*}
+H = &\varepsilon &\sum_n\left[\sigma^+_1(n)\sigma^z_2(n) U_{00,n}\sigma_{1}^-(n+1)\right.\\
+   &+& i\sigma^+_1(n)\sigma^z_2(n) U_{01,n}\sigma_{1}^z(n+1)\sigma_{2}^-(n+1)\\
+   &-&i \sigma^+_2(n) U_{10,n}\sigma_{1}^-(n+1)\\
+   &+& \sigma^+_2(n) U_{11,n}\sigma_{1}^z(n+1)\sigma_{2}^-(n+1)\\
+   &+& \left.h.c.\right]\\
+   &+&\frac{M}{2}\sum_n(-1)^n\left[ (\sigma^z_{1}(n)+1)+(\sigma^z_{2}(n)+1)\right] \\
+   &+&\frac{g^2}{2} \sum_n L_{z,n}^2.
+\end{eqnarray*}
 \pagebreak
 
 $ \lambda\left(\sum_\alpha Q_\alpha(n) Q_\alpha(n) - \frac{3}{4}\right) = \lambda\left(1+\sigma^z_{1}(n)\sigma^z_{2}(n)\right) $
@@ -1125,7 +1322,12 @@ $ J^2(n)$
 $ G_i=\sum_nG^\dagger_i(n)G_i(n),\,\, i\in\{x,y,z\}$
 \pagebreak
 
-\begin{eqnarray*} \mathrm{is\_updown} &= |\uparrow\rangle |\uparrow\rangle \otimes |0\rangle\otimes |\downarrow\rangle|\downarrow\rangle\dots\\ \mathrm{is\_downup} &= |\downarrow\rangle|\downarrow\rangle\otimes |0\rangle\otimes|\uparrow\rangle |\uparrow\rangle \dots\\ \mathrm{is\_up} &= |\uparrow\rangle|\uparrow\rangle\otimes |0\rangle\otimes|\uparrow\rangle |\uparrow\rangle \dots\\ \mathrm{is\_down} &= |\downarrow\rangle|\downarrow\rangle\otimes |0\rangle\otimes|\downarrow\rangle |\downarrow\rangle \dots\\ \end{eqnarray*}
+\begin{eqnarray*}
+\mathrm{is\_updown} &= |\uparrow\rangle |\uparrow\rangle \otimes |0\rangle\otimes |\downarrow\rangle|\downarrow\rangle\dots\\ 
+\mathrm{is\_downup} &= |\downarrow\rangle|\downarrow\rangle\otimes |0\rangle\otimes|\uparrow\rangle |\uparrow\rangle \dots\\
+\mathrm{is\_up} &= |\uparrow\rangle|\uparrow\rangle\otimes |0\rangle\otimes|\uparrow\rangle |\uparrow\rangle \dots\\
+\mathrm{is\_down} &= |\downarrow\rangle|\downarrow\rangle\otimes |0\rangle\otimes|\downarrow\rangle |\downarrow\rangle \dots\\
+\end{eqnarray*}
 \pagebreak
 
 $ G_\alpha(n)=0\,\forall n\neq pos \,\wedge\, n\neq pos+leng $
@@ -1209,7 +1411,7 @@ $ U_\mathrm{n}=\exp\left(i\,\mathrm{factor}\,\pi Q^\dagger_\alpha(n)Q_\alpha(n)\
 $ \mathrm{factor} $
 \pagebreak
 
-$ \frac{\sqrt{\varepsilon}}{N}\sum_{n=1}^N (-1)^n\phi^\dagger_n\phi_n = $
+$ \frac{\sqrt{\varepsilon}}{N}\sum_{n=1}^N (-1)^n\phi^\dagger_n\phi_n =  $
 \pagebreak
 
 $ Q^{\alpha}_n Q^{\alpha}_n $
@@ -1224,7 +1426,10 @@ $ q^{\alpha}_kq^{\alpha}_l $
 $ (-1)^{l2-l1-1/2}\sqrt{\frac{2l2+1}{2l1+1}} $
 \pagebreak
 
-\begin{eqnarray*} l_n &= \pm 1/2 \quad\quad &\mbox{ if a single fermion is on site } n \\ l_n &= l_{n-1} \quad\quad &\mbox{ else, } \end{eqnarray*}
+\begin{eqnarray*}
+l_n &= \pm 1/2 \quad\quad  &\mbox{ if a single fermion is on site } n \\
+l_n &= l_{n-1}  \quad\quad &\mbox{ else, } 
+\end{eqnarray*}
 \pagebreak
 
 $ |0\rangle, |1\rangle, |2\rangle, |3\rangle $
@@ -1311,16 +1516,16 @@ $ \frac{m}{g}$
 $ 2L-1 $
 \pagebreak
 
-\[ W= -x\sum_{l=0}^{L-2}\left(\sigma^{+}_l\sigma^{x}_{l,l+1}\sigma^{-}_{l+1} +\mathrm{h.c}\right)+\frac{\mu}{2}\sum_{l=0}^{L-1}(-1)^l (1+\sigma^{z}_{l}) + \sum_{l=1}^{L-2} (2-2\sigma^{z}_{l,l+1}) \]
+\[ W= -x\sum_{l=0}^{L-2}\left(\sigma^{+}_l\sigma^{x}_{l,l+1}\sigma^{-}_{l+1} +\mathrm{h.c}\right)+\frac{\mu}{2}\sum_{l=0}^{L-1}(-1)^l  (1+\sigma^{z}_{l}) + \sum_{l=1}^{L-2} (2-2\sigma^{z}_{l,l+1}) \]
 \pagebreak
 
-\[ W= -x\sum_{l=0}^{L-2}\left(\sigma^{+}_l\sigma^{x}_{l,l+1}\sigma^{-}_{l+1} +\mathrm{h.c}\right)+\frac{\mu}{2}\sum_{l=0}^{L-1}(-1)^l (1+\sigma^{z}_{l}) + \sum_{l=1}^{L-2} (2-2\sigma^{z}_{l,l+1}) + \lambda P\]
+\[ W= -x\sum_{l=0}^{L-2}\left(\sigma^{+}_l\sigma^{x}_{l,l+1}\sigma^{-}_{l+1} +\mathrm{h.c}\right)+\frac{\mu}{2}\sum_{l=0}^{L-1}(-1)^l  (1+\sigma^{z}_{l}) + \sum_{l=1}^{L-2} (2-2\sigma^{z}_{l,l+1}) + \lambda P\]
 \pagebreak
 
 \[ P = 2\sum_{l=0}^{L-1} \left(1+ (-1)^{l}\sigma^{z}_{l-1,l}\sigma^{z}_{l}\sigma^{z}_{l,l+1}\right) \]
 \pagebreak
 
-\[ W= -x\sum_{l=0}^{L-2}\left(\sigma^{+}_l\sigma^{x}_{l,l+1}\sigma^{-}_{l+1} +\mathrm{h.c}\right)+\frac{\mu}{2}\sum_{l=0}^{L-1}(-1)^l (1+\sigma^{z}_{l}) + \sum_{l=1}^{L-2} (2-L_{l,l+1}) + \lambda P\]
+\[ W= -x\sum_{l=0}^{L-2}\left(\sigma^{+}_l\sigma^{x}_{l,l+1}\sigma^{-}_{l+1} +\mathrm{h.c}\right)+\frac{\mu}{2}\sum_{l=0}^{L-1}(-1)^l  (1+\sigma^{z}_{l}) + \sum_{l=1}^{L-2} (2-L_{l,l+1}) + \lambda P\]
 \pagebreak
 
 $ L=P^\dagger + P = \left(\begin{array}{cc} 2\cos(\pi\alpha) & 0 \\ 0 & -2\cos(\pi\alpha) \end{array}\right) $
@@ -1338,7 +1543,9 @@ $ P=2\sum_l(1-G_l)^\dagger(1-G_l) $
 \[Q^{\dagger} * A * Q = T\]
 \pagebreak
 
-\[ A=\sum_k coeffs[k]*multis[k] + offset*Id \]
+\[
+A=\sum_k coeffs[k]*multis[k] + offset*Id
+\]
 \pagebreak
 
 $\frac{A-A^{\dagger}}{2}=0$
