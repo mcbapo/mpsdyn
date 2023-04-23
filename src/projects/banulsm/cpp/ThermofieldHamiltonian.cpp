@@ -205,6 +205,7 @@ void ThermofieldHamiltonian::getCouplingExponential(mwArray& Opl,
   mwArray tmp;
   constructOperatorProduct(tmp,B1n[0]*termL,identityMatrix(dimR));
   H13=H13+tmp;
+
   constructOperatorProduct(termL,identityMatrix(dimL),Hfree);
   constructOperatorProduct(tmp,termL,identityMatrix(dimR));
   H13=H13+tmp;

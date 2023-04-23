@@ -1,0 +1,846 @@
+
+###########################################################
+# User defined options that override or complete the ones
+# in the general Makefile
+#
+###########################################################
+
+
+# Version of primme (3, 2, 1 supported; otherwise no primme)
+
+PRIMMEV=3
+
+#ifndef PRIMMEV
+# Uncomment to disable PRIMME linking
+# DEFINES += -UUSING_PRIMME
+#endif
+#ifeq ($PRIMEV,0)
+# DEFINES += -UUSING_PRIMME
+#endif
+
+#DEFINES += -DSTRUCTARRAYPROB
+#DEFINES += -DCHECKDIMS=1
+
+## Optimization levels
+## For optimization, compile with none of these arguments
+# For gdb debugging, compile with make GDB=1 target
+# For valgrind debugging, compile with make VALGRIND=1 target
+# For valgrind debugging with cachegrind, compile with make CACHEGRIND=1 target
+
+ifneq ($(GDB),)
+OPT=1
+endif
+ifneq ($(VALGRIND),)
+OPT=2
+endif
+ifneq ($(CACHEGRIND),)
+OPT=3
+endif
+
+ifeq ($(OPT),)
+# Compiler optimization (comment out the debugging options)
+$(warning "Compiling with optimization -O3 option but adding -fsanitize option because of a problem in mkl")
+#CXXLABELS += -O3 -fsanitize=address
+#LDLABELS += -O3 -fsanitize=address
+CXXLABELS += -O
+LDLABELS += -O 
+endif
+ifeq ($(OPT),1)
+$(warning "Compiling with GDB option")
+# Debugging options
+# Include checking of all dims in mwArray operations
+DEFINES += -DCHECKDIMS=1
+# GDB support
+CXXLABELS += -ggdb 
+LDLABELS += -ggdb
+endif
+ifeq ($(OPT),2)
+$(warning "Compiling for valgrind analysis")
+# More details in valgrind output
+CXXLABELS += -ggdb -fno-inline 
+LDLABELS += -ggdb
+endif
+ifeq ($(OPT),3)
+$(warning "Compiling for valgrind cachegrind analysis")
+# For Valgrind cachegrind
+CXXLABELS += -g -fsanitize=address -O
+LDLABELS += -g -fsanitize=address -O
+endif
+
+ifneq ($(PARANOID),)
+# Maaaaany warnings from C++ compiler
+CXXLABELS += -Weffc++
+endif
+
+# Right now out of use
+# Fortran compiler
+##export F77=f77 -O
+##export F77=gcc-4 -x f77
+#export F77=gfortran -g -O 
+
+###########################################################
+# Location of primme headers
+###########################################################
+
+ifeq ($(PRIMMEV),3)
+$(warning "Using primme v3")
+export PRIMMEH_DIR=../wrapper/primme_headers_v3
+DEFINES += -DPRIMMEv2
+LIBPRIMME=primme3
+else
+ifeq ($(PRIMMEV),2)
+# For v2
+$(warning "Using primme v2")
+export PRIMMEH_DIR=../wrapper/primme_headers_v2
+DEFINES += -DPRIMMEv2
+LIBPRIMME=primme
+else
+ifeq ($PRIMMEV,1)
+# For the first version
+$(warning "Using primme v1. WARNING!!! Obsolete!")
+export PRIMMEH_DIR=../wrapper/primme_headers
+LIBPRIMME=zprimme
+else
+$(warning "Not using primme!!")
+DEFINES += -UUSING_PRIMME
+endif
+endif
+endif
+
+
+###########################################################
+# Additional source files 
+# If required, add also source 
+# directories here with
+# DIRECTORIES+= mydir
+###########################################################
+
+
+
+DIRECTORIES+= projects/banulsm/headers projects/banulsm/cpp
+DIRECTORIES+= programs/banulsm/schwinger programs/banulsm/bosehub programs/banulsm/soliton \
+	      programs/banulsm/schwinger/search2
+#DIRECTORIES += programs/banulsm/schwinger/search2
+DIRECTORIES += programs/banulsm/open
+DIRECTORIES += programs/banulsm/thermalization
+DIRECTORIES += programs/banulsm/longtime
+DIRECTORIES += programs/banulsm/thirring
+DIRECTORIES += programs/banulsm/softcoulomb
+DIRECTORIES += programs/banulsm/thermofield
+DIRECTORIES += programs/banulsm/localization
+DIRECTORIES += programs/banulsm/diagonal
+DIRECTORIES += programs/banulsm/stoch
+DIRECTORIES += programs/banulsm/lightcone
+DIRECTORIES += programs/banulsm/dos
+DIRECTORIES += programs/banulsm/variance
+DIRECTORIES += programs/banulsm/maxRenyi
+DIRECTORIES += programs/banulsm/fermihubbard
+DIRECTORIES += programs/banulsm/melting
+DIRECTORIES += programs/banulsm/emitters
+DIRECTORIES += programs/banulsm/util
+
+SRCFILES+=BoseHubbardHamiltonian.cpp BosonMPO.cpp 
+#	HyperbolicIsingHamiltonian.cpp NNHamiltonian.cpp
+
+#SRCFILES+= TwoDimSite.cpp PEPS.cpp Sampler.cpp SampleTmpManager.cpp
+
+SRCFILES += IsingHamiltonian.cpp 
+
+SRCFILES += SchwingerHamiltonian.cpp SchwingerHamiltonianSz.cpp
+#SRCFILES += SchwingerHamiltonianSzSR.cpp 
+#SRCFILES += CoherentDissipationLiouvillian.cpp CoherentDissipationLiouvillianLR.cpp LiouvillianXYEdges.cpp
+
+SRCFILES += HeisenbergHamiltonian.cpp HeisenbergAncillaryNoiseHamiltonian.cpp
+
+#SRCFILES += SoftCoulombHamiltonian.cpp
+
+SRCFILES += SpinMPO.cpp
+
+#SRCFILES += ThermofieldHamiltonian.cpp ThermofieldFermionHamiltonian.cpp
+
+#SRCFILES += StochasticHamiltonian.cpp LimitStochasticHamiltonian.cpp FAHamiltonian.cpp
+
+#SRCFILES += FermiHubbardHamiltonian.cpp
+
+###########################################################
+# Exec files to be removed when cleaning
+###########################################################
+
+EXEC = schwinger schwingerSp schwingerEx schwingerExZ schwingerExZR schwingerExZR2 schwingerExZVS schwingerZgap schwingerSpM spGEVP schwingerMS schwingerMSev schwingerIT schwingerIT2 schwingerTh schwingerTh0 thermalSchw
+
+EXEC += thermalIsing testHana therm_eLoLe therm_eLoLe_ineff thermExL thermExL_1024 tdIsing
+
+EXEC += testIO isingOpen
+
+#EXEC += coherent0 coherent coherentEx coherentInv coherentEvo coherentSpe coherentLR coherentLRS coherentLR2 coherentM coherentLRS1 dissipXY coherentEV coherentD coherentDS coherentAd coherentAdSp coherentR overlapR
+
+#EXEC += bosehub bosehubTh bosehubGS bosehubTh2 bosehubTh3 bosehubTh4 bosehubTh5 bosehubtrapTh bhtrapGS bosehubW bosehubF bosehubIT bosehubSD bosehubSDk bosehubSDt bosehubSDt2 bosehubInt 
+
+EXEC += hypIsing ising average averageM averageP foldedI rgtest
+
+#EXEC += sample nnham nnpert flatI curvedI light flatLC light2 curvedI2 
+EXEC += transLC transLCop transLCopSv transLCopSvT transLCLR 
+
+# Schwinger spectrum
+#EXEC := $(EXEC) search1 search2 searchR single singleF searchO match
+
+# Fractal structure of GS
+EXEC += searchO schFrW schFrOv
+
+#EXEC := $(EXEC) commut 
+
+EXEC := $(EXEC) locaPT locaPT2 locaPTb locaPTp moduIsing moduEneIsing geneLoc locaTI locaPT22
+
+EXEC := $(EXEC) ising tAvIsing longTav
+
+EXEC := $(EXEC) heisenberg thHeis thHeis2
+
+#EXEC := $(EXEC) softcoul scsp scsp2
+
+EXEC := $(EXEC) thermoF thermoF2 thermoFF
+ 
+EXEC := $(EXEC) mblCJ mblS mblS2 mblS1 mblMI1 mblMI mblRFMI1 mblRFMIpos mblEdge
+
+EXEC := $(EXEC) slow slow2 slowLocal slowLocal2 slowMPO slowGS slowGSising slowGSham slowGShamL an_slowGSham an_slowGSham_2 an_slowGSham_Hn slowMPOHn slowTI slowTI2 slowTIswap hamilP moduHP bestModu commB commHn
+
+EXEC := $(EXEC) thermSch bhSpec
+
+EXEC := $(EXEC) diagEO diagEP diagCh diagLc diagBin projNull projWeak projPos
+
+EXEC := $(EXEC) specSto magSto limSto distSto eastMulti specSto0 FASpec FASpecScale eastEntropy FAdist compareLim
+
+EXEC := $(EXEC) slowLC slowLCmix
+
+EXEC := $(EXEC) lowVar minVar minVar2 evalVar 
+
+EXEC := $(EXEC) chebH2 analyzeChebH2
+
+EXEC := $(EXEC) renyiCheb
+
+EXEC := $(EXEC) microMC0 microMC
+
+EXEC := $(EXEC) blockTEBD dBlock
+
+EXEC := $(EXEC) fhGS fhEvol
+
+EXEC := $(EXEC) isingSpec
+
+EXEC := $(EXEC) umps umpsGS
+
+EXEC := $(EXEC) mps2txt
+
+EXEC := $(EXEC) thirring thThirring thThirringP thThirringPread thirringP thirringGS
+
+EXEC := $(EXEC) fH2gs fH2gs_v0 fH2obs_v0 fH2obs2_v0 fH2gsB fH2obsB
+
+###########################################################
+# Actual rules for the programs
+###########################################################
+
+# Single fortran target!
+MC-MPS-NEW.o: MC-MPS-NEW.f
+	@(echo "  --> Compiling $@ -- ")
+	$(F77) $< -o $@ -c
+
+mps2txt: OBJFILES += mpsToTxt.o
+mps2txt: $(OBJFILES) mpsToTxt.o
+
+microMC0: OBJFILES += microcanonicalSampling_0.o
+microMC0: $(OBJFILES) microcanonicalSampling_0.o
+
+chebH2:  OBJFILES += minVarChebyDelta.o
+chebH2:  $(OBJFILES) minVarChebyDelta.o
+
+analyzeChebH2:  OBJFILES += analyzeMinVarChebyDelta.o
+analyzeChebH2:  $(OBJFILES) analyzeMinVarChebyDelta.o
+
+FASpec: OBJFILES += FASpec.o
+FASpec: $(OBJFILES) FASpec.o
+
+FASpecScale: OBJFILES += FASpec.o
+FASpecScale: $(OBJFILES) FASpec.o
+
+renyiCheb: OBJFILES += renyiChebyStep.o
+renyiCheb: $(OBJFILES) renyiChebyStep.o
+
+specSto: OBJFILES += basicSpec.o
+specSto: $(OBJFILES) basicSpec.o
+
+specSto0: OBJFILES += basicSpecS0.o
+specSto0: $(OBJFILES) basicSpecS0.o
+
+eastMulti: OBJFILES += eastSpecMulti.o
+eastMulti: $(OBJFILES) eastSpecMulti.o
+
+limSto: OBJFILES += limitSpec.o
+limSto: $(OBJFILES) limitSpec.o
+
+compareLim: OBJFILES += analyzeLimits.o
+compareLim: $(OBJFILES) analyzeLimits.o
+
+magSto: OBJFILES += eastMagnetizations.o
+magSto: $(OBJFILES) eastMagnetizations.o
+
+eastEntropy: OBJFILES += eastEntropy.o
+eastEntropy: $(OBJFILES) eastEntropy.o
+
+distSto: OBJFILES += eastPolDistributions.o
+distSto: $(OBJFILES) eastPolDistributions.o
+
+FAdist: OBJFILES += faDistributions.o
+FAdist: $(OBJFILES) faDistributions.o
+
+projPos: OBJFILES += projNullSpacePositive.o
+projPos: $(OBJFILES) projNullSpacePositive.o
+
+projNull: OBJFILES += projNullSpace.o
+projNull: $(OBJFILES) projNullSpace.o
+
+projWeak: OBJFILES += projNullSpaceWeak.o
+projWeak: $(OBJFILES) projNullSpaceWeak.o
+
+diagBin: OBJFILES += diagonalMultiBox.o
+diagBin: $(OBJFILES) diagonalMultiBox.o
+
+diagLc: OBJFILES += diagonalLanczos.o
+diagLc: $(OBJFILES) diagonalLanczos.o
+
+diagCh: OBJFILES += diagonalChebyDelta.o
+diagCh: $(OBJFILES) diagonalChebyDelta.o
+
+diagEP: OBJFILES += diagonalEnsembleProj.o
+diagEP: $(OBJFILES) diagonalEnsembleProj.o
+
+diagEO: OBJFILES += diagonalEnsembleOrth.o
+diagEO: $(OBJFILES) diagonalEnsembleOrth.o
+
+hypIsing: OBJFILES += hypIsing.o
+hypIsing: $(OBJFILES) hypIsing.o
+
+averageP: OBJFILES += averageIsingPert.o
+averageP: $(OBJFILES) averageIsingPert.o
+
+average: OBJFILES += averageIsing.o
+average: $(OBJFILES) averageIsing.o
+
+averageM: OBJFILES += averageIsingMix.o
+averageM: $(OBJFILES) averageIsingMix.o
+
+tAvIsing: OBJFILES += timeAverageIsing.o
+tAvIsing: $(OBJFILES) timeAverageIsing.o
+
+longTav: OBJFILES += longTimeAverage.o
+longTav: $(OBJFILES) longTimeAverage.o
+
+foldedI: OBJFILES += foldedIsing.o
+foldedI: $(OBJFILES) foldedIsing.o
+
+rgtest:  OBJFILES += rgtest.o
+rgtest:  $(OBJFILES) rgtest.o
+
+ising: OBJFILES += testIsing.o
+ising: $(OBJFILES) testIsing.o
+
+heisenberg: OBJFILES += testHeisenberg.o
+heisenberg: $(OBJFILES) testHeisenberg.o
+
+thHeis:  OBJFILES += thermalHeisenberg.o
+thHeis: $(OBJFILES) thermalHeisenberg.o
+
+schwinger: OBJFILES += schwingerPD.o
+schwinger: $(OBJFILES) schwingerPD.o
+
+schwingerSp: OBJFILES += schwingerSpec.o
+schwingerSp: $(OBJFILES) schwingerSpec.o
+
+schwingerEx: OBJFILES += schwingerExc.o
+schwingerEx: $(OBJFILES) schwingerExc.o
+
+schwingerExZ: OBJFILES += schwingerExcSz.o
+schwingerExZ: $(OBJFILES) schwingerExcSz.o
+
+schwingerExZR: OBJFILES += schwingerExcSzSR.o
+schwingerExZR: $(OBJFILES) schwingerExcSzSR.o
+
+schwingerExZR2: OBJFILES += schwingerExcSzSR2.o
+schwingerExZR2: $(OBJFILES) schwingerExcSzSR2.o
+
+schwingerExZVS: OBJFILES += schwingerExcSzSR3.o
+schwingerExZVS: $(OBJFILES) schwingerExcSzSR3.o
+
+schwingerZgap: OBJFILES += schwingerExcSzSR4.o
+schwingerZgap: $(OBJFILES) schwingerExcSzSR4.o
+
+search1: OBJFILES += phase1.o
+search1: $(OBJFILES) phase1.o
+
+#searchR: OBJFILES += phase1_save.o
+#searchR: $(OBJFILES) phase1_save.o
+searchR: OBJFILES += searchOrder.o
+searchR: $(OBJFILES) searchOrder.o
+
+searchO: OBJFILES += searchOrder.o
+searchO: $(OBJFILES) searchOrder.o
+
+match: OBJFILES += matchMissing.o
+match: $(OBJFILES) matchMissing.o
+
+single: OBJFILES += single_state.o
+single: $(OBJFILES) single_state.o
+
+singleF: OBJFILES += single_state.o
+singleF: $(OBJFILES) single_state.o
+
+search2: OBJFILES += phase2.o
+search2: $(OBJFILES) phase2.o
+
+schwingerSpM: OBJFILES += schwingerSpecMomentum.o
+schwingerSpM: $(OBJFILES) schwingerSpecMomentum.o
+
+spGEVP: OBJFILES += schwingerSpecGEVP2.o
+spGEVP: $(OBJFILES) schwingerSpecGEVP2.o
+
+schwingerMS: OBJFILES += schwingerMS.o
+schwingerMS: $(OBJFILES) schwingerMS.o
+
+schwingerMSev: OBJFILES += testEigs.o
+schwingerMSev: $(OBJFILES) testEigs.o
+
+schwingerIT: OBJFILES += schwingerIT.o
+schwingerIT: $(OBJFILES) schwingerIT.o
+
+schwingerIT2: OBJFILES += schwingerIT2.o
+schwingerIT2: $(OBJFILES) schwingerIT2.o
+
+schwingerTh: OBJFILES += schwingerThermUnfold.o
+schwingerTh: $(OBJFILES) schwingerThermUnfold.o
+
+schwingerTh0: OBJFILES += schwingerTherm.o
+schwingerTh0: $(OBJFILES) schwingerTherm.o
+
+thermalSchw:  OBJFILES += thermalState.o
+thermalSchw:  $(OBJFILES) thermalState.o
+
+testHana:  OBJFILES += testSchwingerThrmrho.o
+testHana:  $(OBJFILES) testSchwingerThrmrho.o
+
+thermSch:  OBJFILES += testSchwingerThrm.o
+thermSch:  $(OBJFILES) testSchwingerThrm.o
+
+thermExL:  OBJFILES += thermalWithExpL.o
+thermExL:  $(OBJFILES) thermalWithExpL.o
+
+thermExL_1024:  OBJFILES += thermalWithExpL_x1024.o
+thermExL_1024:  $(OBJFILES) thermalWithExpL_x1024.o
+
+therm_eLoLe:  OBJFILES += thermalHana_eLoLe.o
+therm_eLoLe:  $(OBJFILES) thermalHana_eLoLe.o
+
+therm_eLoLe_ineff:  OBJFILES += thermalHana_eLoLe_inef.o
+therm_eLoLe_ineff:  $(OBJFILES) thermalHana_eLoLe_inef.o
+
+#schFrW: OBJFILES += computeWeightsFractal.o
+#schFrW: $(OBJFILES) computeWeightsFractal.o
+schFrW: OBJFILES += computeWeightsFractal_match.o
+schFrW: $(OBJFILES) computeWeightsFractal_match.o
+
+#schFrOv: OBJFILES += computeOverlapsFractal.o
+#schFrOv: $(OBJFILES) computeOverlapsFractal.o
+schFrOv: OBJFILES += computeOverlapsFractal_match.o
+schFrOv: $(OBJFILES) computeOverlapsFractal_match.o
+
+bhSpec: OBJFILES += bosehubSpec.o
+bhSpec: $(OBJFILES) bosehubSpec.o
+
+bosehub: OBJFILES += bosehubSW.o
+bosehub: $(OBJFILES) bosehubSW.o
+
+bosehubW: OBJFILES += bosehubWell.o
+bosehubW: $(OBJFILES) bosehubWell.o
+
+bosehubSD: OBJFILES += bosehubSolitonDyn.o
+bosehubSD: $(OBJFILES) bosehubSolitonDyn.o
+
+bosehubSDk: OBJFILES += bosehubSolitonDynMom.o
+bosehubSDk: $(OBJFILES) bosehubSolitonDynMom.o
+
+bosehubSDt: OBJFILES += bosehubSolitonDynMomTrap.o
+bosehubSDt: $(OBJFILES) bosehubSolitonDynMomTrap.o
+
+bosehubSDt2: OBJFILES += bosehubSolitonDynMomTrap2.o
+bosehubSDt2: $(OBJFILES) bosehubSolitonDynMomTrap2.o
+
+bosehubIT: OBJFILES += bosehubCheckIT.o
+bosehubIT: $(OBJFILES) bosehubCheckIT.o
+
+bosehubF: OBJFILES += bosehubFile.o
+bosehubF: $(OBJFILES) bosehubFile.o
+
+bosehubInt: OBJFILES += bosehubWithInt.o
+bosehubInt: $(OBJFILES) bosehubWithInt.o
+
+bosehubTh: OBJFILES += bosehubTherm.o
+bosehubTh: $(OBJFILES) bosehubTherm.o
+
+bosehubTh2: OBJFILES += bosehubTherm2.o
+bosehubTh2: $(OBJFILES) bosehubTherm2.o
+
+bosehubTh3: OBJFILES += bosehubTherm3.o
+bosehubTh3: $(OBJFILES) bosehubTherm3.o
+
+bosehubTh4: OBJFILES += bosehubTherm4.o
+bosehubTh4: $(OBJFILES) bosehubTherm4.o
+
+bosehubTh5: OBJFILES += bosehubTherm5.o
+bosehubTh5: $(OBJFILES) bosehubTherm5.o
+
+bosehubtrapTh: OBJFILES += bosehubTrapTherm.o
+bosehubtrapTh: $(OBJFILES) bosehubTrapTherm.o
+
+bosehubGS: OBJFILES += bosehubGS.o
+bosehubGS: $(OBJFILES) bosehubGS.o
+
+bhtrapGS: OBJFILES += bosehubTrapGS.o
+bhtrapGS: $(OBJFILES) bosehubTrapGS.o
+
+sample: OBJFILES += sample.o
+sample: $(OBJFILES) sample.o
+
+nnham: OBJFILES += nnham.o
+nnham: $(OBJFILES) nnham.o
+
+nnpert: OBJFILES += nnpert.o
+nnpert: $(OBJFILES) nnpert.o
+
+flatI: OBJFILES += flatIsing.o
+flatI: $(OBJFILES) flatIsing.o
+
+flatLC: OBJFILES += flatLightCone.o
+flatLC: $(OBJFILES) flatLightCone.o
+
+curvedI: OBJFILES += curvedIsing.o
+curvedI: $(OBJFILES) curvedIsing.o
+
+curvedI2: OBJFILES += curvedIsing2.o
+curvedI2: $(OBJFILES) curvedIsing2.o
+
+slowLC: OBJFILES += slowCone.o
+slowLC: $(OBJFILES) slowCone.o
+
+slowLCmix: OBJFILES += slowConeMixed.o
+slowLCmix: $(OBJFILES) slowConeMixed.o
+
+transLC: OBJFILES += transverseLC.o
+transLC: $(OBJFILES) transverseLC.o
+
+transLCop: OBJFILES += transverseLCop.o
+transLCop: $(OBJFILES) transverseLCop.o
+
+transLCopSv: OBJFILES += transverseLCop_restart.o
+transLCopSv: $(OBJFILES) transverseLCop_restart.o
+
+transLCLR: OBJFILES += transverseLCLR.o
+transLCLR: $(OBJFILES) transverseLCLR.o
+
+light: OBJFILES += lightcone.o
+light: $(OBJFILES) lightcone.o
+
+light2: OBJFILES += lightcone2.o
+light2: $(OBJFILES) lightcone2.o
+
+testIO: OBJFILES += IsingOpenHamiltonian.o newIsingOpenScal.o
+testIO: $(OBJFILES) IsingOpenHamiltonian.o newIsingOpenScal.o
+
+coherent0: OBJFILES += coherent.o
+coherent0: $(OBJFILES) coherent.o
+
+coherent: OBJFILES += coherentProps.o
+coherent: $(OBJFILES) coherentProps.o
+
+coherentR: OBJFILES += coherentPropsRand.o
+coherentR: $(OBJFILES) coherentPropsRand.o
+
+overlapR: OBJFILES += computeCoherentRandomOverlaps.o
+overlapR: $(OBJFILES) computeCoherentRandomOverlaps.o
+
+coherentAd: OBJFILES += coherentAdiab.o
+coherentAd: $(OBJFILES) coherentAdiab.o
+
+coherentAdSp: OBJFILES += coherentAdiabSpecial.o
+coherentAdSp: $(OBJFILES) coherentAdiabSpecial.o
+
+coherentD: OBJFILES += coherentDegeneracy.o
+coherentD: $(OBJFILES) coherentDegeneracy.o
+
+coherentDS: OBJFILES += coherentEffectiveDS.o
+coherentDS: $(OBJFILES) coherentEffectiveDS.o
+
+coherentEV: OBJFILES += recomputeCoherentProps.o
+coherentEV: $(OBJFILES) recomputeCoherentProps.o
+
+coherentM: OBJFILES += coherentMinusProps.o
+coherentM: $(OBJFILES) coherentMinusProps.o
+
+coherentLR: OBJFILES += coherentPropsLR.o
+coherentLR: $(OBJFILES) coherentPropsLR.o
+
+coherentLR2: OBJFILES += coherentPropsLRevs.o
+coherentLR2: $(OBJFILES) coherentPropsLRevs.o
+
+coherentLRS: OBJFILES += coherentPropsLRproj.o
+coherentLRS: $(OBJFILES) coherentPropsLRproj.o
+
+coherentLRS1: OBJFILES += coherentPropsLRprojS1.o
+coherentLRS1: $(OBJFILES) coherentPropsLRprojS1.o
+
+coherentEx: OBJFILES += coherentExc.o
+coherentEx: $(OBJFILES) coherentExc.o
+
+coherentInv: OBJFILES += coherentInv.o
+coherentInv: $(OBJFILES) coherentInv.o
+
+coherentEvo: OBJFILES += coherentEvol.o
+coherentEvo: $(OBJFILES) coherentEvol.o
+
+coherentSpe: OBJFILES += coherentSpecial.o
+coherentSpe: $(OBJFILES) coherentSpecial.o
+
+dissipXY: OBJFILES += dissipativeXY.o
+dissipXY: $(OBJFILES) dissipativeXY.o
+
+commut:  OBJFILES += commutingOperator.o
+commut:  $(OBJFILES) commutingOperator.o
+
+locaPT:  OBJFILES += localizationPT.o
+locaPT:  $(OBJFILES) localizationPT.o
+
+locaPTp:  OBJFILES += localizationPTpure.o
+locaPTp:  $(OBJFILES) localizationPTpure.o
+
+locaPTb:  OBJFILES += localizationPT2.o
+locaPTb:  $(OBJFILES) localizationPT2.o
+
+locaPT2:  OBJFILES += localizationPTcont.o
+locaPT2:  $(OBJFILES) localizationPTcont.o
+
+locaPT22:  OBJFILES += localizationPTcontPhase2.o
+locaPT22:  $(OBJFILES) localizationPTcontPhase2.o
+
+geneLoc:  OBJFILES += generateInstances.o
+geneLoc:  $(OBJFILES) generateInstances.o
+
+locaTI:  OBJFILES += localizationTI.o
+locaTI:  $(OBJFILES) localizationTI.o
+
+mblCJ:  OBJFILES += localizationTI_CJ.o
+mblCJ:  $(OBJFILES) localizationTI_CJ.o
+
+mblS:  OBJFILES += localizationTI_Single.o
+mblS:  $(OBJFILES) localizationTI_Single.o
+
+mblS1:  OBJFILES += qubitSingleChain.o
+mblS1:  $(OBJFILES) qubitSingleChain.o
+
+mblS2:  OBJFILES += localizationTI_Single_Phase2.o
+mblS2:  $(OBJFILES) localizationTI_Single_Phase2.o
+
+mblMI1:  OBJFILES += mutualInfoSingleChain.o
+mblMI1:  $(OBJFILES) mutualInfoSingleChain.o
+
+mblRFMI1:  OBJFILES += singleChainFidelityMutualInfo.o
+mblRFMI1:  $(OBJFILES) singleChainFidelityMutualInfo.o
+
+mblRFMIpos:  OBJFILES += singleChainFidelityMutualInfoPositive.o
+mblRFMIpos:  $(OBJFILES) singleChainFidelityMutualInfoPositive.o
+
+mblEdge:  OBJFILES += singleChainFidelityMutualInfoPositiveEdge.o
+mblEdge:  $(OBJFILES) singleChainFidelityMutualInfoPositiveEdge.o
+
+mblMI:  OBJFILES += mutualInfoTI.o
+mblMI:  $(OBJFILES) mutualInfoTI.o
+
+moduIsing: OBJFILES += modulatedIsing.o
+moduIsing: $(OBJFILES) modulatedIsing.o
+
+moduEneIsing: OBJFILES := $(OBJFILES) modulatedEnergyIsing.o
+moduEneIsing: $(OBJFILES) modulatedEnergyIsing.o
+
+#thermalIsing: OBJFILES += thermalStateIsing.o
+#thermalIsing: $(OBJFILES) thermalStateIsing.o
+
+thermalIsing: OBJFILES += thermalIsing.o
+thermalIsing: $(OBJFILES) thermalIsing.o
+
+softcoul: OBJFILES += softcoulomb.o
+softcoul: $(OBJFILES) softcoulomb.o
+
+fhGS: OBJFILES += fermihubbardGS.o
+fhGS: $(OBJFILES) fermihubbardGS.o
+
+fhEvol: OBJFILES += fermihubbardEvol.o
+fhEvol: $(OBJFILES) fermihubbardEvol.o
+
+scsp: OBJFILES += softCoulombSingleState.o
+scsp: $(OBJFILES) softCoulombSingleState.o
+
+scsp2: OBJFILES += computeVals.o
+scsp2: $(OBJFILES) computeVals.o
+
+thermoF: OBJFILES += thermofield.o
+thermoF: $(OBJFILES) thermofield.o
+
+thermoFF: OBJFILES += thermofieldFermion.o
+thermoFF: $(OBJFILES) thermofieldFermion.o
+
+slow: OBJFILES += slowop.o
+slow: $(OBJFILES) slowop.o
+
+slow2: OBJFILES += recomputeLambdas.o
+slow2: $(OBJFILES) recomputeLambdas.o
+
+slowTI: OBJFILES += slowopTI.o
+slowTI: $(OBJFILES) slowopTI.o
+
+slowTI2: OBJFILES += recomputeLambdasTI.o
+slowTI2: $(OBJFILES) recomputeLambdasTI.o
+
+slowLocal: OBJFILES += localitySlowOp.o
+slowLocal: $(OBJFILES) localitySlowOp.o
+
+slowLocal2: OBJFILES += localitySlowOpPhase2.o
+slowLocal2: $(OBJFILES) localitySlowOpPhase2.o
+
+slowMPO: OBJFILES += slowMPO.o
+slowMPO: $(OBJFILES) slowMPO.o
+
+slowGS: OBJFILES += slowMPOgs.o
+slowGS: $(OBJFILES) slowMPOgs.o
+
+slowGSising: OBJFILES += slowMPOgs.o
+slowGSising: $(OBJFILES) slowMPOgs.o
+
+slowGSham: OBJFILES += slowMPOhamil.o
+slowGSham: $(OBJFILES) slowMPOhamil.o
+
+slowGShamL: OBJFILES += slowMPOhamilLocality.o
+slowGShamL: $(OBJFILES) slowMPOhamilLocality.o
+
+an_slowGSham: OBJFILES += slowMPOhamilAnalysis.o
+an_slowGSham: $(OBJFILES) slowMPOhamilAnalysis.o
+
+an_slowGSham_2: OBJFILES += slowMPOhamilAnalysisFull.o
+an_slowGSham_2: $(OBJFILES) slowMPOhamilAnalysisFull.o
+
+an_slowGSham_Hn: OBJFILES += slowMPOhamilAnalysisHn.o
+an_slowGSham_Hn: $(OBJFILES) slowMPOhamilAnalysisHn.o
+
+slowMPOHn: OBJFILES += slowMPOhamilAnalysisHnOpt.o
+slowMPOHn: $(OBJFILES) slowMPOhamilAnalysisHnOpt.o
+
+slowTIswap: OBJFILES += slowopTI.o
+slowTIswap: $(OBJFILES) slowopTI.o
+
+hamilP:  OBJFILES += hamilPower.o
+hamilP:  $(OBJFILES) hamilPower.o
+
+moduHP:  OBJFILES += modulatedPowersHnRangeIndep.o
+moduHP:  $(OBJFILES) modulatedPowersHnRangeIndep.o
+
+bestModu: OBJFILES += bestLocalModulatedOp.o 
+bestModu: $(OBJFILES) bestLocalModulatedOp.o 
+
+commB: OBJFILES += commuteBestModulated.o 
+commB: $(OBJFILES) commuteBestModulated.o 
+
+commHn: OBJFILES += commuteBestHn.o 
+commHn: $(OBJFILES) commuteBestHn.o 
+
+minVar: OBJFILES += varianceMinimization.o
+minVar: $(OBJFILES) varianceMinimization.o
+
+minVar2: OBJFILES += variationalAnalysis.o
+minVar2: $(OBJFILES) variationalAnalysis.o
+
+lowVarSpec: OBJFILES += lowVarianceMPS.o
+lowVarSpec: $(OBJFILES) lowVarianceMPS.o
+
+evalVar: OBJFILES += evalVar.o
+evalVar: $(OBJFILES) evalVar.o
+
+blockTEBD: OBJFILES += blockTEBD.o
+blockTEBD: $(OBJFILES) blockTEBD.o
+
+dBlock: OBJFILES += disenTEBD.o
+dBlock: $(OBJFILES) disenTEBD.o
+
+isingSpec: OBJFILES += isingSpecEdgesPlus.o
+isingSpec: $(OBJFILES) isingSpecEdgesPlus.o
+
+# uMPS programs
+
+UMPSOBJ = uMPS.o MPOMultiplier.o
+umps: OBJFILES += $(UMPSOBJ) test_uMPS.o
+umps: $(OBJFILES) $(UMPSOBJ) test_uMPS.o
+
+umpsGS: OBJFILES += $(UMPSOBJ) test_uMPS_GS.o
+umpsGS: $(OBJFILES) $(UMPSOBJ) test_uMPS_GS.o
+
+
+HEIS2OBJ = HeisenbergHamiltonian2D.o
+thHeis2: OBJFILES += $(HEIS2OBJ) thermalHeisenberg2D.o
+thHeis2: $(OBJFILES) $(HEIS2OBJ) thermalHeisenberg2D.o
+
+tdIsing: OBJFILES += thermodynamicsIsing.o
+tdIsing: $(OBJFILES) thermodynamicsIsing.o
+
+# Thirring model
+THIRROBJ = ThirringHamiltonian.o
+thirring: OBJFILES += $(THIRROBJ) thirringPenalty.o
+thirring: $(OBJFILES) $(THIRROBJ) thirringPenalty.o
+
+thThirring: OBJFILES += $(THIRROBJ) thermalthirring.o
+thThirring: $(OBJFILES) $(THIRROBJ) thermalthirring.o
+
+thThirringP: OBJFILES += $(THIRROBJ) thermalthirringproj.o
+thThirringP: $(OBJFILES) $(THIRROBJ) thermalthirringproj.o
+
+thThirringPread: OBJFILES += $(THIRROBJ) thermalthirringread.o
+thThirringPread: $(OBJFILES) $(THIRROBJ) thermalthirringread.o
+
+thirringP: OBJFILES += $(THIRROBJ) thirringPenaltyEVs.o
+thirringP: $(OBJFILES) $(THIRROBJ) thirringPenaltyEVs.o
+
+thirringGS: OBJFILES += $(THIRROBJ) thirringAnalyzeGS.o
+thirringGS: $(OBJFILES) $(THIRROBJ) thirringAnalyzeGS.o
+
+# Fermi-Hubbard (2 orbital)
+FH2OBJ = TwoOrbitalFermiHubbardHamiltonian.o
+FH2OBJ_v0 = TwoOrbitalFermiHubbardHamiltonian_v0.o
+FH2OBJ_BLOCK = TwoOrbitalFermiHubbardHamiltonianBlock.o
+#fH2gs_v0: OBJFILES += $(FH2OBJ_v0) twofermihubbardGS_v0.o
+#fH2gs_v0: $(OBJFILES) $(FH2OBJ_v0) twofermihubbardGS_v0.o
+
+fH2gs_v0: OBJFILES += $(FH2OBJ_v0) twofermihubbardGS_v0_refine.o
+fH2gs_v0: $(OBJFILES) $(FH2OBJ_v0) twofermihubbardGS_v0_refine.o
+
+fH2obs_v0: OBJFILES += $(FH2OBJ_v0) twofermihubbardObs_v0.o
+fH2obs_v0: $(OBJFILES) $(FH2OBJ_v0) twofermihubbardObs_v0.o
+fH2obs2_v0: OBJFILES += $(FH2OBJ_v0) twofermihubbardObsSite_v0.o
+fH2obs2_v0: $(OBJFILES) $(FH2OBJ_v0) twofermihubbardObsSite_v0.o
+
+fH2gs: OBJFILES += $(FH2OBJ) twofermihubbardGS.o
+fH2gs: $(OBJFILES) $(FH2OBJ) twofermihubbardGS.o
+
+fH2gsB: OBJFILES += $(FH2OBJ_BLOCK) twofermihubbardGSblock.o
+fH2gsB: $(OBJFILES) $(FH2OBJ_BLOCK) twofermihubbardGSblock.o
+fH2obsB: OBJFILES += $(FH2OBJ_BLOCK) twofermihubbardObsSiteBlock.o
+fH2obsB: $(OBJFILES) $(FH2OBJ_BLOCK) twofermihubbardObsSiteBlock.o
+
+#fH2gs: OBJFILES += $(FH2OBJ) twofermihubbardGSmod.o
+#fH2gs: $(OBJFILES) $(FH2OBJ) twofermihubbardGSmod.o
+
+## Lindblad M Eq
+
+OPENOBJ = IsingLocalDissipLiouvillian.o
+isingOpen: OBJFILES += $(OPENOBJ) isingDissipative.o
+isingOpen: $(OBJFILES) $(OPENOBJ) isingDissipative.o

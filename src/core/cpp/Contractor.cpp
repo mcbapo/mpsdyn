@@ -132,7 +132,7 @@ void Contractor::optimize(const MPO& ops,const MPS& orig,
   bool done=0;
   bool right=1;
   int pos=0;
-  double distance=1E10; // some absurdly large initial value (it would be better to take the true contraction)
+  double distance=abs(contract(orig,orig))+abs(contract(init,init)); // some absurdly large initial value (it would be better to take the true contraction)
   int round=1;
   mwArray M; //mwArray N;
   mwArray contr1,contr2,newA;
@@ -1140,14 +1140,12 @@ void Contractor::getEffectiveOperatorMPOMultiplier(const MPS& ket,const MPO& ops
   }
   mpoMulti.initLength(block+2);
 
-  // Make a copy of the MPS to ensure the proper gauge conditions (TODO!!!! I don't think I need this)
+  // I am ensuring that the operator is in orthogonal basis, so need to impose a couple of gauge conditions (only on the edges)
+  // But could leave as it is
   MPS auxMPS(ket);
-  //  double origNorm=contract(auxMPS,auxMPS); // keep the original normalization, just in case?
-  if(!auxMPS.isGaugeR()) auxMPS.gaugeCond('R',1);
-  // Now left part is normalized => contract right part until pos+k-1, to ensure we work on o.n. basis
-  for(int ik=nrsites-1;ik>=pos+block;ik--){
-    auxMPS.gaugeCond(ik,'L',true);
-  }
+  auxMPS.gaugeCond(pos-1,'R',true);
+  auxMPS.gaugeCond(pos+block,'L',true);
+  //  const MPS& auxMPS=ket;
   // Now N matrix is identity
   //##################### HERE!!!!
   bool gauge=true;
@@ -1178,14 +1176,17 @@ TensorMultiplier Contractor::getEffectiveOperatorMultiplierMultiSite(const MPS& 
     cout<<"Position "<<pos<<" out of range in Contractor::getEffectiveOperatorSingleSite "<<endl;
     exit(1);
   }
-  // Make a copy of the MPS to ensure the proper gauge conditions (TODO!!!! CHECK!!!)
+  // I am ensuring that the operator is in orthogonal basis, so need to impose a couple of gauge conditions (only on the edges)
   MPS auxMPS(ket);
-  //  double origNorm=contract(auxMPS,auxMPS); // keep the original normalization, just in case?
-  if(!auxMPS.isGaugeR()) auxMPS.gaugeCond('R',1);
-  // Now left part is normalized => contract right part until pos+k-1
-  for(int ik=nrsites-1;ik>=pos+k;ik--){
-    auxMPS.gaugeCond(ik,'L',true);
-  }
+  // //  double origNorm=contract(auxMPS,auxMPS); // keep the original normalization, just in case?
+  // if(!auxMPS.isGaugeR()) auxMPS.gaugeCond('R',1);
+  // // Now left part is normalized => contract right part until pos+k-1
+  // for(int ik=nrsites-1;ik>=pos+k;ik--){
+  //   auxMPS.gaugeCond(ik,'L',true);
+  // }
+  auxMPS.gaugeCond(pos-1,'R',true);
+  auxMPS.gaugeCond(pos+k,'L',true);
+
   // Now N matrix is identity
   //##################### HERE!!!!
   bool gauge=true;
@@ -1196,20 +1197,6 @@ TensorMultiplier Contractor::getEffectiveOperatorMultiplierMultiSite(const MPS& 
   calculateR(pos+k-1,tmpMgr,ops,auxMPS,auxMPS,gauge,ketN);
   mwArray tmpOp;
   blockOperatorMultiSite(tmpOp,ops,k,pos);
-  // mwArray tmpOp=ops.getOp(pos).getFullData();
-  // for(int l=1;l<k;l++){
-  //   mwArray nextOp=ops.getOp(pos+l).getFullData();
-  //   // contract together the previous one and the local term
-  //   Indices dimsOld=tmpOp.getDimensions();
-  //   Indices dimsNew=nextOp.getDimensions();
-  //   tmpOp.reshape(Indices(-1,dimsOld[3]));
-  //   nextOp.permute(Indices(2,1,3,4));
-  //   nextOp.reshape(Indices(dimsNew[1],-1));
-  //   tmpOp.multiplyRight(nextOp);
-  //   tmpOp.reshape(Indices(dimsOld[0],dimsOld[1],dimsOld[2],dimsNew[0],dimsNew[2],dimsNew[3]));
-  //   tmpOp.permute(Indices(1,4,2,3,5,6));
-  //   tmpOp.reshape(Indices(dimsOld[0]*dimsNew[0],dimsOld[1],dimsOld[2]*dimsNew[2],dimsNew[3]));
-  // }
   cout<<"Will construct a multiplier out of tmpOp:"<<tmpOp.getDimensions()<<", left "<<tmpMgr.operL[pos].getDimensions()<<"and right "<<tmpMgr.operR[pos+k-1].getDimensions()<<endl;
   return TensorMultiplier(tmpMgr.operL[pos],tmpOp,tmpMgr.operR[pos+k-1]);
 }
@@ -2607,7 +2594,7 @@ void Contractor::findNextExcitedState(const MPO& ops,int D,
     // A special case is if I only had one level (or almost degenerate ones), then I have to guess, so I add L/2 (big)
     if(nextK==1||newOffset<1E-6) newOffset=computedLevels[0]->getLength()*.5;
   }
-  cout<<"Setting new penalties for findNextExcitedState: "<<newOffset<<endl;//" (old was "<<offset<<")"<<endl;
+  //  cout<<"Setting new penalties for findNextExcitedState: "<<newOffset<<endl;//" (old was "<<offset<<")"<<endl;
   for(int k=0;k<nextK;k++){
     energies[k]=newOffset;
   }
@@ -2858,7 +2845,7 @@ void Contractor::findGroundStateWithProjectorPenalty(const MPO& ops,int D,
     }
   }
   *lambdak=energy;
-  cout<<"Leaving Contractor::findNextExcitedState after "<<round<<" rounds"<<endl;
+  // cout<<"Leaving Contractor::findNextExcitedState after "<<round<<" rounds"<<endl;
 }
 
 void Contractor::calculateLexck(int pos,TmpManagerExc& theMgr,const MPO& ops,
