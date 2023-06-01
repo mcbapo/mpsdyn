@@ -1,11 +1,15 @@
-/*  
+/*
  *  Calculate T_n(\tilde{H}) and save them.
- *  Output the truncation error of each term, Tr(T_n(H)) and Tr(T_n(H)O) for O in opList.
+ *  Output the truncation error of each term, Tr(T_n(H)) and Tr(T_n(H)O) for O
+ * in opList.
  *  */
+#include <algorithm>
 #include <iomanip>
 #include <math.h>
+#include <random>
 #include <sstream>
 #include <string>
+#include <vector>
 
 #include "Contractor.h"
 #include "MPS.h"
@@ -15,17 +19,15 @@
 #include "mwArray.h"
 
 #define _USE_MATH_DEFINES // For PI
-#define TMPSTORE 0		  // Using temporary storage for intermediate results
-#define SSTR(x)                                                                \
-    static_cast<std::ostringstream &>((std::ostringstream() << std::dec << x)) \
-.str() 
+#define TMPSTORE 0        // Using temporary storage for intermediate results
+
 // Convert variables to strings
 
 // Included models
+#include "HeisenbergAncillaryNoiseHamiltonian.h"
 #include "HeisenbergHamiltonian.h"
 #include "IsingHamiltonian.h"
 #include "PXPHamiltonian.h"
-#include "HeisenbergAncillaryNoiseHamiltonian.h"
 int d = 2; // Spin 1/2
 
 using namespace shrt;
@@ -41,26 +43,28 @@ int main(int argc, const char *argv[])
     {
         cntr++;
         cout << "Some properties may be now replaced by command line arguments"
-            << endl;
+             << endl;
         props.loadProperties(argc - cntr, &argv[cntr]);
     }
 
     // Model parameters
-    int L = props.getIntProperty("L");		   // Length of system
-    string model = props.getProperty("model"); 
+    int L = props.getIntProperty("L"); // Length of system
+    string model = props.getProperty("model");
     // Name of model. Support Ising, Heisenberg and PXP
-    double J_ = props.getDoubleProperty("J");  
+    double J_ = props.getDoubleProperty("J");
     double B_ = props.getDoubleProperty("B");
     double Jx_ = props.getDoubleProperty("Jx");
     double Jy_ = props.getDoubleProperty("Jy");
     double g_ = props.getDoubleProperty("g");
     double h_ = props.getDoubleProperty("h");
+    int seed_ = props.getIntProperty("seed");
+    vector<double> hRand(L);
 
     // Chebyshev parameters
-    int M = props.getIntProperty("M");				 // LARGEST ORDER in Chebyshev exp.
+    int M = props.getIntProperty("M");               // LARGEST ORDER in Chebyshev exp.
     double delta = props.getDoubleProperty("delta"); // Delta in Chebyshev exp.
     if (delta < 0 || delta > 1)
-        delta = 0.05;    
+        delta = 0.05;
     int saveTn = props.getIntProperty("saveTn");
 
     // MPS parameters
@@ -70,60 +74,82 @@ int main(int argc, const char *argv[])
 
     // Output file names
     string outfname = props.getProperty("outputfile");
-    string scalingfname = props.getProperty("scalingfile"); // Storing Emin and Emax
+    string scalingfname =
+        props.getProperty("scalingfile"); // Storing Emin and Emax
+    SpinMPO spinMPO;
 
-
-    cout << "Initialized arguments: L=" << L << ", D=" << D << ", M=" << M 
-        << ", model=" << model << ", outfile=" << outfname <<endl;
+    cout << "Initialized arguments: L=" << L << ", D=" << D << ", M=" << M
+         << ", model=" << model << ", outfile=" << outfname << endl;
     Contractor &contractor = Contractor::theContractor();
     contractor.setConvTol(tol);
     cout << "Initialized Contractor" << endl;
     cout << "First need to estimate the energy band to rescale "
-        << "and shift the Hamiltonian" << endl;
+         << "and shift the Hamiltonian" << endl;
 
-
-    if (model == "HAN"){
+    if (model == "HAN")
+    {
         L *= 2;
     }
 
     // The original Hamiltonian to get the energy range
     MPO hamil0(L);
-    if (model == "Ising"){
+    if (model == "Ising")
+    {
         IsingHamiltonian hamH0(L, d, J_, g_, h_);
         const MPO &tmphamil0 = hamH0.getHMPO();
-        for (int k = 0; k<L; k++){
+        for (int k = 0; k < L; k++)
+        {
             hamil0.setOp(k, new Operator(tmphamil0.getOp(k).getFullData()), true);
         }
-        cout << "J=" << J_ <<", g=" << g_ << ", h=" << h_ << endl;
+        cout << "J=" << J_ << ", g=" << g_ << ", h=" << h_ << endl;
     }
     else if (model == "Heisenberg")
-    { 
+    {
         HeisenbergHamiltonian hamH0(L, Jx_, Jy_, 1.0, h_, d);
         const MPO &tmphamil0 = hamH0.getHMPO();
-        for (int k = 0; k<L; k++){
+        for (int k = 0; k < L; k++)
+        {
             hamil0.setOp(k, new Operator(tmphamil0.getOp(k).getFullData()), true);
         }
-        cout << "Jx=" << Jx_ <<", Jy=" << Jy_ << ", Jz=1.0, h=" << h_ << endl;
-
+        cout << "Jx=" << Jx_ << ", Jy=" << Jy_ << ", Jz=1.0, h=" << h_ << endl;
     }
-    else if (model == "PXP"){
+    else if (model == "HeisenbergRand")
+    {
+        srand(seed_);
+        generate(hRand.begin(), hRand.end(), [&h_]() -> double
+                 { return (double(rand()) / double(RAND_MAX) * 2. - 1) * h_; });
+        for (int i = 0; i < hRand.size(); i++)
+            cout << hRand[i] << " ";
+        cout << endl;
+        HeisenbergHamiltonian hamH0(L, Jx_, Jy_, 1.0, hRand, d);
+        const MPO &tmphamil0 = hamH0.getHMPO();
+        for (int k = 0; k < L; k++)
+        {
+            hamil0.setOp(k, new Operator(tmphamil0.getOp(k).getFullData()), true);
+        }
+        cout << "Jx=" << Jx_ << ", Jy=" << Jy_ << ", Jz=1.0, h=" << h_ << endl;
+    }
+    else if (model == "PXP")
+    {
         PXPHamiltonian hamH0(L, 1., 0., 0, 0.);
         const MPO &tmphamil0 = hamH0.getHMPO();
-        for (int k = 0; k<L; k++){
+        for (int k = 0; k < L; k++)
+        {
             hamil0.setOp(k, new Operator(tmphamil0.getOp(k).getFullData()), true);
         }
-    }     
-    else if (model == "HAN"){
-        HeisenbergAncillaryNoiseHamiltonian hamH0(L/2, 1., 1., 0., J_, J_, 0., B_, 0.);
+    }
+    else if (model == "HAN")
+    {
+        HeisenbergAncillaryNoiseHamiltonian hamH0(L / 2, 1., 1., 0., J_, J_, 0., B_,
+                                                  0.);
         const MPO &tmphamil0 = hamH0.getHMPO();
-        for (int k = 0; k<L; k++){
+        for (int k = 0; k < L; k++)
+        {
             hamil0.setOp(k, new Operator(tmphamil0.getOp(k).getFullData()), true);
         }
-        cout << "J=" << J_ <<", B=" << B_ << endl;
-
-    }     
+        cout << "J=" << J_ << ", B=" << B_ << endl;
+    }
     cout << "Created the non-rescaled Hamiltonian" << endl;
-
 
     // First rescale the Hamiltonian:
     double scale = 1.;
@@ -146,8 +172,8 @@ int main(int argc, const char *argv[])
     exc.gaugeCond('L', 1);
     {
         MPO hamilMinus(L);
-        hamilMinus.setOp(
-                0, new Operator(-1. * hamil0.getOp(0).getFullData()), true);
+        hamilMinus.setOp(0, new Operator(-1. * hamil0.getOp(0).getFullData()),
+                         true);
         for (int k = 1; k < L; k++)
         {
             hamilMinus.setOp(k, &hamil0.getOp(k), false);
@@ -159,6 +185,7 @@ int main(int argc, const char *argv[])
 
     ofstream *fout;
     fout = new ofstream(scalingfname.data());
+    *fout << setprecision(10) << fixed;
     *fout << Emin << "\t" << Emax << "\t" << endl;
     fout->close();
     delete fout;
@@ -169,54 +196,92 @@ int main(int argc, const char *argv[])
 
     MPO hamil_(L);
     MPO proj(L);
-    if (model == "Ising"){
-        IsingHamiltonian hamH(L, d, J_*scale, g_*scale, h_*scale, offset);
+    if (model == "Ising")
+    {
+        IsingHamiltonian hamH(L, d, J_ * scale, g_ * scale, h_ * scale, offset);
         const MPO &tmphamil_ = hamH.getHMPO();
-        for (int k = 0; k<L; k++){
+        for (int k = 0; k < L; k++)
+        {
             hamil_.setOp(k, new Operator(tmphamil_.getOp(k).getFullData()), true);
         }
     }
     else if (model == "Heisenberg")
-    { 
-        HeisenbergHamiltonian hamH(L, Jx_*scale, Jy_*scale, 
-                1.0*scale, h_*scale, d, offset);
+    {
+        HeisenbergHamiltonian hamH(L, Jx_ * scale, Jy_ * scale, 1.0 * scale,
+                                   h_ * scale, d, offset);
         const MPO &tmphamil_ = hamH.getHMPO();
-        for (int k = 0; k<L; k++){
+        for (int k = 0; k < L; k++)
+        {
             hamil_.setOp(k, new Operator(tmphamil_.getOp(k).getFullData()), true);
         }
     }
-    else if (model == "PXP"){
-        PXPHamiltonian hamH(L, scale, 0., 0, offset);
+    else if (model == "HeisenbergRand")
+    {
+        for (int i = 0; i < hRand.size(); i++)
+        {
+            hRand[i] *= scale;
+            cout << hRand[i] << " ";
+        }
+        cout << endl;
+        HeisenbergHamiltonian hamH(L, Jx_ * scale, Jy_ * scale, 1.0 * scale, hRand,
+                                   d, offset);
         const MPO &tmphamil_ = hamH.getHMPO();
-        for (int k = 0; k<L; k++){
+        for (int k = 0; k < L; k++)
+        {
             hamil_.setOp(k, new Operator(tmphamil_.getOp(k).getFullData()), true);
         }
-        const MPO &tmpproj = hamH.getProjectorConstr();
-        for (int k = 0; k<L; k++){
+
+        MPO tmpproj(L);
+        spinMPO.getProjectorTotalSz(L, 2, tmpproj);
+        for (int k = 0; k < L; k++)
+        {
             proj.setOp(k, new Operator(tmpproj.getOp(k).getFullData()), true);
         }
     }
-    else if (model == "HAN"){
-        HeisenbergAncillaryNoiseHamiltonian hamH(L/2, scale, scale, 0., J_*scale, J_*scale, 0., B_*scale, offset);
+    else if (model == "PXP")
+    {
+        PXPHamiltonian hamH(L, scale, 0., 0, offset);
         const MPO &tmphamil_ = hamH.getHMPO();
-        for (int k = 0; k<L; k++){
+        for (int k = 0; k < L; k++)
+        {
+            hamil_.setOp(k, new Operator(tmphamil_.getOp(k).getFullData()), true);
+        }
+        const MPO &tmpproj = hamH.getProjectorConstr();
+        for (int k = 0; k < L; k++)
+        {
+            proj.setOp(k, new Operator(tmpproj.getOp(k).getFullData()), true);
+        }
+    }
+    else if (model == "HAN")
+    {
+        HeisenbergAncillaryNoiseHamiltonian hamH(L / 2, scale, scale, 0.,
+                                                 J_ * scale, J_ * scale, 0.,
+                                                 B_ * scale, offset);
+        const MPO &tmphamil_ = hamH.getHMPO();
+        for (int k = 0; k < L; k++)
+        {
             hamil_.setOp(k, new Operator(tmphamil_.getOp(k).getFullData()), true);
         }
     }
     cout << "Created the rescaled Hamiltonian: scale=" << scale
-        << ", offset=" << offset << endl;
-
-
+         << ", offset=" << offset << endl;
 
     // Prepare MPO and MPS needed for Chebyshev terms
     int Dh = 0;
-    if (model == "Ising") {
+    if (model == "Ising")
+    {
         Dh = 3;
-    } else if (model == "Heisenberg") {
+    }
+    else if (model == "Heisenberg" || model == "HeisenbergRand")
+    {
         Dh = 5;
-    } else if (model == "PXP") {
+    }
+    else if (model == "PXP")
+    {
         Dh = 4;
-    } else if (model == "HAN") {
+    }
+    else if (model == "HAN")
+    {
         Dh = 8;
     }
 
@@ -230,19 +295,21 @@ int main(int argc, const char *argv[])
     MPSfromMPO(hamil0, hamil0MPS);
     MPO hamilId(L); // needed for the recursion
     extendMPO(hamil_, hamilId, d);
-    MPS projMPS(L, 2, d*d);
+    MPO hamil0Id(L); // needed for H^2
+    extendMPO(hamil0, hamil0Id, d);
+
+    MPS projMPS(L, 2, d * d);
     MPO projId(L);
-    if (model == "PXP"){
+    if (model == "PXP" || model == "HeisenbergRand")
+    {
         MPSfromMPO(proj, projMPS);
         extendMPO(proj, projId, d);
     }
-
 
     // Prepare observables
     cout << "Prepare observables!" << endl;
     vector<const MPS *> opList;
     vector<string> opNameList;
-    int numOp = 0;
 
     complex_t SigId[] = {ONE_c, ZERO_c, ZERO_c, ONE_c};
     complex_t SigX[] = {ZERO_c, ONE_c, ONE_c, ZERO_c};
@@ -261,48 +328,50 @@ int main(int argc, const char *argv[])
     // DoS
     opList.push_back(&idMPS);
     opNameList.push_back("_DoS");
-    numOp ++;
 
     // Hamiltonian
     opList.push_back(&hamil0MPS);
     opNameList.push_back("_H");
-    numOp ++;
 
     // Sx,Sy,Sz in the middle
-    MPS *Sx = new MPS(L, 1, d*d);
-    MPS *Sy = new MPS(L, 1, d*d);
-    MPS *Sz = new MPS(L, 1, d*d);
-    MPS *Szp = new MPS(L, 1, d*d);
-    for (int k = 0; k < L; k++){
-        if (k == L / 2){
+    MPS *Sx = new MPS(L, 1, d * d);
+    MPS *Sy = new MPS(L, 1, d * d);
+    MPS *Sz = new MPS(L, 1, d * d);
+    MPS *Szp = new MPS(L, 1, d * d);
+    for (int k = 0; k < L; k++)
+    {
+        if (k == L / 2)
+        {
             Sx->setA(k, reshape((PauliMatrices[1]), Indices(d * d, 1, 1)));
             Sy->setA(k, reshape((PauliMatrices[2]), Indices(d * d, 1, 1)));
             Sz->setA(k, reshape((PauliMatrices[3]), Indices(d * d, 1, 1)));
         }
-        else{
+        else
+        {
             Sx->setA(k, reshape((PauliMatrices[0]), Indices(d * d, 1, 1)));
             Sy->setA(k, reshape((PauliMatrices[0]), Indices(d * d, 1, 1)));
             Sz->setA(k, reshape((PauliMatrices[0]), Indices(d * d, 1, 1)));
         }
-        if (k == L / 2+1){
+        if (k == L / 2 + 1)
+        {
             Szp->setA(k, reshape((PauliMatrices[3]), Indices(d * d, 1, 1)));
         }
-        else{
+        else
+        {
             Szp->setA(k, reshape((PauliMatrices[0]), Indices(d * d, 1, 1)));
         }
     }
-    opList.push_back(Sx);
-    opList.push_back(Sy);
+    // opList.push_back(Sx);
+    // opList.push_back(Sy);
     opList.push_back(Sz);
-    opList.push_back(Szp);
+    // opList.push_back(Szp);
 
-    opNameList.push_back("_SxMid");
-    opNameList.push_back("_SyMid");
+    // opNameList.push_back("_SxMid");
+    // opNameList.push_back("_SyMid");
     opNameList.push_back("_SzMid");
-    opNameList.push_back("_SzMidp");
+    // opNameList.push_back("_SzMidp");
 
-    numOp += 4;
-
+    /*
     // Sum Sz, Sum Sz Even, Sum Sz Odd
     SpinMPO spinMPO;
     MPO Sz2(L);
@@ -311,6 +380,8 @@ int main(int argc, const char *argv[])
     spinMPO.getSz2EvenMPO(L, 2, Sz2Even);
     MPO Sz2Odd(L);
     spinMPO.getSz2OddMPO(L, 2, Sz2Odd);
+    MPO SzSum(L);
+    spinMPO.getSzMPO(L, 2, SzSum);
 
     MPS *Sz2MPS = new MPS(L, 1, d*d);
     MPS *Sz2EvenMPS = new MPS(L, 1, d*d);
@@ -318,6 +389,8 @@ int main(int argc, const char *argv[])
     MPSfromMPO(Sz2, *Sz2MPS);
     MPSfromMPO(Sz2Even, *Sz2EvenMPS);
     MPSfromMPO(Sz2Odd, *Sz2OddMPS);
+    MPS *SzSumMPS = new MPS(L, 1, d*d);
+    MPSfromMPO(SzSum, *SzSumMPS);
 
     opList.push_back(Sz2MPS);
     opList.push_back(Sz2EvenMPS);
@@ -325,24 +398,31 @@ int main(int argc, const char *argv[])
     opNameList.push_back("_Sz2");
     opNameList.push_back("_Sz2Even");
     opNameList.push_back("_Sz2Odd");
-
-    numOp += 3;
-
-
+    opList.push_back(SzSumMPS);
+    opNameList.push_back("_Sz");
+    */
+    cout << "Created operators to be calculated" << endl;
 
     // Clear the previous output files of ops
-    for (int num = 0; num < numOp; num++){
+    for (int num = 0; num < opList.size(); num++)
+    {
         string tmpfname = outfname + opNameList[num];
         fout = new ofstream(tmpfname.data());
         fout->close();
         delete fout;
     }
 
-
-
     // Prepare first two Chebyshev polynomials
     MPS *chebyT_Nm1 = new MPS(idMPS);
     MPS *chebyT_N = new MPS(idMPS);
+    if (model == "PXP" || model == "HeisenbergRand")
+    {
+        delete chebyT_Nm1;
+        chebyT_Nm1 = new MPS(projMPS);
+        delete chebyT_N;
+        chebyT_N = new MPS(projMPS);
+    }
+
     chebyT_Nm1->gaugeCond('R', 0);
     chebyT_Nm1->gaugeCond('L', 0);
     chebyT_N->gaugeCond('R', 0);
@@ -352,15 +432,14 @@ int main(int argc, const char *argv[])
     double norm_N = log2(chebyT_N->getNormFact());
     chebyT_N->setNormFact(1.);
 
-
     // Truncate bond dimension of Tn to Ds to get truncation error
-    fout = new ofstream((outfname+"_TnErr").data());	
+    fout = new ofstream((outfname + "_TnErr").data());
     *fout << setprecision(10) << fixed;
     int Ds[numD];
-    for (int k = 0; k < numD; k++){
-        Ds[k] = D / (numD+1) * (k+1);
+    for (int k = 0; k < numD; k++)
+    {
+        Ds[k] = D / (numD + 1) * (k + 1);
     }
-
 
     cout << "Start Chebyshev polynomials calculation" << endl;
     for (int k = 0; k < M; k++)
@@ -373,13 +452,11 @@ int main(int argc, const char *argv[])
             norm_Np1 = norm_Nm1;
         }
         else if (k == 1)
-        {  
+        {
             MPS aux(*chebyT_Nm1);
-            if (model == "PXP"){
-                contractor.optimize(projId, *chebyT_N, aux, D);
-            }
             contractor.optimize(hamilId, aux, *chebyT_N, D);
-            if (model == "PXP"){
+            if (model == "PXP" || model == "HeisenbergRand")
+            {
                 contractor.optimize(projId, *chebyT_N, aux, D);
                 delete chebyT_N;
                 chebyT_N = new MPS(aux);
@@ -387,7 +464,7 @@ int main(int argc, const char *argv[])
             chebyT_N->gaugeCond('R', 0);
             chebyT_N->gaugeCond('L', 0);
             norm_N += log2(chebyT_N->getNormFact());
-            chebyT_N->setNormFact(1.);     
+            chebyT_N->setNormFact(1.);
             chebyT_Np1 = chebyT_N;
             norm_Np1 = norm_N;
         }
@@ -403,14 +480,14 @@ int main(int argc, const char *argv[])
             aux1.setNormFact(1.);
             MPS aux(aux1);
 
-            if (model == "PXP"){
-                cout << "Before apply proj" << endl;
+            if (model == "PXP" || model == "HeisenbergRand")
+            {
+                cout << "Apply projector" << endl;
                 contractor.optimize(projId, aux1, aux, D);
                 aux.gaugeCond('R', 0);
                 aux.gaugeCond('L', 0);
                 auxN += log2(aux.getNormFact());
                 aux.setNormFact(1.);
-                cout << "After apply proj" << endl;
             }
             vector<const MPS *> kets;
             kets.push_back(&aux);
@@ -434,23 +511,25 @@ int main(int argc, const char *argv[])
 
         // Store truncating error
         *fout << k << "\t";
-        for (int num = 0; num < numD; num++){
-            MPS tmpD(L, Ds[num], d*d);
-            double err =1.;
+        for (int num = 0; num < numD; num++)
+        {
+            MPS tmpD(L, Ds[num], d * d);
+            double err = 1.;
             contractor.optimizeMPS(*chebyT_Np1, tmpD, Ds[num], &err);
-            //cout << D << " " << Ds[num] << " " << tmpD.getBond() << endl;
+            // cout << D << " " << Ds[num] << " " << tmpD.getBond() << endl;
             *fout << err << "\t";
         }
         *fout << endl;
 
-        if (saveTn){
-            chebyT_Np1->exportMPS((outfname+"_T"+SSTR(k)).data());
+        if (saveTn)
+        {
+            chebyT_Np1->exportMPS((outfname + "_T" + to_string(k)).data());
         }
 
         cout << "T_" << k << " has been calculated!" << endl;
 
-
-        for (int num = 0; num < numOp; num++){
+        for (int num = 0; num < opList.size(); num++)
+        {
             complex_t Ck = contractor.contract(*(opList[num]), *chebyT_Np1);
             ofstream *foutOp;
             string tmpfname = outfname + opNameList[num];
@@ -460,7 +539,17 @@ int main(int argc, const char *argv[])
             foutOp->close();
             delete foutOp;
         }
-
+        // H^2
+        {
+            complex_t Ck = contractor.contract(hamil0MPS, hamil0Id, *chebyT_Np1);
+            ofstream *foutOp;
+            string tmpfname = outfname + "_H2";
+            foutOp = new ofstream((tmpfname).data(), ios::app);
+            *foutOp << setprecision(10) << fixed;
+            *foutOp << k << '\t' << norm_Np1 << '\t' << Ck.re << endl;
+            foutOp->close();
+            delete foutOp;
+        }
     }
     delete chebyT_Nm1;
     delete chebyT_N;
