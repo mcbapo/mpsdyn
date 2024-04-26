@@ -25,8 +25,10 @@ MPS::MPS(int len,int bon,int d):length(len),bond(bon),A(0),
     dimensions[1]=bond;
     A[k]=new Site_t(k+1,dimensions);
   }
-  dimensions[2]=1;
-  A[length-1]=new Site_t(length,dimensions);
+  if(length>1){ //otherwise, already created as 0-th Site
+    dimensions[2]=1;
+    A[length-1]=new Site_t(length,dimensions);
+  }
   normfact=1.; // default initialization!
   gauge=gNone; //gBoth; no gauge, because dims are not min, no full rank
   //cout<<"Created MPS "<<this<<endl;
