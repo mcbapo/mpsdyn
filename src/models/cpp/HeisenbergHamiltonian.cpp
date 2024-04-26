@@ -5,11 +5,11 @@
 using namespace std;
 using namespace shrt;
 
-HeisenbergHamiltonian::HeisenbergHamiltonian(int L_,int d_):L(L_),d(d_),hamil(L_){initZ();}
+HeisenbergHamiltonian::HeisenbergHamiltonian(int L_,int d_):L(L_),d(d_),hamil(L_),offset(0.),labda(0.),Starget(0){initZ();}
 
 HeisenbergHamiltonian::HeisenbergHamiltonian(int L_,vector<double> Jx,vector<double> Jy,
-					     vector<double> Jz,vector<double> h,int d_,double offset):
-  L(L_),Jxi(Jx),Jyi(Jy),Jzi(Jz),hi(h),hxi(L_,0.),hyi(L_,0.),d(d_),hamil(L_){
+					     vector<double> Jz,vector<double> h,int d_,double offset_):
+  L(L_),Jxi(Jx),Jyi(Jy),Jzi(Jz),hi(h),hxi(L_,0.),hyi(L_,0.),d(d_),hamil(L_),offset(offset_),lambda(0.),Starget(0){
   // Checks
   if(d!=2){
     cout<<"Error: HeisenbergHamiltonian only supports d=2"<<endl;
@@ -25,8 +25,8 @@ HeisenbergHamiltonian::HeisenbergHamiltonian(int L_,vector<double> Jx,vector<dou
 }
 
 HeisenbergHamiltonian::HeisenbergHamiltonian(int L_,double Jx,double Jy,double Jz,
-					     vector<double> h,int d_,double offset):
-  L(L_),Jxi(L_-1,Jx),Jyi(L_-1,Jy),Jzi(L_-1,Jz),hi(h),hxi(L_,0.),hyi(L_,0.),d(d_),hamil(L_){
+					     vector<double> h,int d_,double offset_):
+  L(L_),Jxi(L_-1,Jx),Jyi(L_-1,Jy),Jzi(L_-1,Jz),hi(h),hxi(L_,0.),hyi(L_,0.),d(d_),hamil(L_),lambda(0.),Staget(0),offset(offset_){
   // Checks
   if(d!=2){
     cout<<"Error: HeisenbergHamiltonian only supports d=2"<<endl;
@@ -42,8 +42,8 @@ HeisenbergHamiltonian::HeisenbergHamiltonian(int L_,double Jx,double Jy,double J
 }
 
 HeisenbergHamiltonian::HeisenbergHamiltonian(int L_,double Jx,double Jy,double Jz,
-					     double h,int d_,double offset):
-  L(L_),Jxi(L_-1,Jx),Jyi(L_-1,Jy),Jzi(L_-1,Jz),hi(L_,h),hxi(L_,0.),hyi(L_,0.),d(d_),hamil(L_){
+					     double h,int d_,double offset_):
+  L(L_),Jxi(L_-1,Jx),Jyi(L_-1,Jy),Jzi(L_-1,Jz),hi(L_,h),hxi(L_,0.),hyi(L_,0.),d(d_),hamil(L_),lambda(0.),Staget(0),offset(offset_){
   // Checks
   if(d!=2){
     cout<<"Error: HeisenbergHamiltonian only supports d=2"<<endl;
@@ -55,8 +55,8 @@ HeisenbergHamiltonian::HeisenbergHamiltonian(int L_,double Jx,double Jy,double J
 
 HeisenbergHamiltonian::HeisenbergHamiltonian(int L_,vector<double> Jx,vector<double> Jy,
 					     vector<double> Jz,vector<double> hx,
-					     vector<double> hy,vector<double> hz,int d_,double offset):
-  L(L_),Jxi(Jx),Jyi(Jy),Jzi(Jz),hxi(hx),hyi(hy),hi(hz),d(d_),hamil(L_){
+					     vector<double> hy,vector<double> hz,int d_,double offset_):
+  L(L_),Jxi(Jx),Jyi(Jy),Jzi(Jz),hxi(hx),hyi(hy),hi(hz),d(d_),hamil(L_),lambda(0.),Staget(0),offset(offset_){
   // Checks
   if(d!=2){
     cout<<"Error: HeisenbergHamiltonian only supports d=2"<<endl;
@@ -72,8 +72,8 @@ HeisenbergHamiltonian::HeisenbergHamiltonian(int L_,vector<double> Jx,vector<dou
 }
 
 HeisenbergHamiltonian::HeisenbergHamiltonian(int L_,double Jx,double Jy,double Jz,
-					     vector<double> hx,vector<double> hy,vector<double> hz,int d_,double offset):
-  L(L_),Jxi(L_-1,Jx),Jyi(L_-1,Jy),Jzi(L_-1,Jz),hxi(hx),hyi(hy),hi(hz),d(d_),hamil(L_){
+					     vector<double> hx,vector<double> hy,vector<double> hz,int d_,double offset_):
+  L(L_),Jxi(L_-1,Jx),Jyi(L_-1,Jy),Jzi(L_-1,Jz),hxi(hx),hyi(hy),hi(hz),d(d_),hamil(L_),lambda(0.),Staget(0),offset(offset_){
   // Checks
   if(d!=2){
     cout<<"Error: HeisenbergHamiltonian only supports d=2"<<endl;
@@ -91,14 +91,20 @@ HeisenbergHamiltonian::HeisenbergHamiltonian(int L_,double Jx,double Jy,double J
 }
 
 HeisenbergHamiltonian::HeisenbergHamiltonian(int L_,double Jx,double Jy,double Jz,
-					     double hx,double hy,double hz,int d_,double offset):
-  L(L_),Jxi(L_-1,Jx),Jyi(L_-1,Jy),Jzi(L_-1,Jz),hxi(L_,hx),hyi(L_,hy),hi(L_,hz),d(d_),hamil(L_){
+					     double hx,double hy,double hz,int d_,double offset_):
+  L(L_),Jxi(L_-1,Jx),Jyi(L_-1,Jy),Jzi(L_-1,Jz),hxi(L_,hx),hyi(L_,hy),hi(L_,hz),d(d_),hamil(L_),lambda(0.),Staget(0),offset(offset_){
   // Checks
   if(d!=2){
     cout<<"Error: HeisenbergHamiltonian only supports d=2"<<endl;
     exit(212);
   }
   initZ();
+  initHMPO(offset);
+}
+
+void HeisenbergHamiltonian::setTargetSz(int Starget_,double penalty){
+  Starget=Starget_;
+  lambda=penalty;
   initHMPO(offset);
 }
 
@@ -278,7 +284,7 @@ void HeisenbergHamiltonian::initZ(){
 }
 
 void HeisenbergHamiltonian::initHMPO(double offset){
-  int D=5;
+  int D=(lambda!=0)?6:5;
   for(int k=0;k<L;k++){
     int Dl=D,Dr=D;
     if(k==0) Dl=1;
@@ -291,6 +297,11 @@ void HeisenbergHamiltonian::initHMPO(double offset){
       C.setElement(Jxi[k]*ONE_c,Indices(0,1,1));
       C.setElement(Jyi[k]*ONE_c,Indices(0,2,2));
       C.setElement(Jzi[k]*ONE_c,Indices(0,3,3));
+      // if penalty
+      if(lambda!=0.){
+	C.setElement(2*lambda*ONE_c,Indices(0,4,3));//first sigz of penalty
+	if(k!=0) C.setElement(ONE_c,Indices(4,4,0)); //in between
+      }
     }
     if(k!=0){ 
       // After everything
@@ -298,10 +309,13 @@ void HeisenbergHamiltonian::initHMPO(double offset){
       // Second of the pair
       C.setElement(ONE_c,Indices(1,Dr-1,1));
       C.setElement(ONE_c,Indices(2,Dr-1,2));
-      C.setElement(ONE_c,Indices(3,Dr-1,3));      
+      C.setElement(ONE_c,Indices(3,Dr-1,3));
+      if(lambda!=0.){ // second of the penalty
+	C.setElement(ONE_c,Indices(4,Dr-1,3));
+      }
     }
     // The individual term(s)
-    C.setElement(hi[k]*ONE_c,Indices(0,Dr-1,3));
+    C.setElement((hi[k]-2*lambda*Starget)*ONE_c,Indices(0,Dr-1,3));
     if(hxi[k]!=0) C.setElement(hxi[k]*ONE_c,Indices(0,Dr-1,1));
     if(hyi[k]!=0) C.setElement(hyi[k]*ONE_c,Indices(0,Dr-1,2));
     // The offset term, if present

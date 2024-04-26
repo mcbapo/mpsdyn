@@ -409,8 +409,16 @@ If tmpfile is given, every greqSv rounds the temporary result is saved
       adjacent sites starting on position pos */
   TensorMultiplier getEffectiveOperatorMultiplierMultiSite(const MPS& ket,const MPO& ops,int k,int pos);
 
-  /** A more general version of the former one(s), in which the Multiplier is drectly a MPO, so it can accommodate more sites. */
-  void getEffectiveOperatorMPOMultiplier(const MPS& ket,const MPO& ops,int block,int pos,MPOMultiplier& mpoMulti);
+  /** A more general version of the former one(s), in which the
+      Multiplier is drectly a MPO, so it can accommodate more
+      sites. Notice that \param<pos> is the first site included in the
+      operator. If the size of the block is 0, this is the first site
+      on the right half.  If gauged==false (default), the state (in a
+      copy) is first brought to proper gauge, to ensure orthogonal
+      bases on the virtual indices. Otherwise, the state is used as it
+      comes (for instance, to avoid repeated gauging if several
+      operators are computed one after another). */
+  void getEffectiveOperatorMPOMultiplier(const MPS& ket,const MPO& ops,int block,int pos,MPOMultiplier& mpoMulti,bool gauged=false);
   
   /** Variational minimization of the variance of the given MPO,
       with a non-quadratic cost function. */

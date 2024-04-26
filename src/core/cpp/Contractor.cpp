@@ -1130,7 +1130,7 @@ TensorMultiplier Contractor::getEffectiveOperatorMultiplierSingleSite(const MPS&
   return getEffectiveOperatorMultiplierMultiSite(ket,ops,1,pos);
 }
 
-void Contractor::getEffectiveOperatorMPOMultiplier(const MPS& ket,const MPO& ops,int block,int pos,MPOMultiplier& mpoMulti){
+void Contractor::getEffectiveOperatorMPOMultiplier(const MPS& ket,const MPO& ops,int block,int pos,MPOMultiplier& mpoMulti,bool gauged){
   //cout<<"Contractor::getEffectiveOperatorMPOMultiplier from mps("<<ket.getLength()<<") and mpo("<<ops.getLength()<<") sites "
   //   <<pos<<" to "<<pos+block-1<<endl;
   int nrsites=ops.getLength();  
@@ -1140,21 +1140,34 @@ void Contractor::getEffectiveOperatorMPOMultiplier(const MPS& ket,const MPO& ops
   }
   mpoMulti.initLength(block+2);
 
-  // I am ensuring that the operator is in orthogonal basis, so need to impose a couple of gauge conditions (only on the edges)
-  // But could leave as it is
-  MPS auxMPS(ket);
-  auxMPS.gaugeCond(pos-1,'R',true);
-  auxMPS.gaugeCond(pos+block,'L',true);
-  //  const MPS& auxMPS=ket;
-  // Now N matrix is identity
-  //##################### HERE!!!!
-  bool gauge=true;
-  bool ketN=false; 
+  bool gauge=true; // I don't want to compute Neff
+  bool ketN=false; // neither some other term
   TmpManager tmpMgr(nrsites,gauge);
+  // First, compute left and right terms
 
-  // left and right terms
-  calculateL(pos,tmpMgr,ops,auxMPS,auxMPS,gauge,ketN);
-  calculateR(pos+block-1,tmpMgr,ops,auxMPS,auxMPS,gauge,ketN);
+  // To ensure an orhtogonal basis, I would need to impose gauge
+  // conditions up to the edges of the operator, but if gauged is
+  // true, I assume it is done outside
+  if(!gauged){
+     MPS auxMPS(ket);
+     auxMPS.gaugeCond('L',0); // norm factor should be included
+     for(int p=0;p<pos-1;p++){
+       auxMPS.gaugecond(p,'R',true); // apply gauge to right until pos-1
+     }
+     if(block>0){ // then I can apply the gauge properly, such taht the state does not change (it does not really matter, though)
+       auxMPS.gaugecond(pos-1,'R',true); // apply gauge to right until pos-1
+     }
+     else{
+       auxMPS.gaugecond(pos-1,'R',false); // If block length is 0, I cannot push the remianing tensor, or I will spoil the gauge to left of pos
+     }
+     calculateL(pos,tmpMgr,ops,auxMPS,auxMPS,gauge,ketN);
+     calculateR(pos+block-1,tmpMgr,ops,auxMPS,auxMPS,gauge,ketN);
+  }
+  else{
+    calculateL(pos,tmpMgr,ops,ket,ket,gauge,ketN);
+    calculateR(pos+block-1,tmpMgr,ops,ket,ket,gauge,ketN);
+  }
+
   mwArray& opL=tmpMgr.operL[pos];
   Indices dimsL=opL.getDimensions(); // bra,xi,ket
   mwArray& opR=tmpMgr.operR[pos+block-1];

@@ -1,7 +1,7 @@
 
 #include <math.h>
 #include <iomanip>
-
+#include "misc.h"
 #include "MPS.h"
 #include "Contractor.h"
 #include "Properties.h"
@@ -26,7 +26,7 @@ Generate the name of the file with the command in it
 const string jobfilename(int L,int D,double x,double mg,double tol,const string mpsdir);
 
 /** Check if the filename exists */
-bool file_exists(const string filename);
+//bool file_exists(const string filename);
 
 
 /** As in phase1_save, but compute just a single vector (After
@@ -461,10 +461,11 @@ int main(int argc,const char* argv[]){
     commandstr<<" -penalty="<<zpen;
     commandstr<<" -offset="<<offset;
     commandstr<<" -mpsdir="<<mpsdir;
-    commandstr<<" -initmpsdir="<<initmpsdir; // what I just computed is the new initmpsdir
+    commandstr<<" -initmpsdir="<<mpsdir; // what I just computed is the new initmpsdir
     commandstr<<" -initD="<<initD<<" ";
     commandstr<<" -noise="<<noise;
-    commandstr<<" -jobsdir="<<jobsdir;
+    if(jobsdir.size()>0)
+      commandstr<<" -jobsdir="<<jobsdir;
     commandstr<<" -maxTime="<<maxTime;
     commandstr<<" -minnumber="<<minNumber+1;
     int mem=ceil(L*D*D*(16.+4.*minNumber)*16E-6)+200;
@@ -562,9 +563,9 @@ const string jobfilename(int L,int D,double x,double mg,double tol,const string 
   return s.str();
 }
 
-bool file_exists(const string filename)
-{
-  ifstream ifile(filename.data());
-  //cout<<"file_exists("<<filename<<")="<<ifile<<endl;
-  return ifile;
-}
+// bool file_exists(const string filename)
+// {
+//   ifstream ifile(filename.data());
+//   //cout<<"file_exists("<<filename<<")="<<ifile<<endl;
+//   return ifile;
+// }

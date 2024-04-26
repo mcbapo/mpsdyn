@@ -26,7 +26,9 @@ protected:
   MPO hamil;
   mwArray Z;
   std::vector<double> Jxi,Jyi,Jzi,hi,hxi,hyi;
-
+  int Starget;
+  double offset;
+  
  public:
   /** Create a Heisenberg Hamiltonian with site-dependent
       coefficients, and dimension of the individual sites d (only d=2,
@@ -56,6 +58,13 @@ protected:
   
   ~HeisenbergHamiltonian();
 
+  /** Set a penalty term in the Hamiltonian, to ensure that the total
+      magnetization satisfies \f$2 \sum_{i=1}^{L} S_z^{[i]}\f$ equal
+      to \param<Starget>. Notice that Starget is an integer. This is
+      ensured by adding a penalty term to the Hamiltonian, with weight
+      \param<penalty> */
+  void setTargetSz(int Starget_,double penalty);
+  
   const MPO& getHMPO() const {return hamil;}
 
   bool hasHMPO() const {return true;}
