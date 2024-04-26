@@ -127,7 +127,6 @@ const mwArray MPO::getOpData(int pos) const{
 
 void MPO::setOp(int pos,const Operator* op,bool myop_){
   // TODO: Check dimension compatibility wrt neighbours
-  //cout<<"MPO: setting "<<pos<<"="<<*op<<endl;
   if(pos<0||pos>=length){
     cout<<"Error: MPO cannot set Operator at pos "<<pos<<endl;
     exit(212);
@@ -161,7 +160,7 @@ void MPO::markAsOwn(int pos){
   if(!myown){
     myown=1;
     myops=new bool[length];
-    for(int i=1;i<length;i++)
+    for(int i=0;i<length;i++)
       myops[i]=0;
   }
   myops[pos]=1;
@@ -179,19 +178,19 @@ void MPO::setRotatedOp(int pos,const mwArray& data,
 		       const Indices& neworder,bool conjugate){
   // Since I only keep the pointer to Operator, creation of new Op is 
   // done here
-   // cout<<"MPO::setRotatedOp("<<pos<<") from mwArray "
-//        <<data.GetDimensions()
-//        <<" permuted to "<<newdims<<endl;
-// I need to remove the previous one, if it was there and mine!!!
+  // cout<<"MPO::setRotatedOp("<<pos<<") from mwArray "
+  //        <<data.GetDimensions()
+  //        <<" permuted to "<<newdims<<endl;
+  // I need to remove the previous one, if it was there and mine!!!
   if(myown)
     if(myops[pos]){
       if(Ops[pos]!=0)
 	delete Ops[pos];
     }
   Ops[pos]=new Operator(data,neworder,conjugate);
-//   cout<<"Warning: setRotatedOp creating a new Operator may cause memory "
-//       <<"leak. To avoid it, the operator should be deleted by deleteOp("
-//       <<pos<<")!"<<endl;
+  //   cout<<"Warning: setRotatedOp creating a new Operator may cause memory "
+  //       <<"leak. To avoid it, the operator should be deleted by deleteOp("
+  //       <<pos<<")!"<<endl;
   markAsOwn(pos);
 }
 

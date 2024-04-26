@@ -11,10 +11,7 @@
 #include "mwArray.h"
 
 #define _USE_MATH_DEFINES // For PI
-#define TMPSTORE 0		  // Using temporary storage for intermediate results
-#define SSTR(x)                                                                \
-    static_cast<std::ostringstream &>((std::ostringstream() << std::dec << x)) \
-.str() // Convert variables to strings
+#define TMPSTORE 0        // Using temporary storage for intermediate results
 
 // Included models
 #include "HeisenbergHamiltonian.h"
@@ -35,11 +32,11 @@ int main(int argc, const char *argv[])
     {
         cntr++;
         cout << "Some properties may be now replaced by command line arguments"
-            << endl;
+             << endl;
         props.loadProperties(argc - cntr, &argv[cntr]);
     }
 
-    int L = props.getIntProperty("L");		   // Length of system
+    int L = props.getIntProperty("L");         // Length of system
     string model = props.getProperty("model"); // Name of model
     // Ising: H = J_Σs_i^z*s_{i+1}^z + g_Σs_i^x + h_Σs_i^z
     // Heisenberg with disorder: H = J_Σs_i*s_{i+1} + h_Σs_i^z
@@ -49,7 +46,7 @@ int main(int argc, const char *argv[])
     double g_ = props.getDoubleProperty("g");
     double h_ = props.getDoubleProperty("h");
     // Chebyshev parameters
-    int M = props.getIntProperty("M");				 // LARGEST ORDER in Chebyshev exp.
+    int M = props.getIntProperty("M");               // LARGEST ORDER in Chebyshev exp.
     double delta = props.getDoubleProperty("delta"); // Delta in Chebyshev exp.
     if (delta < 0 || delta > 1)
         delta = 0.02;
@@ -64,7 +61,7 @@ int main(int argc, const char *argv[])
         props.getProperty("scalingfile"); // Storing Emin and Emax
 
     cout << "Initialized arguments: L=" << L << ", J=" << J_ << ", g=" << g_
-        << ", h=" << h_ << ", outfile=" << outfname << ", D=" << D << endl;
+         << ", h=" << h_ << ", outfile=" << outfname << ", D=" << D << endl;
 
     Contractor &contractor = Contractor::theContractor();
     contractor.setConvTol(tol);
@@ -72,35 +69,40 @@ int main(int argc, const char *argv[])
 
     // The original Hamiltonian to get the energy
     MPO hamil0(L);
-    if (model == "Ising"){
+    if (model == "Ising")
+    {
         IsingHamiltonian hamH0(L, d, J_, g_, h_);
         const MPO &tmphamil0 = hamH0.getHMPO();
-        for (int k = 0; k<L; k++){
+        for (int k = 0; k < L; k++)
+        {
             hamil0.setOp(k, new Operator(tmphamil0.getOp(k).getFullData()), true);
         }
     }
     else if (model == "Heisenberg")
-    { 
+    {
         HeisenbergHamiltonian hamH0(L, J_, J_, J_, h_, d);
         const MPO &tmphamil0 = hamH0.getHMPO();
-        for (int k = 0; k<L; k++){
+        for (int k = 0; k < L; k++)
+        {
             hamil0.setOp(k, new Operator(tmphamil0.getOp(k).getFullData()), true);
         }
     }
-    else if (model == "PXP"){
+    else if (model == "PXP")
+    {
         PXPHamiltonian hamH0(L, 1., 0., 0, 0.);
         const MPO &tmphamil0 = hamH0.getHMPO();
-        for (int k = 0; k<L; k++){
+        for (int k = 0; k < L; k++)
+        {
             hamil0.setOp(k, new Operator(tmphamil0.getOp(k).getFullData()), true);
         }
-    }     
+    }
 
     double scale = 1.;
     double offset = 0.;
     if (Emin == -1 && Emax == -1)
     {
         cout << "First need to estimate the energy band to rescale "
-            << "and shift the Hamiltonian" << endl;
+             << "and shift the Hamiltonian" << endl;
 
         // First rescale the Hamiltonian:
         cout << "Created the non-rescaled Hamiltonian" << endl;
@@ -123,7 +125,7 @@ int main(int argc, const char *argv[])
         {
             MPO hamilMinus(L);
             hamilMinus.setOp(
-                    0, new Operator(-1. * hamil0.getOp(0).getFullData()), true);
+                0, new Operator(-1. * hamil0.getOp(0).getFullData()), true);
             for (int k = 1; k < L; k++)
             {
                 hamilMinus.setOp(k, &hamil0.getOp(k), false);
@@ -146,46 +148,55 @@ int main(int argc, const char *argv[])
 
     MPO hamil_(L);
     MPO proj(L);
-    if (model == "Ising"){
-        IsingHamiltonian hamH(L, d, J_*scale, g_*scale, h_*scale, offset);
+    if (model == "Ising")
+    {
+        IsingHamiltonian hamH(L, d, J_ * scale, g_ * scale, h_ * scale, offset);
         const MPO &tmphamil_ = hamH.getHMPO();
-        for (int k = 0; k<L; k++){
+        for (int k = 0; k < L; k++)
+        {
             hamil_.setOp(k, new Operator(tmphamil_.getOp(k).getFullData()), true);
         }
     }
     else if (model == "Heisenberg")
-    { 
-        HeisenbergHamiltonian hamH(L, Jx_*scale, Jy_*scale, 
-                1.0*scale, h_*scale, d, offset);
+    {
+        HeisenbergHamiltonian hamH(L, Jx_ * scale, Jy_ * scale,
+                                   1.0 * scale, h_ * scale, d, offset);
         const MPO &tmphamil_ = hamH.getHMPO();
-        for (int k = 0; k<L; k++){
+        for (int k = 0; k < L; k++)
+        {
             hamil_.setOp(k, new Operator(tmphamil_.getOp(k).getFullData()), true);
         }
     }
-    else if (model == "PXP"){
+    else if (model == "PXP")
+    {
         PXPHamiltonian hamH(L, scale, 0., 0, offset);
         const MPO &tmphamil_ = hamH.getHMPO();
-        for (int k = 0; k<L; k++){
+        for (int k = 0; k < L; k++)
+        {
             hamil_.setOp(k, new Operator(tmphamil_.getOp(k).getFullData()), true);
         }
         const MPO &tmpproj = hamH.getProjectorConstr();
-        for (int k = 0; k<L; k++){
+        for (int k = 0; k < L; k++)
+        {
             proj.setOp(k, new Operator(tmpproj.getOp(k).getFullData()), true);
         }
     }
 
-
-
     cout << "Created the rescaled Hamiltonian: scale=" << scale
-        << ", offset=" << offset << endl;
+         << ", offset=" << offset << endl;
 
     // bond dimension of H, just in case
     int Dh = 0;
-    if (model == "Ising") {
+    if (model == "Ising")
+    {
         Dh = 3;
-    } else if (model == "Heisenberg") {
+    }
+    else if (model == "Heisenberg")
+    {
         Dh = 5;
-    } else if (model == "PXP") {
+    }
+    else if (model == "PXP")
+    {
         Dh = 4;
     }
 
@@ -226,23 +237,24 @@ int main(int argc, const char *argv[])
     names.push_back("_Zp");
 
     int numRound = 10;
-    for (int u = 0; u < numRound; u++){
-        complex_t xToY[] = {ONE_c/sqrt2, ONE_c/sqrt2 * cos(M_PI/2/(numRound+1)*(u+1)) + 
-            I_c/sqrt2 * sin(M_PI/2/(numRound+1)*(u+1)) };
-        mwArray xToYVec(Indices(d,1,1), xToY);
-        complex_t zToY[] = {ONE_c*cos(M_PI/4/(numRound+1)*(u+1)), 
-            I_c*sin(M_PI/4/(numRound+1)*(u+1))};
-        mwArray zToYVec(Indices(d,1,1), zToY);
+    for (int u = 0; u < numRound; u++)
+    {
+        complex_t xToY[] = {ONE_c / sqrt2, ONE_c / sqrt2 * cos(M_PI / 2 / (numRound + 1) * (u + 1)) +
+                                               I_c / sqrt2 * sin(M_PI / 2 / (numRound + 1) * (u + 1))};
+        mwArray xToYVec(Indices(d, 1, 1), xToY);
+        complex_t zToY[] = {ONE_c * cos(M_PI / 4 / (numRound + 1) * (u + 1)),
+                            I_c * sin(M_PI / 4 / (numRound + 1) * (u + 1))};
+        mwArray zToYVec(Indices(d, 1, 1), zToY);
         MPS *xY = new MPS(L, 1, d);
-        for (int k = 0 ; k < L; k++)
+        for (int k = 0; k < L; k++)
             xY->setA(k, xToYVec);
         vecs.push_back(xY);
-        names.push_back("_xtoY"+SSTR(u));
+        names.push_back("_xtoY" + to_string(u));
         MPS *zY = new MPS(L, 1, d);
-        for (int k = 0 ; k < L; k++)
+        for (int k = 0; k < L; k++)
             zY->setA(k, zToYVec);
         vecs.push_back(zY);
-        names.push_back("_ztoY"+SSTR(u));
+        names.push_back("_ztoY" + to_string(u));
     }
 
     MPS *zNeel = new MPS(L, 1, d);
@@ -258,17 +270,18 @@ int main(int argc, const char *argv[])
     vecs.push_back(zNeel);
     names.push_back("_Neel");
 
-
-
-    for (int nvec = 0; nvec < vecs.size(); nvec++){
+    for (int nvec = 0; nvec < vecs.size(); nvec++)
+    {
         MPS *chebyT_Nm1 = new MPS(*(vecs[nvec]));
         MPS *chebyT_N = new MPS(*chebyT_Nm1);
         MPS auxMPS(*chebyT_Nm1);
-        if (model == "PXP"){
+        if (model == "PXP")
+        {
             contractor.optimize(proj, *chebyT_Nm1, auxMPS, D);
         }
         contractor.optimize(hamil_, auxMPS, *chebyT_N, D);
-        if (model == "PXP"){
+        if (model == "PXP")
+        {
             contractor.optimize(proj, *chebyT_N, auxMPS, D);
             delete chebyT_N;
             chebyT_N = new MPS(auxMPS);
@@ -312,7 +325,8 @@ int main(int argc, const char *argv[])
                 double auxN = log2(aux1.getNormFact());
                 aux1.setNormFact(1.);
                 MPS aux(aux1);
-                if (model == "PXP"){
+                if (model == "PXP")
+                {
                     contractor.optimize(proj, aux1, aux, D);
                     aux.gaugeCond('R', 0);
                     aux.gaugeCond('L', 0);
