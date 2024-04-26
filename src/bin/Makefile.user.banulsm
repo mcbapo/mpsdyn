@@ -118,9 +118,8 @@ endif
 
 
 DIRECTORIES+= projects/banulsm/headers projects/banulsm/cpp
-DIRECTORIES+= programs/banulsm/schwinger programs/banulsm/bosehub programs/banulsm/soliton \
-	      programs/banulsm/schwinger/search2
-#DIRECTORIES += programs/banulsm/schwinger/search2
+DIRECTORIES+= programs/banulsm/schwinger programs/banulsm/bosehub programs/banulsm/soliton 
+DIRECTORIES += programs/banulsm/schwinger/search2
 DIRECTORIES += programs/banulsm/open
 DIRECTORIES += programs/banulsm/thermalization
 DIRECTORIES += programs/banulsm/longtime
@@ -138,6 +137,7 @@ DIRECTORIES += programs/banulsm/fermihubbard
 DIRECTORIES += programs/banulsm/melting
 DIRECTORIES += programs/banulsm/emitters
 DIRECTORIES += programs/banulsm/util
+DIRECTORIES += programs/banulsm/effectiveH
 
 SRCFILES+=BoseHubbardHamiltonian.cpp BosonMPO.cpp 
 #	HyperbolicIsingHamiltonian.cpp NNHamiltonian.cpp
@@ -182,7 +182,7 @@ EXEC += hypIsing ising average averageM averageP foldedI rgtest
 EXEC += transLC transLCop transLCopSv transLCopSvT transLCLR 
 
 # Schwinger spectrum
-#EXEC := $(EXEC) search1 search2 searchR single singleF searchO match
+EXEC := $(EXEC) search1 search2 searchR single singleF searchO match schwingerPairs
 
 # Fractal structure of GS
 EXEC += searchO schFrW schFrOv
@@ -232,6 +232,8 @@ EXEC := $(EXEC) mps2txt
 EXEC := $(EXEC) thirring thThirring thThirringP thThirringPread thirringP thirringGS
 
 EXEC := $(EXEC) fH2gs fH2gs_v0 fH2obs_v0 fH2obs2_v0 fH2gsB fH2obsB
+
+EXEC := $(EXEC) effH
 
 ###########################################################
 # Actual rules for the programs
@@ -417,6 +419,9 @@ schwingerTh: $(OBJFILES) schwingerThermUnfold.o
 
 schwingerTh0: OBJFILES += schwingerTherm.o
 schwingerTh0: $(OBJFILES) schwingerTherm.o
+
+schwingerPairs: OBJFILES += computePairFCS.o
+schwingerPairs: $(OBJFILES) computePairFCS.o
 
 thermalSchw:  OBJFILES += thermalState.o
 thermalSchw:  $(OBJFILES) thermalState.o
@@ -844,3 +849,9 @@ fH2obsB: $(OBJFILES) $(FH2OBJ_BLOCK) twofermihubbardObsSiteBlock.o
 OPENOBJ = IsingLocalDissipLiouvillian.o
 isingOpen: OBJFILES += $(OPENOBJ) isingDissipative.o
 isingOpen: $(OBJFILES) $(OPENOBJ) isingDissipative.o
+
+# Effective local H
+
+EFFECHOBJ = MPOMultiplier.o MPOMultiplierHermitian.o
+effH: OBJFILES += $(EFFECHOBJ) spectrumEffectiveHMPO_block0.o
+effH: $(OBJFILES) $(EFFECHOBJ) spectrumEffectiveHMPO_block0.o

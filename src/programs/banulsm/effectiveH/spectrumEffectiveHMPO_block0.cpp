@@ -26,10 +26,10 @@ double tol=1E-8;
 
 /** Read a GS MPS from a file (needed input)
     and compute the spectrum of the effective local Hamiltonian for a certain number of sites over the whole chain.
-    For Ising model and Heisenberg model (depending on input parameters)
-    Using MPO for Heff.
+    For Ising model and Heisenberg model (depending on input parameters).
     This one should be general, so that block of size 0 is supported (and default).
-    Computing also entropies, total Sz, total S2 of the excitations.
+    Computing also entropies, total Sz, total S2 of the excitations (all optional: if output files specified).
+    It supports enforcing a total magnetization by a penalty term (if Starget and penH are provided as parameters)
 */
 
 int main(int argc,const char* argv[]){
@@ -81,8 +81,12 @@ int main(int argc,const char* argv[]){
   int pos1 = props.getIntProperty("initpos");
   int pos2 = props.getIntProperty("finalpos");
   int Dmps = props.getIntProperty("D");
-   
 
+  // optional penalty term to enforce total Sz (only in Heisenberg case)
+  double penH=props.getDoubleProperty("penaltySz");  
+  if(penH<0) penH=0;
+  int Starget=props.getIntProperty("Starget");
+  
   // Read the MPS
   if(!file_exists(mpsfile)){
     cout<<"ERROR: File for MPS "<<mpsfile<<" not found!"<<endl;
@@ -121,7 +125,7 @@ int main(int argc,const char* argv[]){
     ham0=new IsingHamiltonian(L,d,J,g,h);
   }
   else{
-    ham0=new HeisenbergHamiltonian(L,Jx_,Jy_,Jz_,hx_,hy_,h);
+    ham0=new HeisenbergHamiltonian(L,Jx_,Jy_,Jz_,hx_,hy_,h,d,0.,Starget,penH);
   }
 
   const MPO& mpoH=ham0->getHMPO();
@@ -152,7 +156,7 @@ int main(int argc,const char* argv[]){
   for(int k=pos1;k<=pos2;k++){
     // could be optimized by copying only the next one
     for(int ik=0;ik<=k;ik++){ // copy the left part of the MPS (gauge to R) onto the one with gauge to L
-      state.replaceSite(ik,stateR.getSite(ik).getA()); // dimensions should match
+      state.replaceSite(ik,stateR.getA(ik).getA()); // dimensions should match
     } // notice state has changed, for gauge is not consistent
       // (central piece not included), but it does not matter for
       // Heff, which only needs the orthogonal basis
@@ -178,6 +182,7 @@ int main(int argc,const char* argv[]){
     // state and compute it instead    
     MPS gs(block+2,Dmps,d);
     // get the lowest
+    double lambda=L;
     contractor.findGroundState(Heff,Dmps,&lambda,gs);
     complex_t initE=contractor.contract(gs,Heff,gs);
     complex_t initH2=contractor.contract(gs,H2eff,gs);
@@ -186,7 +191,7 @@ int main(int argc,const char* argv[]){
     
     vector<MPS*> levels; levels.push_back(&gs);
     vector<double> energies; energies.push_back(real(initE));
-    vector<double> variances; variances.push_back(real(initH2-initE*conj(initE)));
+    vector<double> variances; variances.push_back(real(initH2-initE*conjugate(initE)));
     vector<double> valsSz; valsSz.push_back(real(valSz));
     vector<double> valsS2; valsS2.push_back(real(valS2));
 

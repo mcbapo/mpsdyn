@@ -28,6 +28,7 @@ protected:
   std::vector<double> Jxi,Jyi,Jzi,hi,hxi,hyi;
   int Starget;
   double offset;
+  double lambda;
   
  public:
   /** Create a Heisenberg Hamiltonian with site-dependent
@@ -36,24 +37,24 @@ protected:
       field, Z direction is assumed.  An offset can be given, so that
       the MPO corresponds to H+offset.  */
   HeisenbergHamiltonian(int L,std::vector<double> Jx,std::vector<double> Jy,
-			std::vector<double> Jz,std::vector<double> h,int d=2,double offset=0.);
+			std::vector<double> Jz,std::vector<double> h,int d=2,double offset=0.,int Star=0,double penalty=0.);
   /** Create with constant Js and only hi changing with the site */
   HeisenbergHamiltonian(int L,double Jx,double Jy,double Jz,
-			std::vector<double> h,int d=2,double offset=0.);
+			std::vector<double> h,int d=2,double offset=0.,int Star=0,double penalty=0.);
   /** Create with constant coefficients */
-  HeisenbergHamiltonian(int L,double Jx,double Jy,double Jz,double h,int d=2,double offset=0.);
+  HeisenbergHamiltonian(int L,double Jx,double Jy,double Jz,double h,int d=2,double offset=0.,int Star=0,double penalty=0.);
 
   /** More general version, admitting local X and Y fields, too. */
   HeisenbergHamiltonian(int L,std::vector<double> Jx,std::vector<double> Jy,
 			std::vector<double> Jz,std::vector<double> hx,
-			std::vector<double> hy,std::vector<double> hz,int d=2,double offset=0.);
+			std::vector<double> hy,std::vector<double> hz,int d=2,double offset=0.,int Star=0,double penalty=0.);
   /** Create with constant Js and only hi changing with the site */
   HeisenbergHamiltonian(int L,double Jx,double Jy,double Jz,
 			std::vector<double> hx,std::vector<double> hy,
-			std::vector<double> hz,int d=2,double offset=0.);
+			std::vector<double> hz,int d=2,double offset=0.,int Star=0,double penalty=0.);
   /** Create with constant coefficients */
   HeisenbergHamiltonian(int L,double Jx,double Jy,double Jz,double hx,double hy,double hz,
-			int d=2,double offset=0.);
+			int d=2,double offset=0.,int Star=0,double penalty=0.);
 
   
   ~HeisenbergHamiltonian();

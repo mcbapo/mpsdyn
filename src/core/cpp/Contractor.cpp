@@ -1152,13 +1152,13 @@ void Contractor::getEffectiveOperatorMPOMultiplier(const MPS& ket,const MPO& ops
      MPS auxMPS(ket);
      auxMPS.gaugeCond('L',0); // norm factor should be included
      for(int p=0;p<pos-1;p++){
-       auxMPS.gaugecond(p,'R',true); // apply gauge to right until pos-1
+       auxMPS.gaugeCond(p,'R',true); // apply gauge to right until pos-1
      }
      if(block>0){ // then I can apply the gauge properly, such taht the state does not change (it does not really matter, though)
-       auxMPS.gaugecond(pos-1,'R',true); // apply gauge to right until pos-1
+       auxMPS.gaugeCond(pos-1,'R',true); // apply gauge to right until pos-1
      }
      else{
-       auxMPS.gaugecond(pos-1,'R',false); // If block length is 0, I cannot push the remianing tensor, or I will spoil the gauge to left of pos
+       auxMPS.gaugeCond(pos-1,'R',false); // If block length is 0, I cannot push the remianing tensor, or I will spoil the gauge to left of pos
      }
      calculateL(pos,tmpMgr,ops,auxMPS,auxMPS,gauge,ketN);
      calculateR(pos+block-1,tmpMgr,ops,auxMPS,auxMPS,gauge,ketN);
