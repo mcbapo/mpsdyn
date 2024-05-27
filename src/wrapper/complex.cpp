@@ -81,8 +81,12 @@ istream& operator>>(istream& is,complex_t& c){
   string aux;
   is>>aux;
   // Now I have to parse it!
-  int signpos=aux.find_first_of("+-");
+  int epos=aux.find_first_of("e");
   int ipos=aux.find_first_of("i");
+  int signpos=aux.substr(1).find_first_of("+-") +1;
+  if (signpos == epos+1){
+    signpos=aux.substr(epos+2).find_first_of("+-") + epos+2;
+  }
   // The real part goes from 0 to signpos-1, and the imag, from
   // signpos until ipos-1 (including the sign symbol)
   string real=aux.substr(0,signpos-1+1);
@@ -91,6 +95,7 @@ istream& operator>>(istream& is,complex_t& c){
   c.re=atof(real.c_str());
   c.im=atof(imag.c_str());
   //cout<<"Now in numbers, c is "<<c<<endl;
+  // cout << "String=" << aux << " epos=" << epos << " signpos=" << signpos << " ipos=" << ipos << " real=" << c.re << " imag=" << c.im << endl;
   return is;
 }
 
