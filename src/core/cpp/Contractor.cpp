@@ -2526,6 +2526,38 @@ void Contractor::contractLmiddle(mwArray& result,const mwArray& tmpL,
   }
 }
 
+void Contractor::contractOperLmiddle(mwArray& result,const mwArray& tmpL,
+				     const Site& ket,const Operator& op,const Site& bra){
+  // I can cheat the operator by giving a modified bra that holds the extra leg
+  //Indices dimsTmp=result.getDimensions(); // dimL,Dlbra,xi,Dlket
+  //cout<<"Here tmpL="<<tmpL.getDimensions()<<", bra="<<bra.getDimensions()<<" ket="<<ket.getDimensions()<<", oper:"<<op.getDimensions()<<endl;
+  int k=bra.getPos();
+  int dimL=result.getDimension(0);
+  int Dlb=result.getDimension(1);int xi=result.getDimension(2);
+  int Dlk=result.getDimension(3);
+  int Drb=bra.getDr();int d=bra.getd();
+  //cout<<"k="<<k<<" dimL="<<dimL<<" Dlb="<<Dlb<<" Dlk="<<Dlk<<" xi="<<xi<<endl;
+  mwArray auxBra(bra.getA());//
+  result.reshape(Indices(dimL*Dlb,xi,Dlk));
+  auxBra.reshape(Indices(d*Dlb*Drb,1));
+  auxBra.multiplyRight(reshape(identityMatrix(dimL),Indices(1,dimL*dimL)));
+  auxBra.reshape(Indices(d,Dlb,Drb,dimL,dimL));
+  auxBra.permute(Indices(1,4,2,5,3));
+  auxBra.reshape(Indices(d,dimL*Dlb,dimL*Drb));
+  Site auxBra_(k,auxBra);
+  mwArray tmp(result);
+  op.contractL(result,tmp,ket,auxBra_);
+  //cout<<"After contractL, I get resultL:"<<result<<" but I cannot read its dimensions!"<<endl;
+  // now result will be thick Dbr, xir, Drk
+  Indices dimsTmp(result.getDimensions());
+  //cout<<"result.dimsTmp="<<dimsTmp<<endl;
+  //cout<<result.getDimensions()<<endl;
+  // dimsTmp=result.getDimensions(); // dimL*Drb,xir,Drk
+  result.reshape(Indices(dimL,Drb,dimsTmp[1],dimsTmp[2]));
+  //cout<<"After reshape, "<<result.getDimensions()<<endl;
+  //result=result_;
+}
+
 void Contractor::sweepPartNextExcitedState(int pos0,int lim,const MPO& ops,int D,
 					   const vector<MPS*>& computedLevels,
 					   MPS& init,double offset,int knr){

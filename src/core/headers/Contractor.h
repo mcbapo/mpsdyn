@@ -524,6 +524,11 @@ If tmpfile is given, every greqSv rounds the temporary result is saved
       index betab) returning thre result in the first array.*/
   void contractLmiddle(mwArray& result,const mwArray& tmpL,const Site& ket,
   		       const Site& bra);
+  /** The analogous partial calculation with a MPO inside */
+  void contractOperLmiddle(mwArray& result,const mwArray& tmpL,const Site& ket,
+			   const Operator& op,const Site& bra);
+  void contractOperRmiddle(mwArray& result,const mwArray& tmpR,const Site& ket,
+			   const Operator& op,const Site& bra);
 
   /** Contract the term from left, the term from right, and the ket,
       assuming operator is the identity and ket is an MPS site (from
