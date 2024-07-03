@@ -588,6 +588,49 @@ mwArray Contractor::contract(const MPS& ket,const MPO& ops,
     return result;
 }
 
+mwArray Contractor::contractPart(const MPS& ket,const MPO& ops,const MPS& bra,int posL,int posR,char dir){
+  //cout<<"contractPart("<<posL<<","<<posR<<")"<<endl;
+  int nrsites=ket.getLength();
+  if((nrsites!=bra.getLength())||(nrsites!=ops.getLength())){
+    cout<<"Error in contract: dimensions do not coincide: bra ";
+    cout<<bra.getLength()<<", ket "<<nrsites<<", ops "<<
+      ops.getLength()<<endl;
+    exit(212);
+  }
+  mwArray result; // here the result is to be saved
+  // for simplicity, I construct a first term with the identity of the
+  // right dimensions
+  int dimL=ket.getA(posL).getDl()*bra.getA(posL).getDl()*ops.getOp(posL).getDl();
+  int dimR=ket.getA(posR).getDr()*bra.getA(posR).getDr()*ops.getOp(posR).getDr();
+  switch(dir){
+  case 'R':
+    cout<<"Not yet supported, contracted from left"<<endl;
+    // result=identityMatrix(dimR);
+    // result.reshape(Indices(ket.getA(posR).getDr(),bra.getA(posR).getDr(),ops.getOp(posR).getDr(),dmR));
+    // for(int k=posR;k>=posL;k--){
+    //   //cout<<"Before step "<<k<<", result="<<result<<endl;
+    //   mwArray tmp(result);
+    //   contractOperRmiddle(result,tmp,ket.getA(k),ops.getOp(k),bra.getA(k));
+    // }
+    // break;
+  case 'L':
+  default:
+    result=identityMatrix(dimL);
+    result.reshape(Indices(dimL,ket.getA(posL).getDl(),ops.getOp(posL).getDl(),bra.getA(posL).getDl()));
+    for(int k=posL;k<=posR;k++){
+      //cout<<"Before step "<<k<<", result="<<result.getDimensions()<<endl;
+      //cout<<"Before step "<<k<<", result="<<result<<endl;
+      mwArray tmp(result);
+      contractOperLmiddle(result,tmp,ket.getA(k),ops.getOp(k),bra.getA(k));
+    }
+    result.reshape(Indices(dimL,-1));
+    break;
+  }
+  return result;
+
+}
+
+
 complex_t Contractor::contract2(const MPO& ops,const MPS& ket){
   //cout<<"Contractor:contract("<<bra<<","<<ops<<","<<ket<<")"<<endl;
   int nrsites=ket.getLength();
@@ -1145,7 +1188,7 @@ void Contractor::getEffectiveOperatorMPOMultiplier(const MPS& ket,const MPO& ops
   TmpManager tmpMgr(nrsites,gauge);
   // First, compute left and right terms
 
-  // To ensure an orhtogonal basis, I would need to impose gauge
+  // To ensure an orthogonal basis, I would need to impose gauge
   // conditions up to the edges of the operator, but if gauged is
   // true, I assume it is done outside
   if(!gauged){
@@ -1348,7 +1391,6 @@ void Contractor::findGroundState(const MPO& ops,int D,double* lambda,
     // 1. Obtain left and right terms for everything
     calculateL(pos,tmpMgr,ops,init,init,gauge,ketN);
     calculateR(pos,tmpMgr,ops,init,init,gauge,ketN);
- 
     // Place for the results of the diagonalization
     vector<complex_t> diagVals;
     // mwArray U;
@@ -2041,39 +2083,59 @@ mwArray Contractor::getRDM(const MPS& state,int pos){
     exit(212);
   }
   MPS auxMPS(state);
+  //cout<<"Copied MPS "<<auxMPS<<endl;
   // I copy the MPS and compute rdm of the copy with gauge cond
   // to the R one (so contraction to the right is Id
   if(!auxMPS.isGaugeR()) auxMPS.gaugeCond('R');
   // Now left part is normalized => contract right part for
   //Lambda(L/2) MPS auxMPS2(*this); // trick to have an on basis for
   //right auxMPS2.gaugeCond('L',1);
+  //cout<<"Imposed gaugeR "<<endl;
   mwArray result(ONE_c);
   for(int k=length-1;k>pos;k--){
     mwArray aux(result);
     contractR(result,aux,auxMPS.getA(k),auxMPS.getA(k));
+    //cout<<"after contractR for k="<<k<<", results:"<<result.getDimensions()<<endl;
   }
   // Contract the site tensors
   mwArray site=auxMPS.getA(pos).getA(); // d Dl Dr
+  //cout<<"Accessed site at pos "<<pos<<endl;
   int d=site.getDimension(0);
   int Dl=site.getDimension(1);
   int Dr=site.getDimension(2);
-  site.permute(Indices(2,1,3));site.reshape(Indices(Dl,d*Dr));
-  mwArray siteC(site);siteC.Hconjugate();
-  siteC.multiplyRight(site); //d*Dr(bra) x d*Dr (ket)
-  siteC.reshape(Indices(d,Dr,d,Dr));
-  siteC.permute(Indices(1,3,2,4));
-  siteC.reshape(Indices(d*d,Dr*Dr));
-  result.reshape(Indices(-1,1));
-  siteC.multiplyRight(result);
-  siteC.reshape(Indices(d,d));
-  // if necessary, add the normalization of the state
+  site.reshape(Indices(d*Dl,Dr));
+  result.reshape(Indices(Dr,Dr));result.transpose();
+  result.multiplyLeft(site); // d*Dl,Dr
+  result.reshape(Indices(d,Dl*Dr));
+  site.reshape(Indices(d,Dl*Dr));site.Hconjugate();
+  result.multiplyRight(site); // d x d
   double normF=auxMPS.getNormFact();
   if(abs(normF-1.)>1E-3){
     cout<<"WARNING: in getRDM() for site "<<pos<<" the original MPS was not normalized."
 	<<endl;
   }
-  siteC=normF*normF*siteC;
-  return permute(siteC,Indices(2,1));
+  result=normF*normF*result;
+  return result;
+
+  // // site.permute(Indices(2,1,3));site.reshape(Indices(Dl,d*Dr));
+  // // //cout<<"site tensor reshaped: "<<site.getDimensions()<<endl;
+  // // mwArray siteC(site);siteC.Hconjugate();
+  // // //cout<<"siteC:"<<siteC.getDimensions()<<endl;
+  // // siteC.multiplyRight(site); //d*Dr(bra) x d*Dr (ket)
+  // // siteC.reshape(Indices(d,Dr,d,Dr));
+  // // siteC.permute(Indices(1,3,2,4));
+  // // siteC.reshape(Indices(d*d,Dr*Dr));
+  // // result.reshape(Indices(-1,1));
+  // // siteC.multiplyRight(result);
+  // // siteC.reshape(Indices(d,d));
+  // if necessary, add the normalization of the state
+  // double normF=auxMPS.getNormFact();
+  // if(abs(normF-1.)>1E-3){
+  //   cout<<"WARNING: in getRDM() for site "<<pos<<" the original MPS was not normalized."
+  // 	<<endl;
+  // }
+  // //  siteC=normF*normF*siteC;
+  // //  return permute(siteC,Indices(2,1));
 }
 
 mwArray Contractor::getRDM(const MPS& state,int posL,int posR){

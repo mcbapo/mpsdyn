@@ -187,6 +187,10 @@ class Contractor{
       (excluded), and returns a tensor with dimensions
       D(bra)*Xi*D(ket) */
   mwArray contract(const MPS& ket,const MPO& ops,const MPS& bra,int pos,char dir='L');
+  /** A more general version of the above (less efficient) contracts only part of the chain,
+      from posL to posR (both included) and returns a tensor with dimensions
+      D(bra)*Xi*D(ket) x D(bra)*Xi*D(ket) */
+  mwArray contractPart(const MPS& ket,const MPO& ops,const MPS& bra,int posL,int posR,char dir='L');
 
   
   /** Contracts the MPO acting on the ket with itselt, to get 
@@ -379,8 +383,10 @@ If tmpfile is given, every greqSv rounds the temporary result is saved
   /** Given a MPS, construct the RDM for sites posL-posR (both included) */
   mwArray getRDM(const MPS& state,int posL, int posR);
 
-  /** Given a MPS, calculate the Schmidt values when the chain is cut 
-      after the first \param<len> sites. If len==0, the middle cut is used.
+  /** Given a MPS, calculate the Schmidt values when the chain is cut
+      after the first \param<len> sites. If len==0, the middle cut is
+      used.  Notice that it returns the squares, and in increasing
+      order (as diagonalization of rdm)
   */
   void getSchmidtValues(const MPS& state,std::vector<complex_t>& lambdas,
 			int len=0);
