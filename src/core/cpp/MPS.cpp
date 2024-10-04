@@ -261,6 +261,7 @@ void MPS::applyLocalOperator(int pos,const mwArray& oper,bool normalize){
     A[pos]->changeDimensions(dims[0],A[pos]->getDl(),A[pos]->getDr());
   }
   A[pos]->setSite(locA);
+  gauge=gNone;
   if(normalize)
     gaugeCond('R',true);
 }
