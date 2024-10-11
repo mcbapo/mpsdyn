@@ -37,7 +37,7 @@ using namespace shrt;
 
 // The private constructor only sets the default tolerances
 Contractor::Contractor():
-  svdtol(1E-8),convtol(1E-5),eigtol(0.),excorthtol(0.),solver(arpack){
+  svdtol(1E-8),convtol(1E-5),eigtol(0.),excorthtol(0.),solver(primme){
   cout<<"Constructed default Contractor"<<endl;
 }
 
