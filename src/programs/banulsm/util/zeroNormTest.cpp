@@ -34,6 +34,10 @@ int main(int argc,const char* argv[]){
   int cntr=0;
   const char* infile=argv[++cntr];
   string directory="";
+  // if(argc>2){
+  //   const char* indir=argv[++cntr];
+  //   directory=string(indir)+"/";
+  // }
   // Recover the necessary parameters from a Properties file
   Properties props(infile);
   if(argc>2){
@@ -43,50 +47,28 @@ int main(int argc,const char* argv[]){
     props.loadProperties(argc-cntr,&argv[cntr]);
   }
 
-  const string mpofile = props.getProperty("mpofile");
-  const string matrixfile = props.getProperty("fullmatrixfile");
+  //const string outfile = props.getProperty("output");
   int L=props.getIntProperty("L"); // number of "components"
   int k=props.getIntProperty("k"); // number of bits per component=> size will be k*L
-  //  int nrTests=props.getIntProperty("Ntest"); // number of random test strings
+  int nrTests=props.getIntProperty("Ntest"); // number of random test strings
   int d=2;
 
   MPO mpo(k*L);
   prepareCompositeMPO(mpo,L,k);
 
-  // And export
-  // 1) To text file as opers (for matlab)
-  mpo.exportForMatlab(mpofile.data());
+  // Now I need to run tests
+  Contractor& contractor=Contractor::theContractor();
 
-  // 2) full matrix (but with some bound, or it will crash due to size)
-  if(L*k<=10){
-    mwArray fullM;
-    expandOper(mpo,fullM);
-    ofstream out(matrixfile.data());
-    if(!out.is_open()){
-      cout<<"ERROR. Couldn't open file "<<mpofile<<" to write"<<endl;
-    }
-    else{
-      fullM.savetext(out,true);
-      out.close();
-    }
+  for(int g=0;g<nrTests;g++){
+    // choose a random prod state
+    MPS test(k*L,1,d);
+    stringstream s;
+    setRandomComputational(test,s,k);    
+
+    complex_t value=contractor.contract(test,mpo,test);
+    cout<<"State s("<<s.str()<<") value:"<<real(value)<<endl;
+
   }
-  else{
-    cout<<"Not exporting the full matrix, for dimension is "<<pow(2,L*k)<<endl;
-  }
-  
-  // // Now I need to run tests
-  // Contractor& contractor=Contractor::theContractor();
-
-  // for(int g=0;g<nrTests;g++){
-  //   // choose a random prod state
-  //   MPS test(k*L,1,d);
-  //   stringstream s;
-  //   setRandomComputational(test,s,k);    
-
-  //   complex_t value=contractor.contract(test,mpo,test);
-  //   cout<<"State s("<<s.str()<<") value:"<<real(value)<<endl;
-
-  // }
   
   
 }
@@ -107,7 +89,7 @@ void prepareNmodProjector(MPO& mpo,int N){
     mpo.setOp(k,new Operator(opN),true);
   }
   // At the end, it is not really an MPO, as the last site has a hanging leg
-  //  cout<<"Prepared Nmod projector for "<<N<<" sites "<<mpo<<endl;
+  cout<<"Prepared Nmod projector for "<<N<<" sites "<<mpo<<endl;
 }
 
 void prepareCounterMPS(MPS& mps,int M){
@@ -134,7 +116,7 @@ void prepareCounterMPS(MPS& mps,int M){
     C.reshape(Indices(2,Dl,Dr));
     mps.replaceSite(k,C,false);
   }
-  //  cout<<"Prepared counter MPS for "<<M<<" blocks: "<<mps<<endl;
+  cout<<"Prepared counter MPS for "<<M<<" blocks: "<<mps<<endl;
 }
 
 void prepareCompositeMPO(MPO& mpo,int L,int k){
@@ -161,7 +143,7 @@ void prepareCompositeMPO(MPO& mpo,int L,int k){
     data.reshape(Indices(d*2,2,d,1));
     aux1.setOp(l*k+k-1,new Operator(data),true);
   }
-  //  cout<<"Set aux1 "<<aux1<<endl;
+  cout<<"Set aux1 "<<aux1<<endl;
   // A second layer has just identities and the MPS components contracting the additional indices
   MPO aux2(k*L);
   for(int l=0;l<L;l++){
@@ -177,10 +159,10 @@ void prepareCompositeMPO(MPO& mpo,int L,int k){
     auxA.reshape(Indices(1,dimsA[1],dimsA[0],dimsA[2]));
     aux2.setOp(l*k+k-1,new DoubleOperator(idOp_,auxA),true);
   }
-  //  cout<<"Set aux2 "<<aux2<<endl;
+  cout<<"Set aux2 "<<aux2<<endl;
   const MPO* ptrs[]={&aux2,&aux1};
   MPO::join(2,ptrs,mpo);
-  //cout<<"Set mpo "<<mpo<<endl;
+  cout<<"Set mpo "<<mpo<<endl;
 }
 
 void setRandomComputational(MPS& mps,stringstream& s,int M){

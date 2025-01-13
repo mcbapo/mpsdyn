@@ -227,7 +227,7 @@ EXEC := $(EXEC) isingSpec
 
 EXEC := $(EXEC) umps umpsGS
 
-EXEC := $(EXEC) mps2txt zeroN
+EXEC := $(EXEC) mps2txt zeroN testZeroN
 
 EXEC := $(EXEC) thirring thThirring thThirringP thThirringPread thirringP thirringGS
 
@@ -858,5 +858,8 @@ effH: $(OBJFILES) $(EFFECHOBJ) spectrumEffectiveHMPO_block0.o
 
 # Utils
 
-zeroN: OBJFILES += zeroNorm.o
-zeroN: $(OBJFILES) zeroNorm.o
+testZeroN: OBJFILES += zeroNorm.o
+testZeroN: $(OBJFILES) zeroNorm.o
+
+zeroN: OBJFILES += zeroNormTest.o
+zeroN: $(OBJFILES) zeroNormTest.o
