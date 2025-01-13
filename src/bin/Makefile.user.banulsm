@@ -227,7 +227,7 @@ EXEC := $(EXEC) isingSpec
 
 EXEC := $(EXEC) umps umpsGS
 
-EXEC := $(EXEC) mps2txt
+EXEC := $(EXEC) mps2txt zeroN
 
 EXEC := $(EXEC) thirring thThirring thThirringP thThirringPread thirringP thirringGS
 
@@ -855,3 +855,8 @@ isingOpen: $(OBJFILES) $(OPENOBJ) isingDissipative.o
 EFFECHOBJ = MPOMultiplier.o MPOMultiplierHermitian.o
 effH: OBJFILES += $(EFFECHOBJ) spectrumEffectiveHMPO_block0.o
 effH: $(OBJFILES) $(EFFECHOBJ) spectrumEffectiveHMPO_block0.o
+
+# Utils
+
+zeroN: OBJFILES += zeroNorm.o
+zeroN: $(OBJFILES) zeroNorm.o
