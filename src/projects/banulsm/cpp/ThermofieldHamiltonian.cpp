@@ -187,14 +187,14 @@ void ThermofieldHamiltonian::getCouplingExponential(mwArray& Opl,
   mwArray bosonL(Indices(dimL,dimL));
   for(int id=0;id<dimL-1;id++){
    bosonL.setElement(sqrt(id+1),0.,Indices(id+1,id));
-  }
-  bosonL.Hconjugate(); // the destruct. is the one with OL
+  } // annihilation operator
+  bosonL.Hconjugate(); //  for the bath 1 (b in paper), creation b^dagger L
   
   mwArray bosonR(Indices(dimR,dimR));
   for(int id=0;id<dimR-1;id++){
     bosonR.setElement(sqrt(id+1),0.,Indices(id+1,id));
   }
-  bosonR.Hconjugate(); // the destruct. is the one with OL
+  //bosonR.Hconjugate(); // for bath 2 (c), annihilation: c L
   
   // term is prop to OL* boson + h.c. on each side
   mwArray termL,termR;
