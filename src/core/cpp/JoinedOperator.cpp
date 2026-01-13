@@ -10,8 +10,8 @@ JoinedOperator::JoinedOperator(int n_,const Operator* ops[]):
   int du=ops[0]->getd();int dd=ops[0]->getdorig();
   int Dl=1;int Dr=1;
   // cout<<"Creating JoinedOperator with "<<n<<" terms: ";
-  // for(int k=0;k<n;k++)cout<<ops[k]->getDimensions()<<", ";
-  // cout<<endl;
+  //  for(int k=0;k<n;k++)cout<<ops[k]->getDimensions()<<", ";
+  //  cout<<endl;
   for(int k=0;k<n;k++){   // Saves a copy of each data matrix
     if(k>0&&(ops[k]->getd()!=dd)){
       cout<<"Error: incompatible dimensions in JoinedOperator, component "
@@ -420,6 +420,7 @@ void JoinedOperator::contractrightjop(mwArray& result,const mwArray& termR,
     aux.reshape(Indices(al1*dd,du*al2));
     tmpres.reshape(Indices(du*al2,-1));
     tmpres.multiplyLeft(aux);
+
     //    tmpres=reshape(permute(aux,Indices(2,3,1,4)),Indices(al1*dd,du*al2))
     //*reshape(tmpres,Indices(du*al2,-1));
     tmpres.reshape(Indices(al1,-1));
@@ -437,7 +438,8 @@ void JoinedOperator::contractrightjop(mwArray& result,const mwArray& termR,
   int ddn=aux.getDimension(2);
   al2n=aux.getDimension(3);
 
-  tmpres.reshape(Indices(d*al2n*dd,-1));
+  //    tmpres.reshape(Indices(d*al2n*dd,-1)); WRONG EARLY VERSION (fixed 13.1.2026 !)
+  tmpres.reshape(Indices(dun*al2n*ddn,-1)); 
   aux.permute(Indices(2,1,4,3));
   aux.reshape(Indices(al1n,dun*al2n*ddn));
   tmpres.multiplyLeft(aux);
